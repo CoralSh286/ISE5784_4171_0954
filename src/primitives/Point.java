@@ -7,6 +7,7 @@ import java.util.Objects;
  */
 public class Point {
 
+    public static final Point ZERO = new Point(Double3.ZERO) ;
     /** The point that consists of 3 numbers */
    protected final Double3 _xyz;
 
@@ -18,7 +19,7 @@ public class Point {
 
 
     /** Creates a constructor by 3 points that are received as parameters */
-    public Point(Double x, Double y, Double z) {
+    public Point(double x, double y, double z) {
        _xyz = new Double3(x,y,z);
     }
 

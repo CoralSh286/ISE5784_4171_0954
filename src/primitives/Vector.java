@@ -5,7 +5,7 @@ package primitives;
 public class Vector extends Point {
 
     /** Creating a constructor that accepts 3 coordinates as parameters */
-    Vector(double x, double y, double z) {
+    public Vector(double x, double y, double z) {
         super(x, y, z);
 
         /** Checks if it is the zero vector */
