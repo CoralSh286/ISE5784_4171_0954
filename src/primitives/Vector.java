@@ -8,7 +8,6 @@ public class Vector extends Point {
     public Vector(double x, double y, double z) {
         super(x, y, z);
 
-        /** Checks if it is the zero vector */
         if(_xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("ZERO vector is not allowed");
     }
@@ -18,7 +17,6 @@ public class Vector extends Point {
     public Vector(Double3 xyz) {
         super(xyz);
 
-        /** Checks if it is the zero vector */
         if(_xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("ZERO vector is not allowed");
     }
