@@ -72,6 +72,8 @@ public class Point {
        double y2 = other._xyz.d2;
        double z2 = other._xyz.d3;
 
+
+       /** Subtracts the coordinates between the 2 vectors and multiplies by itself */
        return((x2 -x1) * (x2 -x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
     }
 

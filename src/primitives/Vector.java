@@ -51,12 +51,15 @@ public class Vector extends Point {
         double v2 = vector._xyz.d2;
         double v3 = vector._xyz.d3;
 
+        /** Calculation of a vector product according to the formula in the course */
         return new Vector((u2*v3-v2*u3),-(u1*v3-v1*u3),(u1*v2-v1*u2));
     }
 
 
     /** Calculation of the squared length of the vector */
     public double lengthSquared(){
+
+        /** Multiplying each coordinate by itself and adding them together */
         return _xyz.d1*_xyz.d1 + _xyz.d2*_xyz.d2 + _xyz.d3*_xyz.d3;
     }
 
