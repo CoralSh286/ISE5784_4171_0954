@@ -23,13 +23,16 @@ public class Plane implements Geometry{
         _p0 = p1;
     }
 
-    /** Returning to normal */
+    /**
+     * Getter for normal
+     * @return the normal vector
+     */
     public Vector getNormal() {
         return _normal;
     }
 
-    /** Implementation of the method getNormal */
+    @Override
     public Vector getNormal(Point point) {
-        return  null;
+        return  _normal;
     }
 }

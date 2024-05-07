@@ -6,13 +6,13 @@ import primitives.Ray;
 public class Cylinder extends Tube{
 
     /** Stave for the high */
-    final private double _high;
+    final private double _height;
 
 
     /** constructor */
-    public Cylinder(Ray ray, double radius, double high) {
+    public Cylinder(Ray ray, double radius, double height) {
         super(ray, radius);
-        this._high = high;
+        this._height = height;
     }
 
 }

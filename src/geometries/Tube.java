@@ -1,12 +1,10 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
 
 /** A class that represents a tube */
 public class Tube extends RadialGeometry {
-    protected Ray _ray;
+    protected final Ray _ray;
 
     /** constructor */
     public Tube(Ray ray, double radius) {
