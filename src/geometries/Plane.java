@@ -11,13 +11,22 @@ public class Plane implements Geometry{
     /** field for the normal to the plane */
     final private Vector _normal;
 
-    /** Constructor with parameters */
+    /**
+     * constructor
+     * @param p for a point on the plane
+     * @param vector vector on the plane
+     */
     public Plane(Point p, Vector vector) {
         _p0 = p;
         _normal = vector.normalize();
     }
 
-    /** Builder that gets points */
+    /**
+     * constructor
+     * @param p1 For the first point
+     * @param p2 For the second point
+     * @param p3 For the third point
+     */
     public Plane(Point p1, Point p2, Point p3) {
         _normal = null;
         _p0 = p1;

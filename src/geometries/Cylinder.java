@@ -8,8 +8,12 @@ public class Cylinder extends Tube{
     /** Stave for the high */
     final private double _height;
 
-
-    /** constructor */
+    /**
+     * constructor
+     * @param ray for the main axis
+     * @param radius for the radius
+     * @param height for the height
+     */
     public Cylinder(Ray ray, double radius, double height) {
         super(ray, radius);
         this._height = height;

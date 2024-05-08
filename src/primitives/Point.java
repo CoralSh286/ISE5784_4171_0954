@@ -15,20 +15,22 @@ public class Point {
     protected final Double3 _xyz;
 
     /**
-     * Creates a constructor with a datum that is a Point object
+     * constructor
+     * @param xyz a point in space
      */
     Point(Double3 xyz) {
         _xyz = xyz;
     }
 
-
     /**
-     * Creates a constructor by 3 points that are received as parameters
+     * constructor
+     * @param x For the first coordinate
+     * @param y For the second coordinate
+     * @param z For the third coordinate
      */
     public Point(double x, double y, double z) {
         _xyz = new Double3(x, y, z);
     }
-
 
     @Override
     public boolean equals(Object obj) {
@@ -65,17 +67,19 @@ public class Point {
         return new Vector(result);
     }
 
-
     /**
-     * Adds a vector to a point and a new point is obtained
+     * Adding a vector to a point
+     * @param vector so that we can connect a point to it
+     * @return A new point
      */
     public Point add(Vector vector) {
         return new Point(_xyz.add(vector._xyz));
     }
 
-
     /**
      * Calculates the distance between 2 points in a square
+     * @param other Another point from which the distance is calculated
+     * @return A number
      */
     public double distanceSquared(Point other) {
         double dx = other._xyz.d1 - _xyz.d1;
@@ -86,6 +90,8 @@ public class Point {
 
     /**
      * Calculates the distance between 2 points
+     * @param other Another point from which the distance is calculated
+     * @return A number
      */
     public double distance(Point other) {
         double result = distanceSquared(other);

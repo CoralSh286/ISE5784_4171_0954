@@ -12,8 +12,11 @@ public class Ray {
     /** Creating the vector */
     private final Vector _dir;
 
-
-    /** A constructor that accepts point and vector parameters */
+    /**
+     * constructor
+     * @param p0 for a point
+     * @param dir for a vector
+     */
     public Ray(Point p0, Vector dir) {
         _p0 = p0;
         _dir = dir.normalize();

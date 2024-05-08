@@ -6,13 +6,16 @@ import primitives.*;
 public class Tube extends RadialGeometry {
     protected final Ray _ray;
 
-    /** constructor */
+    /**
+     * constructor
+     * @param ray for the main axis
+     * @param radius for the radius
+     */
     public Tube(Ray ray, double radius) {
         super(radius);
         _ray = ray;
     }
 
-    /** Implementation of the method getNormal */
     public Vector getNormal(Point point) {
         return  null;
     }

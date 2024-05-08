@@ -14,7 +14,8 @@ public abstract class RadialGeometry implements Geometry {
     final protected double _radiusSquared;
 
     /**
-     * Constructor for the radius
+     * constructor
+     * @param r Parameter for the radius
      */
     RadialGeometry(double r) {
         _radius = r;
