@@ -28,8 +28,12 @@ public class Plane implements Geometry{
      * @param p3 For the third point
      */
     public Plane(Point p1, Point p2, Point p3) {
-        _normal = null;
         _p0 = p1;
+        Vector U = p2.subtract(p1);
+        Vector V = p3.subtract(p1);
+        Vector W = U.crossProduct(V);
+
+        _normal = W.normalize();
     }
 
     /**
@@ -42,6 +46,6 @@ public class Plane implements Geometry{
 
     @Override
     public Vector getNormal(Point point) {
-        return  _normal;
+        return  getNormal();
     }
 }
