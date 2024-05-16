@@ -4,7 +4,6 @@ package primitives;
  * A class which represents a point in 3D Euclidean coordinate system
  */
 public class Point {
-
     /**
      * The point at the head of the 3D Euclidean coordinate system
      */
@@ -18,7 +17,7 @@ public class Point {
      * constructor
      * @param xyz a point in space
      */
-    Point(Double3 xyz) {
+    public Point(Double3 xyz) {
         _xyz = xyz;
     }
 

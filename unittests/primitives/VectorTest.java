@@ -22,11 +22,23 @@ class VectorTest {
      */
     Vector v3 = new Vector(0, 3, -2);
 
+    /** Test method for {@link primitives.Vector#Vector(double p1, double p2, double p3)} */
+    @Test
+    void testVector(){
+        // =============== Boundary Values Tests ==================
+        //TC01 for the zero vector
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0), "ERROR: zero vector does not an exception");
+    }
+
     /** Test method for {@link primitives.Vector#add(primitives.Vector)} */
     @Test
     void add() {
         // ============ Equivalence Partitions Tests ==============//
+        //TC01 add 2 random vectors
         assertEquals(new Vector(1, 5, 1), v1.add(v3), "ERROR: add() function wrong value");
+        // =============== Boundary Values Tests ==================
+        //TC11 for the zero vector
+        assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(-1, -2, -3)), "Error: There is no abnormal throw for the ZERO vector");
     }
 
     /** Test method for {@link primitives.Vector#scale(double num)} */
@@ -40,9 +52,9 @@ class VectorTest {
     @Test
     void dotProduct() {
         // =============== Boundary Values Tests ==================
-        // for the zero vector
+        //TC01 for the zero vector
         assertTrue(isZero(v1.dotProduct(v3)), "ERROR: dotProduct() for orthogonal vectors is not zero");
-        // ============ Equivalence Partitions Tests ==============//
+        //TC11 ============ Equivalence Partitions Tests ==============//
         //Calculation for 2 random vectors
         assertEquals(-28, v1.dotProduct(v2), "ERROR: dotProduct() wrong value");
     }
@@ -90,10 +102,13 @@ class VectorTest {
         Vector v = new Vector(0, 3, 4);
         Vector n = v.normalize();
         // ============ Equivalence Partitions Tests ==============
-        // TC01: Simple test
+        //TC01: Simple test
         assertFalse(v == n, "normalized() changes the vector itself");
+        //TC02 Test that the length of the normal equals 1
         assertEquals(1d, n.lengthSquared(), 0.00001, "wrong normalized vector length");
+        //TC03 Check that they are in the same direction
         assertThrows(IllegalArgumentException.class, () -> v.crossProduct(n), "normalized vector is not in the same direction");
+        //TC04 Test that the normal vector is obtained
         assertEquals(new Vector(0, 0.6, 0.8), n, "wrong normalized vector");
     }
 }

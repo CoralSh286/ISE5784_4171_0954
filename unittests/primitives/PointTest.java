@@ -39,6 +39,7 @@ class PointTest {
         assertEquals(new Point(3, 7, 10), p1.add(v1), "Error: add() wrong value");
     }
 
+
     /** Test method for {@link primitives.Point#distanceSquared(primitives.Point)} */
     @Test
     void distanceSquared() {
