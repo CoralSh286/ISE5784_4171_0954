@@ -22,10 +22,18 @@ public class Ray {
         _dir = dir.normalize();
     }
 
+    /**
+     * getter function
+     * @return the point _p0
+     */
     public Point getP0() {
         return _p0;
     }
 
+    /**
+     * getter function
+     * @return the direction vector
+     */
     public Vector getDir() {
         return _dir;
     }

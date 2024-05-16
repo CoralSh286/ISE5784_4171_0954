@@ -14,17 +14,18 @@ class TubeTest {
 
     /** Test method for {@link geometries.Tube#getNormal(primitives.Point)} */
     @Test
-    void getNormal() {
-        Tube tube = new Tube(new Ray(new Point(0, 0, 0), new Vector(1, 0, 0)), 1);
+    void testGetNormal() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01 normal calculation for 2 random vectors
-        assertEquals(new Vector(0, 0, 1),
-                tube.getNormal(new Point(1, 0, 1)),
-                "ERROR: The calculation of normal to the tube is not calculated correctly");
-        // =============== Boundary Values Tests ==================
-        //TC11 test when the point is orthogonal to the ray's head goes to the ZERO vector
-        assertThrows(IllegalArgumentException.class, () -> {tube.getNormal(new Point(0, 0, 1));
-                },
-                "ZERO vector is not allowed");
+        // TC01: There is a simple test for the getNormal function
+        Tube tube = new Tube(new Ray(
+                new Point(0, 0, 0),
+                new Vector(0, 0, 1)), 1);
+        assertEquals(new Vector(1, 0, 0), tube.getNormal(new Point(1, 0, 1)), "Bad normal to tube");
+        // =============== Boundary Values Tests =================
+        // TC02: (p-p0) is orthogonal to the axis of the tube
+        assertEquals(new Vector(1, 0, 0), tube.getNormal(new Point(1, 0, 0)), "Bad normal to tube");
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Test if the point is vertical to the axis
+        assertDoesNotThrow(() -> new Tube(new Ray(new Point(0, 0 , 0), new Vector(1, 0 ,0 )), 1).getNormal(new Point(0, 1, 0)), "Failed to throw an exception when the point is vertical to the axis");
     }
 }
