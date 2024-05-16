@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.isZero;
 
 /** A class that represents a tube */
@@ -27,5 +29,10 @@ public class Tube extends RadialGeometry {
             Point tubeCenterPoint = isZero(projection) ? p0 : p0.add(tubeCenterVector.scale(projection));
             //Calculate the normal
             return point.subtract(tubeCenterPoint).normalize();
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        return null;
     }
 }

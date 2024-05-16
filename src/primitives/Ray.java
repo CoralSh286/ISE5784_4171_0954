@@ -2,6 +2,8 @@ package primitives;
 
 import java.util.Objects;
 
+import static primitives.Util.isZero;
+
 
 /** A class for representing a beam by a point and a vector */
 public class Ray {
@@ -54,5 +56,18 @@ public class Ray {
     @Override
     public int hashCode() {
         return Objects.hash(_p0, _dir);
+    }
+
+    /**
+     *get Point at specific distance in the ray's direction
+     *
+     * @param t is a distance for reaching new Point
+     * @return new {@link Point}
+     */
+    public Point getPoint(double t) {
+        if(isZero(t)){
+            return _p0;
+        }
+        return _p0.add(_dir.scale(t));
     }
 }
