@@ -74,8 +74,8 @@ public class Plane implements Geometry {
         if (isZero(nv)) { // can't divide by zero (nv is the denominator)
             return null;
         }
-        Vector Q0_P0 = _p0.subtract(P0);
-        double nP0Q0 = alignZero(n.dotProduct(Q0_P0));
+        Vector q0_p0 = _p0.subtract(P0);
+        double nP0Q0 = alignZero(n.dotProduct(q0_p0));
         // t should be bigger than 0
         if (isZero(nP0Q0)) {
             return null;
