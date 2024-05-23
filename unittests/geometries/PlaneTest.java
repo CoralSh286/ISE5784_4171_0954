@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * test for planes
  */
 class PlaneTest {
+
     /** Test method for {@link geometries.Plane#Plane(Point p1, Point p2, Point p3)}  */
     @Test
     void testPlane() {
