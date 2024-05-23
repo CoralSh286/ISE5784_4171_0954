@@ -7,7 +7,9 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
-/** A class that represents a plane */
+/**
+ * A class that represents a plane
+ */
 public class Plane implements Geometry {
 
     /**
@@ -71,21 +73,16 @@ public class Plane implements Geometry {
         Vector n = _normal; // the normal to the plane
         double nv = n.dotProduct(v); // the formula's denominator of "t" (t =(n*(Q-P0))/nv)
         // ray is lying on the plane axis
-        if (isZero(nv)) { // can't divide by zero (nv is the denominator)
-            return null;
-        }
+        if (isZero(nv)) return null; // can't divide by zero (nv is the denominator)
+
         Vector q0_p0 = _p0.subtract(p_0);
         double nP0Q0 = alignZero(n.dotProduct(q0_p0));
         // t should be bigger than 0
-        if (isZero(nP0Q0)) {
-            return null;
-        }
+        if (isZero(nP0Q0)) return null;
+
         double t = alignZero(nP0Q0 / nv);
         // t should be bigger than 0
-        if (t <= 0) {
-            return null;
-        }
-        return List.of(ray.getPoint(t));
+        return t <= 0 ? null : List.of(ray.getPoint(t));
     }
 }
 

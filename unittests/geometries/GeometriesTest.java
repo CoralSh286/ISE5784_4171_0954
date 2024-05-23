@@ -8,7 +8,9 @@ import primitives.Vector;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GeometriesTest {
-    /** Test method for {@link geometries.Geometries#findIntersections(Ray ray)} */
+    /**
+     * Test method for {@link geometries.Geometries#findIntersections(Ray ray)}
+     */
     @Test
     void findIntersections() {
         Vector v = new Vector(0, -1, 0);
@@ -46,4 +48,4 @@ class GeometriesTest {
                 "Suppose to be 4 intersection points");
 
     }
-    }
+}

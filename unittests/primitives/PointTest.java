@@ -21,7 +21,9 @@ class PointTest {
      */
     Vector v1 = new Vector(2, 5, 7);
 
-    /** Test method for {@link primitives.Point#subtract(primitives.Point)} */
+    /**
+     * Test method for {@link primitives.Point#subtract(primitives.Point)}
+     */
     @Test
     void subtract() {
         // ============ Equivalence Partitions Tests ==============//
@@ -32,7 +34,9 @@ class PointTest {
         assertThrows(IllegalArgumentException.class, () -> p2.subtract(p2), "Error: There is no abnormal throw for the ZERO point");
     }
 
-    /** Test method for {@link primitives.Point#add(primitives.Vector)} */
+    /**
+     * Test method for {@link primitives.Point#add(primitives.Vector)}
+     */
     @Test
     void add() {
         // ============ Equivalence Partitions Tests ==============//
@@ -40,14 +44,18 @@ class PointTest {
     }
 
 
-    /** Test method for {@link primitives.Point#distanceSquared(primitives.Point)} */
+    /**
+     * Test method for {@link primitives.Point#distanceSquared(primitives.Point)}
+     */
     @Test
     void distanceSquared() {
         // ============ Equivalence Partitions Tests ==============//
         assertEquals(3, p1.distanceSquared(p2), "Error: disanceSquared() wrong value");
     }
 
-    /** Test method for {@link primitives.Point#distance(primitives.Point)} */
+    /**
+     * Test method for {@link primitives.Point#distance(primitives.Point)}
+     */
     @Test
     void distance() {
         // ============ Equivalence Partitions Tests ==============//

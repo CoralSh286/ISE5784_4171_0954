@@ -21,32 +21,35 @@ public class Geometries implements Intersectable {
     /**
      * Empty constructor
      */
-    public Geometries(){}
+    public Geometries() {
+    }
 
     /**
      * constructor
+     *
      * @param geometries Some geometries
      */
-    public Geometries(Intersectable... geometries){
+    public Geometries(Intersectable... geometries) {
         add(geometries);
-     }
+    }
 
     /**
      * Adding geometrics to the list
+     *
      * @param geometries Some geometries
      */
-    public void add(Intersectable... geometries){
-        Collections.addAll(_intersectables,geometries);
+    public void add(Intersectable... geometries) {
+        Collections.addAll(_intersectables, geometries);
     }
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        LinkedList<Point> points=null;
-        for(var geometry: _intersectables){
-            var geometryList=geometry.findIntersections(ray);
-            if(geometryList!=null){
-                if(points==null){
-                    points=new LinkedList<>();
+        LinkedList<Point> points = null;
+        for (var geometry : _intersectables) {
+            var geometryList = geometry.findIntersections(ray);
+            if (geometryList != null) {
+                if (points == null) {
+                    points = new LinkedList<>();
                 }
                 points.addAll(geometryList);
             }

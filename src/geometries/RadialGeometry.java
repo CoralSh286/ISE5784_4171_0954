@@ -15,6 +15,7 @@ public abstract class RadialGeometry implements Geometry {
 
     /**
      * constructor
+     *
      * @param r Parameter for the radius
      */
     RadialGeometry(double r) {

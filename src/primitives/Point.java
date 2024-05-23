@@ -15,6 +15,7 @@ public class Point {
 
     /**
      * constructor
+     *
      * @param xyz a point in space
      */
     public Point(Double3 xyz) {
@@ -23,6 +24,7 @@ public class Point {
 
     /**
      * constructor
+     *
      * @param x For the first coordinate
      * @param y For the second coordinate
      * @param z For the third coordinate
@@ -68,6 +70,7 @@ public class Point {
 
     /**
      * Adding a vector to a point
+     *
      * @param vector so that we can connect a point to it
      * @return A new point
      */
@@ -77,6 +80,7 @@ public class Point {
 
     /**
      * Calculates the distance between 2 points in a square
+     *
      * @param other Another point from which the distance is calculated
      * @return A number
      */
@@ -89,6 +93,7 @@ public class Point {
 
     /**
      * Calculates the distance between 2 points
+     *
      * @param other Another point from which the distance is calculated
      * @return A number
      */

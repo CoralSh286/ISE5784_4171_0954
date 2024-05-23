@@ -8,6 +8,7 @@ import primitives.Vector;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
+
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class SphereTest {
     private final Point p100 = new Point(1, 0, 0);
+
     /**
      * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}
      */

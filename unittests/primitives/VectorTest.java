@@ -22,17 +22,21 @@ class VectorTest {
      */
     Vector v3 = new Vector(0, 3, -2);
 
-    /** Test method for {@link primitives.Vector#Vector(double p1, double p2, double p3)} */
+    /**
+     * Test method for {@link primitives.Vector#Vector(double p1, double p2, double p3)}
+     */
     @Test
-    void testVector(){
+    void testVector() {
         // =============== Boundary Values Tests ==================
         //TC01 for the zero vector
-        assertThrows(IllegalArgumentException.class, () -> new Vector(0,0,0), "ERROR: zero vector does not an exception");
+        assertThrows(IllegalArgumentException.class, () -> new Vector(0, 0, 0), "ERROR: zero vector does not an exception");
     }
 
-    /** Test method for {@link primitives.Vector#subtract(Point point)} */
+    /**
+     * Test method for {@link primitives.Vector#subtract(Point point)}
+     */
     @Test
-    void subtract(){
+    void subtract() {
         // ============ Equivalence Partitions Tests ==============//
         //TC01 subtract 2 random vectors
         assertEquals(new Vector(1, -1, 5), v1.subtract(v3), "ERROR: add() function wrong value");
@@ -41,7 +45,9 @@ class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> v1.subtract(v1), "Error: There is no abnormal throw for the ZERO vector");
     }
 
-    /** Test method for {@link primitives.Vector#add(primitives.Vector)} */
+    /**
+     * Test method for {@link primitives.Vector#add(primitives.Vector)}
+     */
     @Test
     void add() {
         // ============ Equivalence Partitions Tests ==============//
@@ -52,14 +58,18 @@ class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> v1.add(new Vector(-1, -2, -3)), "Error: There is no abnormal throw for the ZERO vector");
     }
 
-    /** Test method for {@link primitives.Vector#scale(double num)} */
+    /**
+     * Test method for {@link primitives.Vector#scale(double num)}
+     */
     @Test
     void scale() {
         // ============ Equivalence Partitions Tests ==============//
         assertEquals(new Vector(2, 4, 6), v1.scale(2), "ERROR: scale()function wrong value");
     }
 
-    /** Test method for {@link primitives.Vector#dotProduct(primitives.Vector)} */
+    /**
+     * Test method for {@link primitives.Vector#dotProduct(primitives.Vector)}
+     */
     @Test
     void dotProduct() {
         // =============== Boundary Values Tests ==================
@@ -70,7 +80,9 @@ class VectorTest {
         assertEquals(-28, v1.dotProduct(v2), "ERROR: dotProduct() wrong value");
     }
 
-    /** Test method for {@link primitives.Vector#crossProduct(primitives.Vector)} */
+    /**
+     * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}
+     */
     @Test
     void crossProduct() {
         Vector v1 = new Vector(1, 2, 3);
@@ -93,21 +105,27 @@ class VectorTest {
                 "crossProduct() for parallel vectors does not throw an exception");
     }
 
-    /** Test method for {@link Vector#lengthSquared()} */
+    /**
+     * Test method for {@link Vector#lengthSquared()}
+     */
     @Test
     void lengthSquared() {
         // ============ Equivalence Partitions Tests ==============
         assertEquals(14, v1.lengthSquared(), "ERROR: lengthSquared() wrong value");
     }
 
-    /** Test method for {@link Vector#length()}  */
+    /**
+     * Test method for {@link Vector#length()}
+     */
     @Test
     void length() {
         // ============ Equivalence Partitions Tests ==============
         assertEquals(Math.sqrt(14), v1.length(), "ERROR: length() wrong value");
     }
 
-    /** Test method for {@link Vector#normalize()}  */
+    /**
+     * Test method for {@link Vector#normalize()}
+     */
     @Test
     void normalize() {
         Vector v = new Vector(0, 3, 4);

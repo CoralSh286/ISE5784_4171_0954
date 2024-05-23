@@ -5,18 +5,25 @@ import java.util.Objects;
 import static primitives.Util.isZero;
 
 
-/** A class for representing a beam by a point and a vector */
+/**
+ * A class for representing a beam by a point and a vector
+ */
 public class Ray {
 
-    /** Creating the point */
+    /**
+     * Creating the point
+     */
     private final Point _p0;
 
-    /** Creating the vector */
+    /**
+     * Creating the vector
+     */
     private final Vector _dir;
 
     /**
      * constructor
-     * @param p0 for a point
+     *
+     * @param p0  for a point
      * @param dir for a vector
      */
     public Ray(Point p0, Vector dir) {
@@ -26,6 +33,7 @@ public class Ray {
 
     /**
      * getter function
+     *
      * @return the point _p0
      */
     public Point getP0() {
@@ -34,6 +42,7 @@ public class Ray {
 
     /**
      * getter function
+     *
      * @return the direction vector
      */
     public Vector getDir() {
@@ -59,15 +68,12 @@ public class Ray {
     }
 
     /**
-     *get Point at specific distance in the ray's direction
+     * get Point at specific distance in the ray's direction
      *
      * @param t is a distance for reaching new Point
      * @return new {@link Point}
      */
     public Point getPoint(double t) {
-        if(isZero(t)){
-            return _p0;
-        }
-        return _p0.add(_dir.scale(t));
+        return isZero(t) ? _p0 : _p0.add(_dir.scale(t));
     }
 }

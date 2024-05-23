@@ -4,6 +4,8 @@ import primitives.*;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
+
 /**
  * Department for representation Sphere
  */
@@ -15,6 +17,7 @@ public class Sphere extends RadialGeometry {
 
     /**
      * constructor
+     *
      * @param center for the center point
      * @param radius for the radius
      */
@@ -31,42 +34,25 @@ public class Sphere extends RadialGeometry {
     @Override
     public List<Point> findIntersections(Ray ray) {
         Point p0 = ray.getP0(); // ray's starting point
-        Point o = _center; //the sphere's center point
         Vector v = ray.getDir(); // "the v vector" from the presentation
 
         // if p0 on center, calculate with line parametric representation
         // the direction vector normalized.
-        if (o.equals(p0)) {
-            Point newPoint = p0.add(ray.getDir().scale(_radius));
-            return List.of(newPoint);
-        }
+        if (_center.equals(p0)) return List.of(ray.getPoint(_radius));
 
-        Vector u = o.subtract(p0);
+        Vector u = _center.subtract(p0);
         double tm = v.dotProduct(u);
-        double d = Math.sqrt(u.lengthSquared() - tm * tm);
-        if (d >= _radius) {
-            return null;
-        }
+        double dSquared = u.lengthSquared() - tm * tm;
+        double thSquared = _radiusSquared - dSquared;
+        if (alignZero(thSquared) <= 0) return null;
 
-        double th = Math.sqrt(_radius * _radius - d * d);
-        double t1 = tm - th;
-        double t2 = tm + th;
+        double th = Math.sqrt(thSquared);
 
-        if (t1 > 0 && t2 > 0) {
-            Point p1 = ray.getPoint(t1);
-            Point p2 = ray.getPoint(t2);
-            return List.of(p1, p2);
-        }
+        double t2 = alignZero(tm + th);
+        if (t2 <= 0) return null;
 
-        if (t1 > 0) {
-            Point p1 = ray.getPoint(t1);
-            return List.of(p1);
-        }
-
-        if (t2 > 0) {
-            Point p2 = ray.getPoint(t2);
-            return List.of(p2);
-        }
-        return null;
+        double t1 = alignZero(tm - th);
+        return t1 <= 0 ? List.of(ray.getPoint(t2))
+                : List.of(ray.getPoint(t1), ray.getPoint(t2));
     }
 }
