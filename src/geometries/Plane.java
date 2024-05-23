@@ -7,6 +7,7 @@ import java.util.List;
 import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
+
 /**
  * A class that represents a plane
  */

@@ -3,7 +3,6 @@ package geometries;
 import primitives.*;
 
 import java.util.List;
-
 /**
  * interface for finding the intersection point between the ray and the object
  */

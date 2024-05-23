@@ -5,7 +5,6 @@ import primitives.*;
 import java.util.List;
 
 import static primitives.Util.isZero;
-
 /**
  * A class that represents a tube
  */
