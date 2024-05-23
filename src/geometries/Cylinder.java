@@ -8,7 +8,6 @@ import primitives.Vector;
  * A class that represents a Cylinder
  */
 public class Cylinder extends Tube {
-
     /**
      * Stave for the high
      */
