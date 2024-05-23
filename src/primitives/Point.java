@@ -105,3 +105,4 @@ public class Point {
         return Math.sqrt(result);
     }
 }
+
