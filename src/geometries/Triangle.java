@@ -21,6 +21,7 @@ public class Triangle extends Polygon {
         super(p1, p2,p3);
     }
 
+    @Override
     public List<Point> findIntersections(Ray ray) {
 
         //Check if the ray intersect the plane.
