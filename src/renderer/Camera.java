@@ -97,7 +97,7 @@ public class Camera implements Cloneable {
          *                     (the vector from the camera to the up direction)
          */
         public Builder setDirection(Vector vTo, Vector vUp) {
-            if (Util.isZero(vTo.dotProduct(vUp))) {
+            if (!Util.isZero(vTo.dotProduct(vUp))) {
                 throw new IllegalArgumentException("vTo and vUp must be orthogonal");
             }
             camera.vTo = vTo.normalize();
@@ -157,9 +157,9 @@ public class Camera implements Cloneable {
 
             camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();
 
-            if(Util.isZero(camera.vTo.dotProduct(camera.vRight)) ||
-                    Util.isZero(camera.vTo.dotProduct(camera.vUp)) ||
-                    Util.isZero(camera.vRight.dotProduct(camera.vUp)))
+            if(!Util.isZero(camera.vTo.dotProduct(camera.vRight)) ||
+                    !Util.isZero(camera.vTo.dotProduct(camera.vUp)) ||
+                    !Util.isZero(camera.vRight.dotProduct(camera.vUp)))
                 throw new IllegalArgumentException("vTo, vUp and vRight must be orthogonal");
 
             if(camera.vTo.length() != 1 || camera.vUp.length() != 1 || camera.vRight.length() != 1)
@@ -182,7 +182,7 @@ public class Camera implements Cloneable {
     /**
      * Camera constructor
      */
-    private Camera() {}
+    Camera() {}
 
     /**
      * Builder getter
@@ -203,9 +203,35 @@ public class Camera implements Cloneable {
      * @return the ray that passes through the pixel
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        return null;
-    }
+        //view plane center Point
+        Point Pc = p0.add(vTo.scale(distance));
 
+        //pixels ratios (pixels width and height)
+        double Rx = width / nX;
+        double Ry = height / nY;
+
+        //Pij point[i,j] in view-plane coordinates
+        Point Pij = Pc;
+
+        //delta values for moving on the view plane
+        double Xj = (j - (nX - 1) / 2d) * Rx;
+        double Yi = -(i - (nY - 1) / 2d) * Ry;
+
+        //if not on zero coordinates add the delta distance
+        // to the center of point (i,j)
+        // to reach it
+        if (!Util.isZero(Xj)) {
+            Pij = Pij.add(vRight.scale(Xj));
+        }
+        if (!Util.isZero(Yi)) {
+            Pij = Pij.add(vUp.scale(Yi));
+        }
+
+        // vector from camera's eye in the direction of point(i,j) in the view plane
+        Vector Vij = Pij.subtract(p0);
+
+        return new Ray(p0, Vij);
+    }
 
 }
 
