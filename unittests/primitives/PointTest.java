@@ -51,6 +51,7 @@ class PointTest {
     void distanceSquared() {
         // ============ Equivalence Partitions Tests ==============//
         assertEquals(3, p1.distanceSquared(p2), "Error: disanceSquared() wrong value");
+        assertThrows(IllegalArgumentException.class, () ->  p1.distanceSquared(p1), "ERROR: No exception is thrown for distance between a point and itself");
     }
 
     /**
@@ -60,5 +61,6 @@ class PointTest {
     void distance() {
         // ============ Equivalence Partitions Tests ==============//
         assertEquals(Math.sqrt(3), p1.distance(p2), "Error: distance() wrong value");
+        assertThrows(IllegalArgumentException.class, () ->  p1.distanceSquared(p1), "ERROR: No exception is thrown for distance between a point and itself");
     }
 }

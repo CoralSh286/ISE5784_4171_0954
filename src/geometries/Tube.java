@@ -10,6 +10,9 @@ import static primitives.Util.isZero;
  * A class that represents a tube
  */
 public class Tube extends RadialGeometry {
+    /**
+     * A ray for the direction of the tube
+     */
     protected final Ray _ray;
 
     /**

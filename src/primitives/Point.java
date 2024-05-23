@@ -88,7 +88,10 @@ public class Point {
         double dx = other._xyz.d1 - _xyz.d1;
         double dy = other._xyz.d2 - _xyz.d2;
         double dz = other._xyz.d3 - _xyz.d3;
-        return dx * dx + dy * dy + dz * dz;
+        double result = dx * dx + dy * dy + dz * dz;
+        if(result == 0)
+            throw new IllegalArgumentException("ZERO distance is not allowed");
+        return result;
     }
 
     /**
