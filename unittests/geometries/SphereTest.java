@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.*;
  * test for sphere
  */
 class SphereTest {
-
     private final Point p100 = new Point(1, 0, 0);
     /**
      * Test method for {@link geometries.Sphere#getNormal(primitives.Point)}
