@@ -1,5 +1,6 @@
 package primitives;
 
+import java.util.List;
 import java.util.Objects;
 
 import static primitives.Util.isZero;
@@ -75,5 +76,27 @@ public class Ray {
      */
     public Point getPoint(double t) {
         return isZero(t) ? _p0 : _p0.add(_dir.scale(t));
+    }
+
+    /**
+     * The method search the intersection point closest to the small head
+     * @param points List of intersection points of the beam with the body
+     * @return the nearest intersection point
+     */
+    public Point findClosestPoint(List<Point> points) {
+        Point closestPoint = null;
+        double minDistance = Double.MAX_VALUE;
+        double pointDistance; // the distance between the "this.p0" to each point in the list
+
+        if (!points.isEmpty()) {
+            for (var pointInList : points) {
+                pointDistance = this._p0.distance(pointInList);
+                if (pointDistance < minDistance) {
+                    minDistance = pointDistance;
+                    closestPoint = pointInList;
+                }
+            }
+        }
+        return closestPoint;
     }
 }

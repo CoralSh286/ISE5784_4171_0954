@@ -13,6 +13,7 @@ class ImageWriterTest {
     Color yellowColor = new Color(255d, 255d, 0d); // Yellow is a combination of red & green (for the yellow Square)
     Color redColor = new Color(255d, 0d, 0d); // if r=255 the color is red (for the net)
 
+
     @Test
     void testWriteToImage() {
         ImageWriter imageWriter = new ImageWriter("yellowsbumarine", nX, nY);

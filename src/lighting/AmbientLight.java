@@ -12,6 +12,11 @@ public class AmbientLight {
     private final Color _intensity;
 
     /**
+     * Field is initialized to default - the color black
+     */
+    static public AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
+
+    /**
      * constructor for knowing the intensity after the light factor
      *
      * @param Ia - Light illumination (RGB)
