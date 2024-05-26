@@ -204,31 +204,31 @@ public class Camera implements Cloneable {
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
         //view plane center Point
-        Point Pc = p0.add(vTo.scale(distance));
+        Point pc = p0.add(vTo.scale(distance));
 
         //pixels ratios (pixels width and height)
-        double Rx = width / nX;
-        double Ry = height / nY;
+        double rx = width / nX;
+        double ry = height / nY;
 
         //Pij point[i,j] in view-plane coordinates
-        Point Pij = Pc;
+        Point pij = pc;
 
         //delta values for moving on the view plane
-        double Xj = (j - (nX - 1) / 2d) * Rx;
-        double Yi = -(i - (nY - 1) / 2d) * Ry;
+        double xj = (j - (nX - 1) / 2d) * rx;
+        double yi = -(i - (nY - 1) / 2d) * ry;
 
         //if not on zero coordinates add the delta distance
         // to the center of point (i,j)
         // to reach it
-        if (!Util.isZero(Xj)) {
-            Pij = Pij.add(vRight.scale(Xj));
+        if (!Util.isZero(xj)) {
+            pij = pij.add(vRight.scale(xj));
         }
-        if (!Util.isZero(Yi)) {
-            Pij = Pij.add(vUp.scale(Yi));
+        if (!Util.isZero(yi)) {
+            pij = pij.add(vUp.scale(yi));
         }
 
         // vector from camera's eye in the direction of point(i,j) in the view plane
-        Vector Vij = Pij.subtract(p0);
+        Vector Vij = pij.subtract(p0);
 
         return new Ray(p0, Vij);
     }
