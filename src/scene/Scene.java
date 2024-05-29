@@ -27,6 +27,7 @@ public class Scene {
 
     /**
      * Constructor for initializing the name
+     *
      * @param name The name of the scene
      */
     public Scene(String name) {
@@ -35,6 +36,7 @@ public class Scene {
 
     /**
      * Initialize the background color
+     *
      * @param color the background color
      * @return the object for the scene
      */
@@ -45,6 +47,7 @@ public class Scene {
 
     /**
      * Field initialization of the ambient lighting
+     *
      * @param ambientLight the ambient lighting
      * @return the object for the scene
      */
@@ -55,6 +58,7 @@ public class Scene {
 
     /**
      * Initializing the field of the geometric body
+     *
      * @param geometries the 3D model
      * @return the object for the scene
      */

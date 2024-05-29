@@ -80,21 +80,20 @@ public class Ray {
 
     /**
      * The method search the intersection point closest to the small head
+     *
      * @param points List of intersection points of the beam with the body
      * @return the nearest intersection point
      */
     public Point findClosestPoint(List<Point> points) {
+        if (points == null || points.isEmpty()) return null;
+
         Point closestPoint = null;
         double minDistance = Double.MAX_VALUE;
-        double pointDistance; // the distance between the "this.p0" to each point in the list
-
-        if (!points.isEmpty()) {
-            for (var pointInList : points) {
-                pointDistance = this._p0.distance(pointInList);
-                if (pointDistance < minDistance) {
-                    minDistance = pointDistance;
-                    closestPoint = pointInList;
-                }
+        for (var pointInList : points) {
+            double pointDistance = this._p0.distance(pointInList);
+            if (pointDistance < minDistance) {
+                minDistance = pointDistance;
+                closestPoint = pointInList;
             }
         }
         return closestPoint;

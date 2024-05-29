@@ -1,8 +1,10 @@
 package renderer;
+
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 class ImageWriterTest {
 
     //==== the size of the view plane =====//
@@ -23,8 +25,7 @@ class ImageWriterTest {
                 //=== create the net ===//
                 if (i % 50 == 0 || j % 50 == 0) {
                     imageWriter.writePixel(i, j, redColor);
-                }
-                else {
+                } else {
                     imageWriter.writePixel(i, j, yellowColor);
                 }
             }

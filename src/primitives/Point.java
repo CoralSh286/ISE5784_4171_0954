@@ -59,13 +59,7 @@ public class Point {
      * @return the vector from other point to this point
      */
     public Vector subtract(Point other) {
-
-        Double3 result = _xyz.subtract(other._xyz);
-
-        if (result.equals(Double3.ZERO)) {
-            throw new IllegalArgumentException("ZERO vector not allowed");
-        }
-        return new Vector(result);
+        return new Vector(_xyz.subtract(other._xyz));
     }
 
     /**
@@ -88,10 +82,7 @@ public class Point {
         double dx = other._xyz.d1 - _xyz.d1;
         double dy = other._xyz.d2 - _xyz.d2;
         double dz = other._xyz.d3 - _xyz.d3;
-        double result = dx * dx + dy * dy + dz * dz;
-        if(result == 0)
-            throw new IllegalArgumentException("ZERO distance is not allowed");
-        return result;
+        return dx * dx + dy * dy + dz * dz;
     }
 
     /**
@@ -101,7 +92,6 @@ public class Point {
      * @return A number
      */
     public double distance(Point other) {
-        double result = distanceSquared(other);
-        return Math.sqrt(result);
+        return Math.sqrt(distanceSquared(other));
     }
 }

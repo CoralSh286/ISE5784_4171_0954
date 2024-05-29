@@ -14,7 +14,6 @@ public class Vector extends Point {
      */
     public Vector(double x, double y, double z) {
         super(x, y, z);
-
         if (_xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("ZERO vector is not allowed");
     }
@@ -26,7 +25,6 @@ public class Vector extends Point {
      */
     public Vector(Double3 xyz) {
         super(xyz);
-
         if (_xyz.equals(Double3.ZERO))
             throw new IllegalArgumentException("ZERO vector is not allowed");
     }
@@ -38,7 +36,6 @@ public class Vector extends Point {
      * @return New vector
      */
     public Vector add(Vector vector) {
-
         return new Vector(_xyz.add(vector._xyz));
     }
 
@@ -71,7 +68,8 @@ public class Vector extends Point {
      */
     public Vector crossProduct(Vector vector) {
         // Calculation of a vector cross product according to the formula of Linear Algebra
-        return new Vector(_xyz.d2 * vector._xyz.d3 - vector._xyz.d2 * _xyz.d3,
+        return new Vector(
+                _xyz.d2 * vector._xyz.d3 - vector._xyz.d2 * _xyz.d3,
                 _xyz.d3 * vector._xyz.d1 - vector._xyz.d3 * _xyz.d1,
                 _xyz.d1 * vector._xyz.d2 - vector._xyz.d1 * _xyz.d2);
     }

@@ -30,7 +30,7 @@ public class AmbientLight {
     /**
      * constructor for knowing the intensity after the light factor
      *
-     * @param Ia - Light illumination (RGB)
+     * @param Ia  - Light illumination (RGB)
      * @param Kad - Light factor in Double type
      */
     public AmbientLight(Color Ia, double Kad) {
@@ -40,6 +40,7 @@ public class AmbientLight {
 
     /**
      * getter for intensity
+     *
      * @return the intensity
      */
     public Color getIntensity() {
