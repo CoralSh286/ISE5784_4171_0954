@@ -3,6 +3,7 @@ package renderer;
 import org.junit.jupiter.api.*;
 import primitives.*;
 import geometries.*;
+import scene.Scene;
 
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class CameraIntegrationsTest {
                 .setDirection(new Vector(0, 0, -1), new Vector(0, -1, 0))
                 .setVpSize(3d, 3d)
                 .setVPDistance(1d)
+                .setRayTracer(new SimpleRayTracer(new Scene("Test")))
+                .setImageWriter(new ImageWriter("Test", 1, 1))
                 .build();
 
         Camera camera2 = Camera.getBuilder()
@@ -56,6 +59,8 @@ public class CameraIntegrationsTest {
                 .setDirection(new Vector(0, 0, -1), new Vector(0, -1, 0))
                 .setVpSize(3d, 3d)
                 .setVPDistance(1d)
+                .setRayTracer(new SimpleRayTracer(new Scene("Test")))
+                .setImageWriter(new ImageWriter("Test", 1, 1))
                 .build();
 
         //TC01: Sphere r=1 (2 intersections)
@@ -92,6 +97,8 @@ public class CameraIntegrationsTest {
                 .setDirection(new Vector(0, 0, -1), new Vector(0, -1, 0))
                 .setVpSize(3d, 3d)
                 .setVPDistance(1d)
+                .setRayTracer(new SimpleRayTracer(new Scene("Test")))
+                .setImageWriter(new ImageWriter("Test", 1, 1))
                 .build();
 
         //TC01: Small triangle (1 intersection)
@@ -117,6 +124,8 @@ public class CameraIntegrationsTest {
                 .setDirection(new Vector(0, 0, 1), new Vector(0, -1, 0))
                 .setVpSize(3d, 3d)
                 .setVPDistance(1d)
+                .setRayTracer(new SimpleRayTracer(new Scene("Test")))
+                .setImageWriter(new ImageWriter("Test", 1, 1))
                 .build();
 
         //TC01: The plane parallel to the View Plane (9 intersections)
@@ -136,3 +145,5 @@ public class CameraIntegrationsTest {
                 new Vector(0, 0, 1))), "Bad number of intersections");
     }
 }
+
+

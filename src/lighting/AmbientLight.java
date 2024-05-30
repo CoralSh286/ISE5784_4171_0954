@@ -12,7 +12,7 @@ public class AmbientLight {
     private final Color _intensity;
 
     /**
-     * Field is initialized to default - the color black
+     * Field is initialized to defa  ult - the color black
      */
     static public AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
 

@@ -2,7 +2,6 @@
 package renderer;
 
 import primitives.*;
-
 import java.util.MissingResourceException;
 
 /**
@@ -16,6 +15,9 @@ public class Camera implements Cloneable {
     private double width = 0d;
     private double height = 0d;
     private double distance = 0d;
+
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracer;
 
     /**
      * Camera getter
@@ -142,6 +144,28 @@ public class Camera implements Cloneable {
         }
 
         /**
+         * Initializes the method imageWriter
+         *
+         * @param imageWriter for creating the file
+         * @return this field for the camera
+         */
+        public Builder setImageWriter(ImageWriter imageWriter) {
+            camera.imageWriter = imageWriter;
+            return this;
+        }
+
+        /**
+         * Initializes the method that combining a scene and its color
+         *
+         * @param rayTracer The parameter for adding the color to the point
+         * @return this field for the camera
+         */
+        public Builder setRayTracer(RayTracerBase rayTracer) {
+            camera.rayTracer = rayTracer;
+            return this;
+        }
+
+        /**
          * Build the camera
          *
          * @return the camera
@@ -156,6 +180,10 @@ public class Camera implements Cloneable {
                 throw new MissingResourceException(className, description, "vUp");
             if (camera.vTo == null)
                 throw new MissingResourceException(className, description, "vTo");
+            if (camera.rayTracer == null)
+                 throw new MissingResourceException(className, description, "imageWriter");
+            if (camera.imageWriter == null)
+                throw new MissingResourceException(className, description, "rayTracer");
             if (camera.width == 0d)
                 throw new MissingResourceException(className, description, "width");
             if (camera.height == 0d)
@@ -241,5 +269,62 @@ public class Camera implements Cloneable {
         return new Ray(p0, vij);
     }
 
-}
+    /**
+     * Casts a ray for each pixel
+     * @return a camera
+     */
+    public Camera renderImage() {
+        if (this.imageWriter == null)
+            throw new UnsupportedOperationException("Missing imageWriter");
+        if (this.rayTracer == null)
+            throw new UnsupportedOperationException("Missing rayTracerBase");
 
+        for (int i = 0; i < this.imageWriter.getNx(); i++) {
+            for (int j = 0; j < this.imageWriter.getNy(); j++) {
+                castRay(i,j);
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Creates a network of lines
+     * @param interval for the amount of pixels in a square
+     * @param color for the color
+     * @return A camera type object
+     */
+    public Camera printGrid(int interval, Color color) {
+        //running on the view plane
+        for (int i = 0; i < imageWriter.getNx(); i++) {
+            for (int j = 0; j < imageWriter.getNy(); j++) {
+                //create the net
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(i, j, color);
+                }
+            }
+        }
+        return this;
+    }
+
+    /**
+     * Creates the image by delegation
+     */
+    public void writeToImage() {
+        this.imageWriter.writeToImage();
+    }
+
+    /**
+     * Creates a beam through the center of the pixel
+     * @param i for the latitude index
+     * @param j for the longitudinal index
+     */
+    private void castRay(int i,int j){
+        Ray ray = constructRay(
+                this.imageWriter.getNx(),
+                this.imageWriter.getNy(),
+                j,
+                i);
+        this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(ray));
+    }
+
+}
