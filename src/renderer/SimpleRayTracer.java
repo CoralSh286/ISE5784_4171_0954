@@ -1,5 +1,6 @@
 package renderer;
 
+import geometries.Intersectable;
 import primitives.Color;
 import primitives.Point;
 import primitives.Ray;
@@ -37,4 +38,5 @@ public class SimpleRayTracer extends RayTracerBase{
     private Color calcColor(Point point) {
         return this._scene._ambientLight.getIntensity();
     }
+
 }

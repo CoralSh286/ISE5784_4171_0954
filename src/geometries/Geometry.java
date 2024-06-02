@@ -13,6 +13,31 @@ public abstract class Geometry extends Intersectable {
     protected Color _emission = Color.BLACK;
 
     /**
+     * the material the geometry has made of
+     */
+    private Material _material = new Material();
+
+    /**
+     * Get material of the geometry
+     *
+     * @return Material of the geometry
+     */
+    public Material getMaterial() {
+        return this._material;
+    }
+
+    /**
+     * Set material of the geometry
+     *
+     * @param material the Material of the geometry
+     * @return the geometry itself
+     */
+    public Geometry setMaterial(Material material) {
+        this._material = material;
+        return this;
+    }
+
+    /**
      * getEmission function
      *
      * @return the geometry's color

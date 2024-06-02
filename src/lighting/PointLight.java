@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * A class for PointLight
+ */
 public class PointLight extends Light implements LightSource {
 
     /**
@@ -18,7 +21,7 @@ public class PointLight extends Light implements LightSource {
      * <p>
      * the formula is: Il = I0/(Kc + Ki*d + Kq*d^2);
      */
-    private double kC = 1, kL = 0, kQ = 0;
+    private double kC = 1, kL = 0d, kQ = 0d;
 
     /**
      * constructor for the intensity
@@ -63,12 +66,7 @@ public class PointLight extends Light implements LightSource {
         return this;
     }
 
-    /**
-     * Calculate and return the intensity light on specific point
-     *
-     * @param point the point on the object (Point)
-     * @return the intensity (Color)
-     */
+
     @Override
     public Color getIntensity(Point point) {
         double distance = this._position.distance(point);
@@ -79,12 +77,7 @@ public class PointLight extends Light implements LightSource {
         return getIntensity().reduce(factor);
     }
 
-    /**
-     * Return normalize direction vector from the light source to the object
-     *
-     * @param point the point on the object (Point)
-     * @return normalize direction vector from the light source to the object (Vector)
-     */
+
     @Override
     public Vector getL(Point point) {
         return point.subtract(this._position).normalize();

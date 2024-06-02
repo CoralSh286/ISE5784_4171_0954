@@ -2,12 +2,32 @@ package scene;
 
 import geometries.Geometries;
 import lighting.AmbientLight;
+import lighting.LightSource;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * A class that will realize the scene we want to build
  */
 public class Scene {
+
+    /**
+     * list of lights
+     */
+    public List<LightSource> _lights = new LinkedList<LightSource>();
+
+    /**
+     * A method for updating the field
+     * @param lights the list
+     * @return the field
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this._lights = lights;
+        return this;
+    }
+
     /**
      * the name of the scene
      */

@@ -4,6 +4,9 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
+/**
+ * A class for DirectionalLight
+ */
 public class DirectionalLight extends Light implements LightSource{
 
     private Vector direction;
@@ -18,23 +21,13 @@ public class DirectionalLight extends Light implements LightSource{
         this.direction = dir.normalize();
     }
 
-    /**
-     * Return the intensity light on specific point
-     *
-     * @param p the point on the object (Point3D)
-     * @return the intensity (Color)
-     */
+
     @Override
     public Color getIntensity(Point p) {
         return this.intensity;
     }
 
-    /**
-     * Return normalize direction vector from the light source to the object
-     *
-     * @param p the point on the object (Point)
-     * @return normalize direction vector from the light source to the object (Vector)
-     */
+
     @Override
     public Vector getL(Point p) {
         return this.direction.normalize();
