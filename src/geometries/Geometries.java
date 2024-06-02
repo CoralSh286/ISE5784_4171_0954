@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Composite class for all geometries object implementing {@link Intersectable}
  */
-public class Geometries implements Intersectable {
+public class Geometries extends Intersectable {
 
     /**
      * List of geometries
@@ -56,4 +56,6 @@ public class Geometries implements Intersectable {
         }
         return points;
     }
+
+
 }

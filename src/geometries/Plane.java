@@ -11,7 +11,7 @@ import static primitives.Util.isZero;
 /**
  * A class that represents a plane
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
 
     /**
      * field for the p0

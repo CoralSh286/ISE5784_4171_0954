@@ -56,4 +56,3 @@ public class Sphere extends RadialGeometry {
                 : List.of(ray.getPoint(t1), ray.getPoint(t2));
     }
 }
-

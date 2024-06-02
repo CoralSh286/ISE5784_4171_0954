@@ -5,16 +5,14 @@ import primitives.Double3;
 
 /**
  * Ambient Light for all object in 3D space
- * this class represented us the Ambient Light (תאורה סביבתית)
+ * this class represented us the Ambient Light
  */
-public class AmbientLight {
-
-    private final Color _intensity;
+public class AmbientLight extends Light {
 
     /**
-     * Field is initialized to defa  ult - the color black
+     * Field is initialized to default - the color black
      */
-    static public AmbientLight NONE = new AmbientLight(Color.BLACK, 0);
+    static public AmbientLight NONE = new AmbientLight(Color.BLACK, 0d);
 
     /**
      * constructor for knowing the intensity after the light factor
@@ -23,8 +21,7 @@ public class AmbientLight {
      * @param Ka - Light factor
      */
     public AmbientLight(Color Ia, Double3 Ka) {
-        //calculation of the intensity after the light factor//
-        this._intensity = Ia.scale(Ka);
+        super(Ia.scale(Ka));
     }
 
     /**
@@ -33,17 +30,8 @@ public class AmbientLight {
      * @param Ia  - Light illumination (RGB)
      * @param Kad - Light factor in Double type
      */
-    public AmbientLight(Color Ia, double Kad) {
-        //calculation of the intensity after the light factor//
-        this._intensity = Ia.scale(Kad);
+    public AmbientLight(Color Ia, Double Kad) {
+        super(Ia.scale(Kad));
     }
 
-    /**
-     * getter for intensity
-     *
-     * @return the intensity
-     */
-    public Color getIntensity() {
-        return _intensity;
-    }
 }
