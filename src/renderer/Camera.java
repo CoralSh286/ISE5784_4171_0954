@@ -184,11 +184,11 @@ public class Camera implements Cloneable {
                  throw new MissingResourceException(className, description, "imageWriter");
             if (camera.imageWriter == null)
                 throw new MissingResourceException(className, description, "rayTracer");
-            if (camera.width == 0d)
+            if (Util.alignZero(camera.width) == 0d)
                 throw new MissingResourceException(className, description, "width");
-            if (camera.height == 0d)
+            if (Util.alignZero(camera.height) == 0d)
                 throw new MissingResourceException(className, description, "height");
-            if (camera.distance == 0d)
+            if (Util.alignZero(camera.distance) == 0d)
                 throw new MissingResourceException(className, description, "distance");
 
             camera.vRight = camera.vTo.crossProduct(camera.vUp).normalize();

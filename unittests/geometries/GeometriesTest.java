@@ -7,7 +7,7 @@ import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GeometriesTest {
+class SGeometriesTest {
     /**
      * Test method for {@link geometries.Geometries#findIntersections(Ray ray)}
      */
