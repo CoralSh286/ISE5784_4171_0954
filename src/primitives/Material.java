@@ -3,6 +3,7 @@ package primitives;
 /**
  * A class for a material
  */
+//stage 6
 public class Material {
     /**
      * the Diffuse light factor of the object material type

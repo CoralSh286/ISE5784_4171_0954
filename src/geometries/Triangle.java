@@ -53,6 +53,7 @@ public class Triangle extends Polygon {
 //        return intersections;
 //    }
 
+    //stage 6
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();

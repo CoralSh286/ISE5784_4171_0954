@@ -10,7 +10,6 @@ public abstract class Geometry extends Intersectable {
     /**
      * field for emission lighting
      */
-    //stage 6
     protected Color _emission = Color.BLACK;
 
     /**

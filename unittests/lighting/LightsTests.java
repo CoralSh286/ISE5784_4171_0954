@@ -25,13 +25,13 @@
 //    private final Camera.Builder camera1                 = Camera.getBuilder()
 //            .setRayTracer(new SimpleRayTracer(scene1))
 //            .setLocation(new Point(0, 0, 1000))
-//            .setDirection((Vector) Vector.ZERO, new Vector(0, 1, 0))
+//            .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
 //            .setVpSize(150, 150).setVPDistance(1000);
 //    /** Second camera builder for some of tests */
 //    private final Camera.Builder camera2                 = Camera.getBuilder()
 //            .setRayTracer(new SimpleRayTracer(scene2))
 //            .setLocation(new Point(0, 0, 1000))
-//            .setDirection((Vector) Vector.ZERO, new Vector(0, 1, 0))
+//            .setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
 //            .setVpSize(200, 200).setVPDistance(1000);
 //
 //    /** Shininess value for most of the geometries in the tests */
@@ -106,6 +106,7 @@
 //    /** Produce a picture of a sphere lighted by a point light */
 //    @Test
 //    public void spherePoint() {
+//
 //        scene1._geometries.add(sphere);
 //        scene1._lights.add(new PointLight(sphereLightColor, sphereLightPosition)
 //                .setkL(0.001).setkQ(0.0002));
@@ -166,7 +167,7 @@
 //                .renderImage()
 //                .writeToImage();
 //    }
-//
+
 //    /** Produce a picture of a sphere lighted by a narrow spotlight */
 //    @Test
 //    public void sphereSpotSharp() {
@@ -194,4 +195,7 @@
 //                .writeToImage();
 //    }
 //
+
+
 //}
+
