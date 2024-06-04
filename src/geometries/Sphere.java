@@ -31,14 +31,40 @@ public class Sphere extends RadialGeometry {
         return point.subtract(_center).normalize();
     }
 
+//    @Override
+//    public List<Point> findIntersections(Ray ray) {
+//        Point p0 = ray.getP0(); // ray's starting point
+//        Vector v = ray.getDir(); // "the v vector" from the presentation
+//
+//        // if p0 on center, calculate with line parametric representation
+//        // the direction vector normalized.
+//        if (_center.equals(p0)) return List.of(ray.getPoint(_radius));
+//
+//        Vector u = _center.subtract(p0);
+//        double tm = v.dotProduct(u);
+//        double dSquared = u.lengthSquared() - tm * tm;
+//        double thSquared = _radiusSquared - dSquared;
+//        if (alignZero(thSquared) <= 0) return null;
+//
+//        double th = Math.sqrt(thSquared);
+//
+//        double t2 = alignZero(tm + th);
+//        if (t2 <= 0) return null;
+//
+//        double t1 = alignZero(tm - th);
+//        return t1 <= 0 ? List.of(ray.getPoint(t2))
+//                : List.of(ray.getPoint(t1), ray.getPoint(t2));
+//    }
+
+    //stage 6
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0(); // ray's starting point
         Vector v = ray.getDir(); // "the v vector" from the presentation
 
         // if p0 on center, calculate with line parametric representation
         // the direction vector normalized.
-        if (_center.equals(p0)) return List.of(ray.getPoint(_radius));
+        if (_center.equals(p0)) return List.of(new GeoPoint(this,(p0.add(v.scale(_radius)))));
 
         Vector u = _center.subtract(p0);
         double tm = v.dotProduct(u);
@@ -52,7 +78,9 @@ public class Sphere extends RadialGeometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        return t1 <= 0 ? List.of(ray.getPoint(t2))
-                : List.of(ray.getPoint(t1), ray.getPoint(t2));
+        return t1 <= 0 ? List.of(new GeoPoint(this,p0.add(v.scale(t2))))
+                : List.of(new GeoPoint(this,(p0.add(v.scale(t1)))),(new GeoPoint(this,(p0.add(v.scale(t2))))));
+
     }
+
 }
