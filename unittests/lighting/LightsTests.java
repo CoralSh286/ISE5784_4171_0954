@@ -109,7 +109,7 @@
 //
 //        scene1._geometries.add(sphere);
 //        scene1._lights.add(new PointLight(sphereLightColor, sphereLightPosition)
-//                .setkL(0.001).setkQ(0.0002));
+//                .setKl(0.001).setKq(0.0002));
 //
 //        camera1.setImageWriter(new ImageWriter("lightSpherePoint", 500, 500))
 //                .build()
@@ -122,7 +122,7 @@
 //    public void sphereSpot() {
 //        scene1._geometries.add(sphere);
 //        scene1._lights.add(new SpotLight(sphereLightColor, sphereLightPosition, sphereLightDirection)
-//                .setkL(0.001).setkQ(0.0001));
+//                .setKl(0.001).setKq(0.0001));
 //
 //        camera1.setImageWriter(new ImageWriter("lightSphereSpot", 500, 500))
 //                .build()
@@ -147,7 +147,7 @@
 //    public void trianglesPoint() {
 //        scene2._geometries.add(triangle1, triangle2);
 //        scene2._lights.add(new PointLight(trianglesLightColor, trianglesLightPosition)
-//                .setkL(0.001).setkQ(0.0002));
+//                .setKl(0.001).setKq(0.0002));
 //
 //        camera2.setImageWriter(new ImageWriter("lightTrianglesPoint", 500, 500)) //
 //                .build() //
@@ -160,7 +160,7 @@
 //    public void trianglesSpot() {
 //        scene2._geometries.add(triangle1, triangle2);
 //        scene2._lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
-//                .setkL(0.001).setkQ(0.0001));
+//                .setKl(0.001).setKq(0.0001));
 //
 //        camera2.setImageWriter(new ImageWriter("lightTrianglesSpot", 500, 500))
 //                .build()

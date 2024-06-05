@@ -1,56 +1,59 @@
 package lighting;
+import primitives.*;
 
-import primitives.Color;
-import primitives.Point;
-import primitives.Util;
-import primitives.Vector;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
- * A class for SpotLight
+ * SpotLight class represents a spot light in the scene
  */
 public class SpotLight extends PointLight {
-
-    private Vector _dir;
+    private final Vector direction;
 
     /**
-     * constructor for the intensity
-     *
-     * @param intensity of the intensity of the source of the light
-     * @param position for the position
+     * SpotLight constructor
+     * @param intensity the intensity of the light
+     * @param position the position of the light
+     * @param direction the direction of the light
      */
-    protected SpotLight(Color intensity, Point position) {
+    public SpotLight(Color intensity, Point position, Vector direction) {
         super(intensity, position);
+        this.direction = direction.normalize();
+    }
+
+    @Override
+    public Color getIntensity(Point p) {
+        double cos = alignZero(direction.dotProduct(getL(p)));
+        if (isZero(cos)||cos<0) return Color.BLACK;
+        return super.getIntensity().scale(cos);
     }
 
     /**
-     * constructor for the intensity
-     *
-     * @param color     of the intensity of the source of the light
-     * @param direction for the direction
+     * set the constant attenuation factor
+     * @param kc the constant attenuation factor
+     * @return the SpotLight object
      */
-    protected SpotLight(Color color, Point position, Vector direction) {
-        super(color, position);
-        this._dir = direction.normalize();
+    public SpotLight setKc(double kc) {
+        return (SpotLight) super.setKc(kc);
     }
 
-    @Override
-    public SpotLight setkC(double kC) {
-        return (SpotLight) super.setkC(kC);
+    /**
+     * set the linear attenuation factor
+     * @param kl the linear attenuation factor
+     * @return the SpotLight object
+     */
+    public SpotLight setKl(double kl) {
+        return (SpotLight) super.setKl(kl);
     }
 
-    @Override
-    public SpotLight setkL(double kL) {
-        return (SpotLight) super.setkC(kL);
+    /**
+     * set the quadratic attenuation factor
+     * @param kq the quadratic attenuation factor
+     * @return the SpotLight object
+     */
+    public SpotLight setKq(double kq) {
+        return (SpotLight) super.setKq(kq);
     }
 
-    @Override
-    public SpotLight setkQ(double kQ) {
-        return (SpotLight) super.setkC(kQ);
-    }
-
-    @Override
-    public Color getIntensity(Point point) {
-        return super.getIntensity(point).scale(Math.max(0, _dir.dotProduct(getL(point).normalize())));
-    }
 
 }

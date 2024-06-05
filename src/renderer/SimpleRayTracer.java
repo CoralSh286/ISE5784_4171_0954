@@ -46,7 +46,7 @@ public class SimpleRayTracer extends RayTracerBase{
 //     * @param point point of intersection
 //     * @return Color of the intersection point
 //     */
-//    //stage 6
+    //stage 6
 //    private Color calcColor(Intersectable.GeoPoint point, Ray ray) {
 //        return this._scene._ambientLight.getIntensity()
 //                .add(point.geometry.getEmission())

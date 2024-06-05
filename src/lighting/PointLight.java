@@ -1,80 +1,66 @@
 package lighting;
-
-import primitives.Color;
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 /**
- * A class for PointLight
+ * PointLight class represents a point light in the scene
  */
-public class PointLight extends Light implements LightSource {
+public class PointLight extends Light implements LightSource{
+    private Point position;
+    private double kc=1;
+    private double kl=0;
+    private double kq=0;
 
     /**
-     * The position point of the light source in the space
+     * PointLight constructor
+     * @param intensity the intensity of the light
+     * @param position the position of the light
      */
-    private Point _position;
-
-    /**
-     * kC is The specular attenuation factor, required to ensure that the denominator in getIntensity > 1
-     * kL is The light source attenuation factor
-     * kQ is The attenuation factor of the energy coming to the point
-     * <p>
-     * the formula is: Il = I0/(Kc + Ki*d + Kq*d^2);
-     */
-    private double kC = 1, kL = 0d, kQ = 0d;
-
-    /**
-     * constructor for the intensity
-     *
-     * @param intensity of the intensity of the source of the light
-     */
-    protected PointLight(Color intensity, Point position) {
+    public PointLight(Color intensity, Point position) {
         super(intensity);
-        this._position = position;
-    }
-
-    /**
-     * setkC function
-     *
-     * @param kC specular attenuation factor
-     * @return specular attenuation factor
-     */
-    public PointLight setkC(double kC) {
-        this.kC = kC;
-        return this;
-    }
-
-    /**
-     * setkL function
-     *
-     * @param kL light source attenuation factor
-     * @return light source attenuation factor
-     */
-    public PointLight setkL(double kL) {
-        this.kL = kL;
-        return this;
-    }
-
-    /**
-     * setkQ function
-     *
-     * @param kQ The attenuation factor
-     * @return The attenuation factor
-     */
-    public PointLight setkQ(double kQ) {
-        this.kQ = kQ;
-        return this;
+        this.position = position;
     }
 
     @Override
-    public Color getIntensity(Point point) {
-        double distance = _position.distance(point);
-        return getIntensity().scale((1/(kC + kL*distance + kQ* distance*distance)));
+    public Color getIntensity(Point p) {
+        double d = position.distance(p);
+        return getIntensity().scale(1/(kc+kl*d+kq*d*d));
     }
 
     @Override
-    public Vector getL(Point point) {
-        return point.subtract(this._position).normalize();
+    public Vector getL(Point p) {
+        // if the point is the same as the light source, return null
+        if (p.equals(position))
+            return null;
+        // otherwise, return the normalized vector from the light source to the point
+        return p.subtract(position).normalize();
     }
 
+    //----------------- setters-----------------
+
+    /**
+     * Set the constant attenuation factor
+     * @param kc the constant attenuation factor
+     */
+    public PointLight setKc(double kc) {
+        this.kc = kc;
+        return this;
+    }
+
+    /**
+     * Set the linear attenuation factor
+     * @param kl the linear attenuation factor
+     */
+    public PointLight setKl(double kl) {
+        this.kl = kl;
+        return this;
+    }
+
+    /**
+     * Set the quadratic attenuation factor
+     * @param kq the quadratic attenuation factor
+     */
+    public PointLight setKq(double kq) {
+        this.kq = kq;
+        return this;
+    }
 }
