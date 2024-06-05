@@ -35,31 +35,22 @@ public class SpotLight extends PointLight {
 
     @Override
     public SpotLight setkC(double kC) {
-        return this.setkC(kC);
+        return (SpotLight) super.setkC(kC);
     }
 
     @Override
     public SpotLight setkL(double kL) {
-        return this.setkL(kL);
+        return (SpotLight) super.setkC(kL);
     }
 
     @Override
     public SpotLight setkQ(double kQ) {
-        return this.setkQ(kQ);
+        return (SpotLight) super.setkC(kQ);
     }
 
     @Override
     public Color getIntensity(Point point) {
-        double projection = this._dir.dotProduct(getL(point));
-
-        if (Util.isZero(projection)) {
-            return Color.BLACK;
-        }
-
-        double factor = Math.max(0, projection);
-        Color pointLightIntensity = super.getIntensity(point);
-
-        return (pointLightIntensity.scale(factor));
+        return super.getIntensity(point).scale(Math.max(0, _dir.dotProduct(getL(point).normalize())));
     }
 
 }

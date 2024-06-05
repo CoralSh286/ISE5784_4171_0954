@@ -167,35 +167,35 @@
 //                .renderImage()
 //                .writeToImage();
 //    }
-
-//    /** Produce a picture of a sphere lighted by a narrow spotlight */
-//    @Test
-//    public void sphereSpotSharp() {
-//        scene1._geometries.add(sphere);
-//        scene1._lights
-//                .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5))
-//                        .setkL(0.001).setkQ(0.00004).setNarrowBeam(10));
 //
-//        camera1.setImageWriter(new ImageWriter("lightSphereSpotSharp", 500, 500))
-//                .build()
-//                .renderImage()
-//                .writeToImage();
-//    }
+////    /** Produce a picture of a sphere lighted by a narrow spotlight */
+////    @Test
+////    public void sphereSpotSharp() {
+////        scene1._geometries.add(sphere);
+////        scene1._lights
+////                .add(new SpotLight(sphereLightColor, sphereLightPosition, new Vector(1, 1, -0.5))
+////                        .setkL(0.001).setkQ(0.00004).setNarrowBeam(10));
+////
+////        camera1.setImageWriter(new ImageWriter("lightSphereSpotSharp", 500, 500))
+////                .build()
+////                .renderImage()
+////                .writeToImage();
+////    }
+////
+////    /** Produce a picture of two triangles lighted by a narrow spotlight */
+////    @Test
+////    public void trianglesSpotSharp() {
+////        scene2._geometries.add(triangle1, triangle2);
+////        scene2._lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
+////                .setkL(0.001).setkQ(0.00004).setNarrowBeam(10));
+////
+////        camera2.setImageWriter(new ImageWriter("lightTrianglesSpotSharp", 500, 500))
+////                .build()
+////                .renderImage()
+////                .writeToImage();
+////    }
 //
-//    /** Produce a picture of two triangles lighted by a narrow spotlight */
-//    @Test
-//    public void trianglesSpotSharp() {
-//        scene2._geometries.add(triangle1, triangle2);
-//        scene2._lights.add(new SpotLight(trianglesLightColor, trianglesLightPosition, trianglesLightDirection)
-//                .setkL(0.001).setkQ(0.00004).setNarrowBeam(10));
 //
-//        camera2.setImageWriter(new ImageWriter("lightTrianglesSpotSharp", 500, 500))
-//                .build()
-//                .renderImage()
-//                .writeToImage();
-//    }
 //
-
-
 //}
-
+//
