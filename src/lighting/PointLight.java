@@ -5,7 +5,7 @@ import primitives.*;
  * PointLight class represents a point light in the scene
  */
 public class PointLight extends Light implements LightSource{
-    private Point position;
+    private final Point position;
     private double kc=1;
     private double kl=0;
     private double kq=0;
@@ -40,6 +40,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * Set the constant attenuation factor
      * @param kc the constant attenuation factor
+     * @return kc
      */
     public PointLight setKc(double kc) {
         this.kc = kc;
@@ -49,6 +50,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * Set the linear attenuation factor
      * @param kl the linear attenuation factor
+     * @return kl
      */
     public PointLight setKl(double kl) {
         this.kl = kl;
@@ -58,6 +60,7 @@ public class PointLight extends Light implements LightSource{
     /**
      * Set the quadratic attenuation factor
      * @param kq the quadratic attenuation factor
+     * @return kq
      */
     public PointLight setKq(double kq) {
         this.kq = kq;

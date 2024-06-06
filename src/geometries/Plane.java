@@ -64,7 +64,6 @@ public class Plane extends Geometry {
         return _normal;
     }
 
-    //stage 6
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0(); // according to the illustration P0 is the same point of the ray's P0 (that's why the definition))

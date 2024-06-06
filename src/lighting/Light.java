@@ -5,12 +5,11 @@ import primitives.Color;
 /**
  * Light abstract class representing the light of the scene
  */
-//stage 6
 public abstract class Light {
     /**
      * the geometry's color intensity light
      */
-    protected Color intensity;
+    protected final Color intensity;
 
     /**
      * constructor for the intensity

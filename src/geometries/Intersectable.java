@@ -15,21 +15,25 @@ public abstract class Intersectable {
      * @param ray {@link Ray} pointing toward the object
      * @return list of intersection Point between the ray and the object
      */
-//    public abstract List<Point> findIntersections(Ray ray);
-
-    //stage 6
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
 
-    //stage 6
+    /**
+     * Returns intersection points with the bodies
+     * @param ray from the camera
+     * @return list of intersection points
+     */
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);
     }
 
-    //stage 6
-    //======== the NVI design pattern =======//
+    /**
+     * Returns intersection points with the bodies
+     * @param ray  from the camera
+     * @return list of intersection points
+     */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
 
@@ -38,7 +42,6 @@ public abstract class Intersectable {
      * because we added the emission light for each geometry and if we want to calculate the color at the point
      * we have to mind the geometry's color (this class is PDS)
      */
-    //stage 6
     public static class GeoPoint {
         /**
          * field for a geometry

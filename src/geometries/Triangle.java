@@ -23,7 +23,6 @@ public class Triangle extends Polygon {
         super(p1, p2, p3);
     }
 
-    //stage 6
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0();

@@ -16,7 +16,6 @@ public class Scene {
     /**
      * list of lights
      */
-    //stage 6
     public List<LightSource> _lights = new LinkedList<LightSource>();
 
     /**
@@ -24,7 +23,6 @@ public class Scene {
      * @param lights the list
      * @return the field
      */
-    //stage 6
     public Scene setLights(List<LightSource> lights) {
         this._lights = lights;
         return this;

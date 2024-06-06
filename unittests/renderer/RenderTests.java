@@ -32,17 +32,18 @@ public class RenderTests {
      */
     @Test
     public void renderTwoColorTest() {
-        scene._geometries.add(new Sphere(new Point(0, 0, -100), 50d),
-                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
-                // left
-                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
-                        new Point(-100, -100, -100)), // down
-                // left
-                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
-        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
-                .setBackground(new Color(75, 127, 90));
+        scene // customize the scene
+                .setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
+                .setBackground(new Color(75, 127, 90))
+                ._geometries.add(new Sphere(new Point(0, 0, -100), 50d),
+                        new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up
+                        // left
+                        new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100),
+                                new Point(-100, -100, -100)), // down
+                        // left
+                        new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
 
-        // right
+                // right
         camera
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000))
                 .build()

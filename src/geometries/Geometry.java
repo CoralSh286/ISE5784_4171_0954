@@ -15,7 +15,6 @@ public abstract class Geometry extends Intersectable {
     /**
      * the material the geometry has made of
      */
-    //stage 6
     private Material _material = new Material();
 
     /**
@@ -23,7 +22,6 @@ public abstract class Geometry extends Intersectable {
      *
      * @return Material of the geometry
      */
-    //stage 6
     public Material getMaterial() {
         return this._material;
     }
@@ -34,7 +32,6 @@ public abstract class Geometry extends Intersectable {
      * @param material the Material of the geometry
      * @return the geometry itself
      */
-    //stage 6
     public Geometry setMaterial(Material material) {
         this._material = material;
         return this;
@@ -45,7 +42,6 @@ public abstract class Geometry extends Intersectable {
      *
      * @return the geometry's color
      */
-    //stage 6
     public Color getEmission() {
         return this._emission;
     }
@@ -56,7 +52,6 @@ public abstract class Geometry extends Intersectable {
      * @param emission for the appropriate field
      * @return the field
      */
-    //stage 6
     public Geometry setEmission(Color emission) {
         this._emission = emission;
         return this;

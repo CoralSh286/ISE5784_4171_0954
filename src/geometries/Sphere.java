@@ -32,7 +32,6 @@ public class Sphere extends RadialGeometry {
     }
 
 
-    //stage 6
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point p0 = ray.getP0(); // ray's starting point

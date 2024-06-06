@@ -12,7 +12,7 @@ public abstract class RayTracerBase {
     /**
      * field for a scene
      */
-    protected Scene _scene;
+    protected final Scene _scene;
 
     /**
      * trace the ray and calculate the rey's intersection point color

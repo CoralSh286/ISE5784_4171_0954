@@ -7,7 +7,6 @@ import primitives.Vector;
 /**
  * class for the realization of light
  */
-//stage 6
 public interface LightSource {
     /**
      * Get the intensity of the light at a point

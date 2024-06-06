@@ -3,31 +3,36 @@ package renderer;
 import org.junit.jupiter.api.Test;
 import primitives.Color;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * test for ImageWriter class
+ */
 class ImageWriterTest {
 
-    //==== the size of the view plane =====//
-    int nX = 800;
-    int nY = 500;
+    /** ==== the resolution width of the view plane - ===== */
+    private static final int nX = 801;
+    /** ==== the resolution height of the view plane - ===== */
+    private static final int nY = 501;
 
-    //Color yellowColor = new Color(java.awt.Color.YELLOW);
-    Color yellowColor = new Color(255d, 255d, 0d); // Yellow is a combination of red & green (for the yellow Square)
-    Color redColor = new Color(255d, 0d, 0d); // if r=255 the color is red (for the net)
+    /**
+     * Yellow is a combination of red & green (for the yellow Square)
+     */
+    Color yellowColor = new Color(255d, 255d, 0d);
+    /**
+     * if r=255 the color is red (for the net)
+     */
+    Color redColor = new Color(255d, 0d, 0d);
 
-
+    /**
+     * Test method for {@link ImageWriter#writeToImage()}
+     */
     @Test
     void testWriteToImage() {
-        ImageWriter imageWriter = new ImageWriter("yellowsbumarine", nX, nY);
+        ImageWriter imageWriter = new ImageWriter("yellow-submarine", nX, nY);
         //=== running on the view plane===//
         for (int i = 0; i < nX; i++) {
             for (int j = 0; j < nY; j++) {
                 //=== create the net ===//
-                if (i % 50 == 0 || j % 50 == 0) {
-                    imageWriter.writePixel(i, j, redColor);
-                } else {
-                    imageWriter.writePixel(i, j, yellowColor);
-                }
+                imageWriter.writePixel(i, j, i % 50 == 0 || j % 50 == 0 ? redColor : yellowColor);
             }
         }
         imageWriter.writeToImage();

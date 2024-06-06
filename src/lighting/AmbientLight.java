@@ -17,21 +17,21 @@ public class AmbientLight extends Light {
     /**
      * constructor for knowing the intensity after the light factor
      *
-     * @param Ia - Light illumination (RGB)
-     * @param Ka - Light factor
+     * @param iA - Light illumination (RGB)
+     * @param kA - Light factor
      */
-    public AmbientLight(Color Ia, Double3 Ka) {
-        super(Ia.scale(Ka));
+    public AmbientLight(Color iA, Double3 kA) {
+        super(iA.scale(kA));
     }
 
     /**
      * constructor for knowing the intensity after the light factor
      *
-     * @param Ia  - Light illumination (RGB)
-     * @param Kad - Light factor in Double type
+     * @param iA - Light illumination (RGB)
+     * @param kA - Light attenuation factor
      */
-    public AmbientLight(Color Ia, Double Kad) {
-        super(Ia.scale(Kad));
+    public AmbientLight(Color iA, double kA) {
+        super(iA.scale(kA));
     }
 
 }

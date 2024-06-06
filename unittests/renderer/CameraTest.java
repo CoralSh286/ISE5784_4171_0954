@@ -8,6 +8,9 @@ import scene.Scene;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * test for camera
+ */
 class CameraTest {
 
     /**

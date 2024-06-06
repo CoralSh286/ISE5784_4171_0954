@@ -3,7 +3,6 @@ package primitives;
 /**
  * A class for a material
  */
-//stage 6
 public class Material {
     /**
      * the Diffuse light factor of the object material type
@@ -26,7 +25,7 @@ public class Material {
      * @param kD light factor (Double3)
      * @return the field
      */
-    public Material setkD(Double3 kD) {
+    public Material setKd(Double3 kD) {
         this.kD = kD;
         return this;
     }
@@ -37,7 +36,7 @@ public class Material {
      * @param kD light factor (double)
      * @return the field
      */
-    public Material setkD(double kD) {
+    public Material setKd(double kD) {
         this.kD = new Double3(kD);
         return this;
     }
@@ -48,7 +47,7 @@ public class Material {
      * @param kS light factor (Double3)
      * @return the field
      */
-    public Material setkS(Double3 kS) {
+    public Material setKs(Double3 kS) {
         this.kS = kS;
         return this;
     }
@@ -60,7 +59,7 @@ public class Material {
      * @param kS light factor (double)
      * @return the field
      */
-    public Material setkS(Double kS) {
+    public Material setKs(Double kS) {
         this.kS = new Double3(kS);
         return this;
     }
@@ -71,7 +70,7 @@ public class Material {
      * @param nShininess shininess factor of the material (int)
      * @return this (Material)
      */
-    public Material setnShininess(int nShininess) {
+    public Material setNShininess(int nShininess) {
         this.nShininess = nShininess;
         return this;
     }

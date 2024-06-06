@@ -10,11 +10,12 @@ import primitives.Vector;
  */
 public class DirectionalLight extends Light implements LightSource{
 
-    private Vector direction;
+    private final Vector direction;
 
     /**
      * constructor for the intensity
      *
+     * @param dir for the direction
      * @param color of the intensity of the source of the light
      */
     protected DirectionalLight(Color color, Vector dir) {

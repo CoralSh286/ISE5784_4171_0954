@@ -24,6 +24,7 @@ public class Camera implements Cloneable {
      *
      * @return the location of the camera
      */
+    @SuppressWarnings("unused")
     public Point getP0() {
         return p0;
     }
@@ -33,6 +34,7 @@ public class Camera implements Cloneable {
      *
      * @return the up direction of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVUp() {
         return vUp;
     }
@@ -42,6 +44,7 @@ public class Camera implements Cloneable {
      *
      * @return the direction of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVTo() {
         return vTo;
     }
@@ -51,6 +54,7 @@ public class Camera implements Cloneable {
      *
      * @return the right direction of the camera
      */
+    @SuppressWarnings("unused")
     public Vector getVRight() {
         return vRight;
     }
@@ -60,6 +64,7 @@ public class Camera implements Cloneable {
      *
      * @return the width of the view plane
      */
+    @SuppressWarnings("unused")
     public double getWidth() {
         return width;
     }
@@ -69,6 +74,7 @@ public class Camera implements Cloneable {
      *
      * @return the height of the view plane
      */
+    @SuppressWarnings("unused")
     public double getHeight() {
         return height;
     }
@@ -78,6 +84,7 @@ public class Camera implements Cloneable {
      *
      * @return the distance between the camera and the view plane
      */
+    @SuppressWarnings("unused")
     public double getDistance() {
         return distance;
     }
@@ -86,12 +93,14 @@ public class Camera implements Cloneable {
      * Camera builder
      */
     public static class Builder {
+
         private final Camera camera = new Camera();
 
         /**
          * Set the location of the camera
          *
          * @param p0 the location of the camera
+         * @return the builder object itself for chaining
          */
         public Builder setLocation(Point p0) {
             camera.p0 = p0;
@@ -105,11 +114,11 @@ public class Camera implements Cloneable {
          *            (the vector from the camera to the "look-at" point)
          * @param vUp the up direction of the camera
          *            (the vector from the camera to the up direction)
+         * @return the direction
          */
         public Builder setDirection(Vector vTo, Vector vUp) {
-            if (!Util.isZero(vTo.dotProduct(vUp))) {
+            if (!Util.isZero(vTo.dotProduct(vUp)))
                 throw new IllegalArgumentException("vTo and vUp must be orthogonal");
-            }
             camera.vTo = vTo.normalize();
             camera.vUp = vUp.normalize();
             return this;
@@ -120,11 +129,11 @@ public class Camera implements Cloneable {
          *
          * @param width  the width of the view plane
          * @param height the height of the view plane
+         * @return the size
          */
         public Builder setVpSize(double width, double height) {
-            if (width <= 0 || height <= 0) {
+            if (width <= 0 || height <= 0)
                 throw new IllegalArgumentException("width and height must be positive");
-            }
             camera.width = width;
             camera.height = height;
             return this;
@@ -134,11 +143,11 @@ public class Camera implements Cloneable {
          * Set the distance between the camera and the view plane
          *
          * @param distance the distance between the camera and the view plane
+         * @return the distance
          */
         public Builder setVPDistance(double distance) {
-            if (distance <= 0) {
+            if (distance <= 0)
                 throw new IllegalArgumentException("distance from camera to view must be positive");
-            }
             camera.distance = distance;
             return this;
         }
@@ -256,17 +265,13 @@ public class Camera implements Cloneable {
         //if not on zero coordinates add the delta distance
         // to the center of point (i,j)
         // to reach it
-        if (!Util.isZero(xj)) {
+        if (!Util.isZero(xj))
             pij = pij.add(vRight.scale(xj));
-        }
-        if (!Util.isZero(yi)) {
+        if (!Util.isZero(yi))
             pij = pij.add(vUp.scale(yi));
-        }
 
         // vector from camera's eye in the direction of point(i,j) in the view plane
-        Vector vij = pij.subtract(p0);
-
-        return new Ray(p0, vij);
+        return new Ray(p0, pij.subtract(p0));
     }
 
     /**
@@ -278,10 +283,11 @@ public class Camera implements Cloneable {
             throw new UnsupportedOperationException("Missing imageWriter");
         if (this.rayTracer == null)
             throw new UnsupportedOperationException("Missing rayTracerBase");
-
-        for (int i = 0; i < this.imageWriter.getNx(); i++) {
-            for (int j = 0; j < this.imageWriter.getNy(); j++) {
-                castRay(i,j);
+        double x = this.imageWriter.getNx();
+        double y = this.imageWriter.getNy();
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                castRay(i,j, x, y);
             }
         }
         return this;
@@ -295,8 +301,10 @@ public class Camera implements Cloneable {
      */
     public Camera printGrid(int interval, Color color) {
         //running on the view plane
-        for (int i = 0; i < imageWriter.getNx(); i++) {
-            for (int j = 0; j < imageWriter.getNy(); j++) {
+        double x = this.imageWriter.getNx();
+        double y = this.imageWriter.getNy();
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
                 //create the net
                 if (i % interval == 0 || j % interval == 0) {
                     imageWriter.writePixel(i, j, color);
@@ -318,7 +326,7 @@ public class Camera implements Cloneable {
      * @param i for the latitude index
      * @param j for the longitudinal index
      */
-    private void castRay(int i,int j){
+    private void castRay(int i, int j, double x, double y){
         Ray ray = constructRay(
                 this.imageWriter.getNx(),
                 this.imageWriter.getNy(),

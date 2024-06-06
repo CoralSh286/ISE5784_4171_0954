@@ -87,48 +87,31 @@ public class Ray {
      * @return the nearest intersection point
      */
     public Point findClosestPoint(List<Point> points) {
-        if (points == null || points.isEmpty()) return null;
+        return points == null || points.isEmpty() ? null
+                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
+    }
 
-        Point closestPoint = null;
+    /**
+     * Return the closest GeoPoint from all intersection GeoPoints
+     *
+     * @param geoPointList list of intersections
+     * @return {@link Intersectable.GeoPoint}
+     */
+    public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> geoPointList) {
+
+        Intersectable.GeoPoint closestPoint = null;
         double minDistance = Double.MAX_VALUE;
-        for (var pointInList : points) {
-            double pointDistance = this._p0.distance(pointInList);
-            if (pointDistance < minDistance) {
-                minDistance = pointDistance;
-                closestPoint = pointInList;
+        double geoPointDistance; // the distance between the "this.p0" to each point in the list
+
+        if (!geoPointList.isEmpty()) {
+            for (var geoPoint : geoPointList) {
+                geoPointDistance = this._p0.distance(geoPoint.point);
+                if (geoPointDistance < minDistance) {
+                    minDistance = geoPointDistance;
+                    closestPoint = geoPoint;
+                }
             }
         }
         return closestPoint;
     }
-
-    //stage 6
-//    public Point findClosestPoint(List<Point> points) {
-//        return points == null || points.isEmpty() ? null
-//                : findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
-//    }
-//
-//    /**
-//     * Return the closest GeoPoint from all intersection GeoPoints
-//     *
-//     * @param geoPointList list of intersections
-//     * @return {@link Intersectable.GeoPoint}
-//     */
-//    //stage 6
-//    public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> geoPointList) {
-//
-//        Intersectable.GeoPoint closestPoint = null;
-//        double minDistance = Double.MAX_VALUE;
-//        double geoPointDistance; // the distance between the "this.p0" to each point in the list
-//
-//        if (!geoPointList.isEmpty()) {
-//            for (var geoPoint : geoPointList) {
-//                geoPointDistance = this._p0.distance(geoPoint.point);
-//                if (geoPointDistance < minDistance) {
-//                    minDistance = geoPointDistance;
-//                    closestPoint = geoPoint;
-//                }
-//            }
-//        }
-//        return closestPoint;
-//    }
 }
