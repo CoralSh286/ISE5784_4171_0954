@@ -215,10 +215,10 @@ public class LightsTests {
     @Test
     public void trianglesMultipleLights() {
         scene2._geometries.add(triangle1, triangle2);
-        scene2._lights.add(new DirectionalLight(new Color(100, 300, 200), new Vector(-1, -1, -1)));
-        scene2._lights.add(new PointLight(new Color(500, 300, 0), new Point(50, -50, 25))
+        scene2._lights.add(new DirectionalLight(new Color(0, 0, 200), new Vector(-1, -1, -1)));
+        scene2._lights.add(new PointLight(new Color(500, 0, 0), new Point(30, 10, -100))
                 .setKl(0.001).setKq(0.0002));
-        scene2._lights.add(new SpotLight(new Color(600, 400, 0), new Point(-50, -50, 25), trianglesLightDirection)
+        scene2._lights.add(new SpotLight(new Color(0, 400, 0), new Point(-50, -50, -25), trianglesLightDirection)
                 .setKl(0.001).setKq(0.0001));
 
         camera2.setImageWriter(new ImageWriter("lightTrianglesMultiple", 500, 500))

@@ -4,6 +4,11 @@ package primitives;
  * A class for a material
  */
 public class Material {
+    //stage 7
+    public Double3 kT = Double3.ZERO;
+    //stage 7
+    public Double3 kR = Double3.ZERO;
+
     /**
      * the Diffuse light factor of the object material type
      */
@@ -18,6 +23,27 @@ public class Material {
      * the shininess factor of the object material type
      */
     public int nShininess = 0;
+
+    //stage 7
+    public Material setKt(Double3 kT) {
+        this.kT = kT;
+        return this;
+    }
+    //stage 7
+    public Material setKt(double kT) {
+        this.kT = new Double3(kT);
+        return this;
+    }
+    //stage 7
+    public Material setKr(Double3 kR) {
+        this.kR = kR;
+        return this;
+    }
+    //stage 7
+    public Material setKr(double kR) {
+        this.kR = new Double3(kR);
+        return this;
+    }
 
     /**
      * set KD function - the diffuse light factor

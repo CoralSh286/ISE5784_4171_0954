@@ -64,4 +64,13 @@ public abstract class Geometry extends Intersectable {
      * @return the normal vector at the point
      */
     public abstract Vector getNormal(Point point);
+
+    //stage 7
+    public Double3 getKr()    {
+        return _material.kR;
+    }
+    //stage 7
+    public Double3 getKt()    {
+        return _material.kT;
+    }
 }

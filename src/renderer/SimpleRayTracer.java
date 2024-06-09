@@ -1,6 +1,7 @@
 package renderer;
 
 import geometries.Intersectable;
+import geometries.Intersectable.GeoPoint;
 import lighting.LightSource;
 import primitives.*;
 import scene.Scene;
@@ -13,6 +14,30 @@ import static primitives.Util.alignZero;
  * A class that inherits from the RayTracerBase class and implements the method
  */
 public class SimpleRayTracer extends RayTracerBase {
+
+    //stage 7
+    private static final double DELTA = 0.1;
+
+    //stage 7
+    private boolean unshaded(GeoPoint geoPoint, LightSource light, Vector l, Vector n, double nl) {
+        Vector lightDirection = l.scale(-1);
+        Vector espVector = n.scale(nl < 0 ? DELTA : -DELTA);
+        Point point = geoPoint.point.add(espVector);
+        Ray lightRay = new Ray(point, lightDirection);
+        List<GeoPoint> intersections = _scene._geometries.findGeoIntersections(lightRay);
+        if (intersections == null || intersections.isEmpty())
+            return true;
+        double distance = light.getDistance(geoPoint.point);
+        Vector direction = light.getL(geoPoint.point).normalize();
+        for (GeoPoint geoIntersection : intersections) {
+            Vector directionIntersection = light.getL(geoIntersection.point).normalize();
+            if ((light.getDistance(geoIntersection.point) < distance) && (directionIntersection.dotProduct(direction) > 0))
+                if ((geoIntersection.geometry.getKt().equals(new Double3(0))))
+                    return false;
+        }
+        return true;
+    }
+
 
     /**
      * constructor
@@ -28,7 +53,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * Get the color of an intersection point
      *
      * @param point point of intersection
-     * @param ray for the ray
+     * @param ray   for the ray
      * @return Color of the intersection point
      */
     private Color calcColor(Intersectable.GeoPoint point, Ray ray) {
@@ -50,7 +75,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * This method calculates the local effects (diffuse and specular) of lighting at a given intersection point.
      *
      * @param intersection The intersection point and geometry information.
-     * @param ray The ray that intersects with the geometry.
+     * @param ray          The ray that intersects with the geometry.
      * @return The color result of local lighting effects.
      */
     private Color calcLocalEffects(Intersectable.GeoPoint intersection, Ray ray) {
@@ -72,9 +97,11 @@ public class SimpleRayTracer extends RayTracerBase {
             double nl = alignZero(n.dotProduct(l));
 
             if (nl * nv > 0) { // sign(nl) == sing(nv)
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                        calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                if (unshaded(intersection, lightSource, l, n, nl)) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+                }
             }
         }
         return color;
@@ -83,9 +110,9 @@ public class SimpleRayTracer extends RayTracerBase {
     /**
      * This method calculates the diffuse component of lighting at a given point.
      *
-     * @param kd The diffuse reflection coefficient.
-     * @param l The direction vector from the light source to the point.
-     * @param n The normal vector at the point.
+     * @param kd             The diffuse reflection coefficient.
+     * @param l              The direction vector from the light source to the point.
+     * @param n              The normal vector at the point.
      * @param lightIntensity The intensity of the light at the point.
      * @return The color result of the diffuse component.
      */
@@ -97,11 +124,11 @@ public class SimpleRayTracer extends RayTracerBase {
     /**
      * This method calculates the specular component of lighting at a given point.
      *
-     * @param ks The specular reflection coefficient.
-     * @param l The direction vector from the light source to the point.
-     * @param n The normal vector at the point.
-     * @param v The direction vector of the viewer (or camera).
-     * @param nShininess The shininess factor of the material.
+     * @param ks             The specular reflection coefficient.
+     * @param l              The direction vector from the light source to the point.
+     * @param n              The normal vector at the point.
+     * @param v              The direction vector of the viewer (or camera).
+     * @param nShininess     The shininess factor of the material.
      * @param lightIntensity The intensity of the light at the point.
      * @return The color result of the specular component.
      */
