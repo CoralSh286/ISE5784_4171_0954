@@ -13,6 +13,9 @@ import static primitives.Util.isZero;
  */
 public class Ray {
 
+    //stage 7
+    private static final double DELTA = 0.1;
+
     /**
      * Creating the point
      */
@@ -103,7 +106,7 @@ public class Ray {
         double minDistance = Double.MAX_VALUE;
         double geoPointDistance; // the distance between the "this.p0" to each point in the list
 
-        if (!geoPointList.isEmpty()) {
+        if ( geoPointList != null && !geoPointList.isEmpty() ) {
             for (var geoPoint : geoPointList) {
                 geoPointDistance = this._p0.distance(geoPoint.point);
                 if (geoPointDistance < minDistance) {
@@ -113,5 +116,19 @@ public class Ray {
             }
         }
         return closestPoint;
+    }
+
+    //stage 7
+    /**
+     * Constructor to initialize ray
+     *
+     * @param p0  point of the ray
+     * @param n   normal vector
+     * @param dir direction vector of the ray
+     */
+    public Ray(Point p0, Vector dir, Vector n) {
+        double delta = dir.dotProduct(n) >= 0 ? DELTA : -DELTA;
+        this._p0 = p0.add(n.scale(delta));
+        this._dir = dir;
     }
 }
