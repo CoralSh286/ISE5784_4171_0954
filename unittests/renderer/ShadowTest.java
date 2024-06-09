@@ -11,6 +11,7 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
+
 /** Testing basic shadows
  * @author Dan */
 public class ShadowTest {
