@@ -2,13 +2,19 @@ package lighting;
 import primitives.*;
 
 import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
 
 /**
  * SpotLight class represents a spot light in the scene
  */
 public class SpotLight extends PointLight {
     private final Vector direction;
+
+    private double narrowBeam;
+
+    public LightSource setNarrowBeam(double _narrowBeam){
+        this.narrowBeam = _narrowBeam;
+        return this;
+    }
 
     /**
      * SpotLight constructor
@@ -21,11 +27,19 @@ public class SpotLight extends PointLight {
         this.direction = direction.normalize();
     }
 
+//    @Override
+//    public Color getIntensity(Point p) {
+//        double cos = alignZero(direction.dotProduct(getL(p)));
+//        if (isZero(cos)||cos<0) return Color.BLACK;
+//        return super.getIntensity().scale(cos);
+//    }
+
     @Override
     public Color getIntensity(Point p) {
         double cos = alignZero(direction.dotProduct(getL(p)));
-        if (isZero(cos)||cos<0) return Color.BLACK;
-        return super.getIntensity().scale(cos);
+        return narrowBeam != 1
+                ? super.getIntensity(p).scale(Math.pow(Math.max(0, direction.dotProduct(getL(p))), narrowBeam))
+                : super.getIntensity(p).scale(Math.max(0, direction.dotProduct(getL(p))));
     }
 
     /**
