@@ -95,7 +95,7 @@ public class Json {
             JsonArray jsonArray = new JsonArray();
             try {
                 // Access the private field "Geometry" of the Geometries object using reflection
-                Field geometryField = Geometries.class.getDeclaredField("Geometry");
+                Field geometryField = Geometries.class.getDeclaredField("_intersectables");
                 geometryField.setAccessible(true);
                 List<Intersectable> geometries = (List<Intersectable>) geometryField.get(src);
 
@@ -160,7 +160,7 @@ public class Json {
             Geometries geometriesObject = new Geometries();
             try {
                 // Set the private field "Geometry"
-                Field geometryField = Geometries.class.getDeclaredField("Geometry");
+                Field geometryField = Geometries.class.getDeclaredField("_intersectables");
                 geometryField.setAccessible(true);
                 geometryField.set(geometriesObject, geometries);
             } catch (NoSuchFieldException | IllegalAccessException e) {

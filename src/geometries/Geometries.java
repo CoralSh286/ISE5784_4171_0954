@@ -42,22 +42,6 @@ public class Geometries extends Intersectable {
         Collections.addAll(_intersectables, geometries);
     }
 
-//    @Override
-//    public List<Point> findIntersections(Ray ray) {
-//        LinkedList<Point> points = null;
-//        for (var geometry : _intersectables) {
-//            var geometryList = geometry.findIntersections(ray);
-//            if (geometryList != null) {
-//                if (points == null) {
-//                    points = new LinkedList<>();
-//                }
-//                points.addAll(geometryList);
-//            }
-//        }
-//        return points;
-//    }
-
-    //stage 6
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         List<GeoPoint> points = null;
