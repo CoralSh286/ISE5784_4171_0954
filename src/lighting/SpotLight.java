@@ -11,6 +11,11 @@ public class SpotLight extends PointLight {
 
     private double narrowBeam;
 
+    /**
+     * for field initialization
+     * @param _narrowBeam the parameter
+     * @return the field
+     */
     public LightSource setNarrowBeam(double _narrowBeam){
         this.narrowBeam = _narrowBeam;
         return this;
@@ -26,13 +31,6 @@ public class SpotLight extends PointLight {
         super(intensity, position);
         this.direction = direction.normalize();
     }
-
-//    @Override
-//    public Color getIntensity(Point p) {
-//        double cos = alignZero(direction.dotProduct(getL(p)));
-//        if (isZero(cos)||cos<0) return Color.BLACK;
-//        return super.getIntensity().scale(cos);
-//    }
 
     @Override
     public Color getIntensity(Point p) {

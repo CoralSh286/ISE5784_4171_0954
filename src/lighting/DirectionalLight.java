@@ -4,7 +4,7 @@ import primitives.Color;
 import primitives.Point;
 import primitives.Vector;
 
-//stage 6
+
 /**
  * A class for DirectionalLight
  */

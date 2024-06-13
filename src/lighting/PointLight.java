@@ -35,7 +35,6 @@ public class PointLight extends Light implements LightSource{
         return p.subtract(position).normalize();
     }
 
-    //----------------- setters-----------------
 
     /**
      * Set the constant attenuation factor

@@ -5,8 +5,14 @@ package primitives;
  */
 public class Material {
     //stage 7
+    /**
+     * for the attenuation coefficient
+     */
     public Double3 kT = Double3.ZERO;
     //stage 7
+    /**
+     * for the attenuation coefficient
+     */
     public Double3 kR = Double3.ZERO;
 
     /**
@@ -25,21 +31,44 @@ public class Material {
     public int nShininess = 0;
 
     //stage 7
+    /**
+     * for field initialization
+     * @param kT the parameter
+     * @return the field
+     */
     public Material setKt(Double3 kT) {
         this.kT = kT;
         return this;
     }
+
     //stage 7
+    /**
+     * for field initialization
+     * @param kT the parameter from double type
+     * @return the field
+     */
     public Material setKt(double kT) {
         this.kT = new Double3(kT);
         return this;
     }
     //stage 7
+
+    /**
+     * for field initialization
+     * @param kR the parameter
+     * @return the field
+     */
     public Material setKr(Double3 kR) {
         this.kR = kR;
         return this;
     }
+
     //stage 7
+    /**
+     * for field initialization
+     * @param kR the parameter from type double
+     * @return the field
+     */
     public Material setKr(double kR) {
         this.kR = new Double3(kR);
         return this;
