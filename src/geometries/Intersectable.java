@@ -15,23 +15,25 @@ public abstract class Intersectable {
      * @param ray {@link Ray} pointing toward the object
      * @return list of intersection Point between the ray and the object
      */
-    public List<Point> findIntersections(Ray ray) {
+    public final List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null : geoList.stream().map(gp -> gp.point).toList();
     }
 
     /**
      * Returns intersection points with the bodies
+     *
      * @param ray from the camera
      * @return list of intersection points
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);
     }
 
     /**
      * Returns intersection points with the bodies
-     * @param ray  from the camera
+     *
+     * @param ray from the camera
      * @return list of intersection points
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
@@ -54,8 +56,9 @@ public abstract class Intersectable {
 
         /**
          * constructor
+         *
          * @param geometry for a geometry
-         * @param point for a point
+         * @param point    for a point
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;

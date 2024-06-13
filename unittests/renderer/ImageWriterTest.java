@@ -8,13 +8,17 @@ import primitives.Color;
  */
 class ImageWriterTest {
 
-    /** ==== the resolution width of the view plane - ===== */
+    /**
+     * ==== the resolution width of the view plane - =====
+     */
     private static final int nX = 801;
-    /** ==== the resolution height of the view plane - ===== */
+    /**
+     * ==== the resolution height of the view plane - =====
+     */
     private static final int nY = 501;
 
     /**
-     * Yellow is a combination of red & green (for the yellow Square)
+     * Yellow is a combination of red &amp; green (for the yellow Square)
      */
     Color yellowColor = new Color(255d, 255d, 0d);
     /**

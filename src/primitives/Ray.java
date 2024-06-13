@@ -1,4 +1,5 @@
 package primitives;
+
 import geometries.Intersectable.GeoPoint;
 import geometries.Intersectable;
 
@@ -13,7 +14,6 @@ import static primitives.Util.isZero;
  */
 public class Ray {
 
-    //stage 7
     private static final double DELTA = 0.1;
 
     /**
@@ -100,13 +100,13 @@ public class Ray {
      * @param geoPointList list of intersections
      * @return {@link Intersectable.GeoPoint}
      */
-    public Intersectable.GeoPoint findClosestGeoPoint(List<Intersectable.GeoPoint> geoPointList) {
+    public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
 
         Intersectable.GeoPoint closestPoint = null;
         double minDistance = Double.MAX_VALUE;
         double geoPointDistance; // the distance between the "this.p0" to each point in the list
 
-        if ( geoPointList != null && !geoPointList.isEmpty() ) {
+        if (geoPointList != null && !geoPointList.isEmpty()) {
             for (var geoPoint : geoPointList) {
                 geoPointDistance = this._p0.distance(geoPoint.point);
                 if (geoPointDistance < minDistance) {
@@ -118,13 +118,13 @@ public class Ray {
         return closestPoint;
     }
 
-    //stage 7
+
     /**
      * Constructor to initialize ray
      *
      * @param p0  point of the ray
      * @param n   normal vector
-     * @param dir direction vector of the ray
+     * @param dir direction vector of the ray - it must be normalized when calling this constructor!
      */
     public Ray(Point p0, Vector dir, Vector n) {
         double delta = dir.dotProduct(n) >= 0 ? DELTA : -DELTA;

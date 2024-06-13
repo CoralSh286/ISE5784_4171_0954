@@ -1,0 +1,21 @@
+{
+  "_lights": [],
+  "_name": "Test scene",
+  "_background": {
+    "rgb": {
+      "d1": 75.0,
+      "d2": 127.0,
+      "d3": 90.0
+    }
+  },
+  "_ambientLight": {
+    "intensity": {
+      "rgb": {
+        "d1": 255.0,
+        "d2": 191.0,
+        "d3": 191.0
+      }
+    }
+  },
+  "_geometries": []
+}

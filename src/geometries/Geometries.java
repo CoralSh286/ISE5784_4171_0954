@@ -60,17 +60,19 @@ public class Geometries extends Intersectable {
     //stage 6
     @Override
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> points = new LinkedList<>();
+        List<GeoPoint> points = null;
 
         //go threw all the geometries and add their intersections
         for (var geometry : _intersectables) {
-            List<GeoPoint> currentIntersection = geometry.findGeoIntersections(ray);
-            if(currentIntersection != null) //no intersection was found
-                points.addAll(currentIntersection);
+            var currentIntersection = geometry.findGeoIntersections(ray);
+            if (currentIntersection != null) {
+                if (points == null)
+                    points = new LinkedList<>(currentIntersection);
+                else
+                    points.addAll(currentIntersection);
+            }
         }
 
-        if(points.isEmpty())
-            return null;
         return points;
     }
 

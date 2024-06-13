@@ -2,6 +2,7 @@
 package renderer;
 
 import primitives.*;
+
 import java.util.MissingResourceException;
 
 /**
@@ -190,7 +191,7 @@ public class Camera implements Cloneable {
             if (camera.vTo == null)
                 throw new MissingResourceException(className, description, "vTo");
             if (camera.rayTracer == null)
-                 throw new MissingResourceException(className, description, "imageWriter");
+                throw new MissingResourceException(className, description, "imageWriter");
             if (camera.imageWriter == null)
                 throw new MissingResourceException(className, description, "rayTracer");
             if (Util.alignZero(camera.width) == 0d)
@@ -276,6 +277,7 @@ public class Camera implements Cloneable {
 
     /**
      * Casts a ray for each pixel
+     *
      * @return a camera
      */
     public Camera renderImage() {
@@ -283,11 +285,11 @@ public class Camera implements Cloneable {
             throw new UnsupportedOperationException("Missing imageWriter");
         if (this.rayTracer == null)
             throw new UnsupportedOperationException("Missing rayTracerBase");
-        double x = this.imageWriter.getNx();
-        double y = this.imageWriter.getNy();
+        int x = this.imageWriter.getNx();
+        int y = this.imageWriter.getNy();
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                castRay(i,j, x, y);
+                castRay(i, j, x, y);
             }
         }
         return this;
@@ -295,8 +297,9 @@ public class Camera implements Cloneable {
 
     /**
      * Creates a network of lines
+     *
      * @param interval for the amount of pixels in a square
-     * @param color for the color
+     * @param color    for the color
      * @return A camera type object
      */
     public Camera printGrid(int interval, Color color) {
@@ -323,13 +326,15 @@ public class Camera implements Cloneable {
 
     /**
      * Creates a beam through the center of the pixel
-     * @param i for the latitude index
-     * @param j for the longitudinal index
+     * @param i i for the latitude index
+     * @param j j for the longitudinal index
+     * @param x for the position on the x-axis
+     * @param y for the position on the y-axis
      */
-    private void castRay(int i, int j, double x, double y){
+    private void castRay(int i, int j, int x, int y) {
         Ray ray = constructRay(
-                this.imageWriter.getNx(),
-                this.imageWriter.getNy(),
+                x,
+                y,
                 j,
                 i);
         this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(ray));

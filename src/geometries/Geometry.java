@@ -10,7 +10,7 @@ public abstract class Geometry extends Intersectable {
     /**
      * field for emission lighting
      */
-    protected Color _emission = Color.BLACK;
+    private Color _emission = Color.BLACK;
 
     /**
      * the material the geometry has made of
@@ -69,18 +69,20 @@ public abstract class Geometry extends Intersectable {
 
     /**
      * for field initialization
+     *
      * @return the field
      */
-    public Double3 getKr()    {
+    public Double3 getKr() {
         return _material.kR;
     }
     //stage 7
 
     /**
      * for field initialization
+     *
      * @return the field
      */
-    public Double3 getKt()    {
+    public Double3 getKt() {
         return _material.kT;
     }
 }

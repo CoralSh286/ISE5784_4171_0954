@@ -32,7 +32,7 @@ public class Tube extends RadialGeometry {
         Point p0 = _ray.getP0();
         double projection = tubeCenterVector.dotProduct(point.subtract(p0));
         // Calculating O when O is a point on direction tube vector (o = p0 + proj * v)//
-        Point tubeCenterPoint = isZero(projection) ? p0 : p0.add(tubeCenterVector.scale(projection));
+        Point tubeCenterPoint = _ray.getPoint(projection);
         //Calculate the normal
         return point.subtract(tubeCenterPoint).normalize();
     }

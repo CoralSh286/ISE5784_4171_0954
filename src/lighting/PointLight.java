@@ -1,19 +1,21 @@
 package lighting;
+
 import primitives.*;
 
 /**
  * PointLight class represents a point light in the scene
  */
-public class PointLight extends Light implements LightSource{
+public class PointLight extends Light implements LightSource {
     private final Point position;
-    private double kc=1;
-    private double kl=0;
-    private double kq=0;
+    private double kc = 1;
+    private double kl = 0;
+    private double kq = 0;
 
     /**
      * PointLight constructor
+     *
      * @param intensity the intensity of the light
-     * @param position the position of the light
+     * @param position  the position of the light
      */
     public PointLight(Color intensity, Point position) {
         super(intensity);
@@ -23,21 +25,17 @@ public class PointLight extends Light implements LightSource{
     @Override
     public Color getIntensity(Point p) {
         double d = position.distance(p);
-        return getIntensity().scale(1/(kc+kl*d+kq*d*d));
+        return getIntensity().scale(1 / (kc + kl * d + kq * d * d));
     }
 
     @Override
     public Vector getL(Point p) {
-        // if the point is the same as the light source, return null
-        if (p.equals(position))
-            return null;
-        // otherwise, return the normalized vector from the light source to the point
-        return p.subtract(position).normalize();
+        return p.equals(position) ? null : p.subtract(position).normalize();
     }
-
 
     /**
      * Set the constant attenuation factor
+     *
      * @param kc the constant attenuation factor
      * @return kc
      */
@@ -48,6 +46,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Set the linear attenuation factor
+     *
      * @param kl the linear attenuation factor
      * @return kl
      */
@@ -58,6 +57,7 @@ public class PointLight extends Light implements LightSource{
 
     /**
      * Set the quadratic attenuation factor
+     *
      * @param kq the quadratic attenuation factor
      * @return kq
      */
@@ -72,3 +72,5 @@ public class PointLight extends Light implements LightSource{
         return point.distance(position);
     }
 }
+
+

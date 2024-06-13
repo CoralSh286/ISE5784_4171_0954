@@ -20,6 +20,7 @@ public class Scene {
 
     /**
      * A method for updating the field
+     *
      * @param lights the list
      * @return the field
      */

@@ -2,6 +2,7 @@ package renderer;
 
 import static java.awt.Color.*;
 
+import GSON.Json;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
@@ -10,8 +11,11 @@ import primitives.*;
 import renderer.*;
 import scene.Scene;
 
-/** Test rendering a basic image
- * @author Dan */
+/**
+ * Test rendering a basic image
+ *
+ * @author Dan
+ */
 public class RenderTests {
     /**
      * Scene of the tests
@@ -22,7 +26,7 @@ public class RenderTests {
      */
     private final Camera.Builder camera = Camera.getBuilder()
             .setRayTracer(new SimpleRayTracer(scene))
-            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1),  new Vector(0,1, 0))
+            .setLocation(Point.ZERO).setDirection(new Vector(0, 0, -1), new Vector(0, 1, 0))
             .setVPDistance(100)
             .setVpSize(500, 500);
 
@@ -43,7 +47,7 @@ public class RenderTests {
                         // left
                         new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down
 
-                // right
+        // right
         camera
                 .setImageWriter(new ImageWriter("base render test", 1000, 1000))
                 .build()
@@ -53,6 +57,7 @@ public class RenderTests {
     }
 
     // For stage 6 - please disregard in stage 5
+
     /**
      * Produce a scene with basic 3D model - including individual lights of the
      * bodies and render it into a png image with a grid
@@ -80,16 +85,46 @@ public class RenderTests {
                 .writeToImage();
     }
 
-    /** Test for XML based scene - for bonus */
-    @Test
-    public void basicRenderXml() {
-        // enter XML file name and parse from XML file into scene object
-        // using the code you added in appropriate packages
-        // ...
-        // NB: unit tests is not the correct place to put XML parsing code
+//    /**
+//     * Test for XML based scene - for bonus
+//     */
+//    @Test
+//    public void basicRenderXml() {
+//        // enter XML file name and parse from XML file into scene object
+//        // using the code you added in appropriate packages
+//        // ...
+//        // NB: unit tests is not the correct place to put XML parsing code
+//
+//        camera
+//                .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
+//                .build()
+//                .renderImage()
+//                .printGrid(100, new Color(YELLOW))
+//                .writeToImage();
+//    }
 
-        camera
-                .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
+    /**
+     * Test for JSON-based scene - for bonus.
+     */
+    @Test
+    public void basicRenderJson() {
+        // Create the scene with geometries and lights
+        scene._geometries.add(new Sphere(new Point(0, 0, -100), 50d),
+                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up left
+                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down left
+                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down right
+        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
+                .setBackground(new Color(75, 127, 90));
+
+        // Write the scene to a JSON file
+        Json.write(scene, "SceneTests.json");
+
+        // Read the scene from the JSON file
+        Scene scen = Json.read("SceneTests.json");
+
+        // Render the image from the loaded scene
+        camera.setRayTracer(new SimpleRayTracer(scen))
+                .setImageWriter(new ImageWriter("json render test", 1000, 1000))
                 .build()
                 .renderImage()
                 .printGrid(100, new Color(YELLOW))

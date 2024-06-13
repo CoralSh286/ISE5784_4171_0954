@@ -31,8 +31,10 @@ public class Material {
     public int nShininess = 0;
 
     //stage 7
+
     /**
      * for field initialization
+     *
      * @param kT the parameter
      * @return the field
      */
@@ -42,8 +44,10 @@ public class Material {
     }
 
     //stage 7
+
     /**
      * for field initialization
+     *
      * @param kT the parameter from double type
      * @return the field
      */
@@ -55,6 +59,7 @@ public class Material {
 
     /**
      * for field initialization
+     *
      * @param kR the parameter
      * @return the field
      */
@@ -64,8 +69,10 @@ public class Material {
     }
 
     //stage 7
+
     /**
      * for field initialization
+     *
      * @param kR the parameter from type double
      * @return the field
      */

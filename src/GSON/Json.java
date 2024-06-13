@@ -101,7 +101,6 @@ public class Json {
 
                 // Serialize each Intersectable object and add the type property
                 for (Intersectable intersectable : geometries) {
-
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("type", intersectable.getClass().getSimpleName());
                     jsonObject.add("attributes", context.serialize(intersectable));
