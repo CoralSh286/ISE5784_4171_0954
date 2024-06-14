@@ -168,86 +168,123 @@ public class ReflectionRefractionTests {
                 .writeToImage();
     }
 
-    /** Produce a picture with more than 10 different geometries demonstrating all implemented features and effects */
-    @Test
-    public void impressiveScene() {
-        scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
-
-        // Transparent spheres
-        scene._geometries.add(
-                new Sphere(new Point(-60, -10, -100), 20d).setEmission(new Color(0, 50, 255))
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100).setKt(0.6)),
-                new Sphere(new Point(60, -10, -100), 20d).setEmission(new Color(50, 50, 100))
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100).setKt(0.5))
-        );
-
-        // Reflective spheres
-        scene._geometries.add(
-                new Sphere(new Point(60, 20, -150), 25d).setEmission(new Color(80, 80, 80))
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100).setKr(0.7)),
-                new Sphere(new Point(-60, 20, -150), 25d).setEmission(new Color(100, 100, 100))
-                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100).setKr(0.5))
-        );
-
-        // Colored spheres
-        scene._geometries.add(
-                new Sphere(new Point(0, 50, -100), 15d).setEmission(new Color(200, 0, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100)),
-                new Sphere(new Point(-70, -50, -80), 15d).setEmission(new Color(0, 200, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100)),
-                new Sphere(new Point(70, -50, -80), 15d).setEmission(new Color(0, 0, 200))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100)),
-                new Sphere(new Point(0, -60, -50), 10d).setEmission(new Color(200, 200, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100))
-        );
-
-        // Floor triangles for reflection and shadows
-        scene._geometries.add(
-                new Triangle(new Point(-100, -100, -150), new Point(100, -100, -150), new Point(0, 50, -150))
-                        .setEmission(new Color(30, 30, 30))
-                        .setMaterial(new Material().setKr(0.8).setKd(0.5).setKs(0.5).setNShininess(60)),
-                new Triangle(new Point(100, -100, -150), new Point(100, 50, -150), new Point(0, 50, -150))
-                        .setEmission(new Color(30, 30, 30))
-                        .setMaterial(new Material().setKr(0.8).setKd(0.5).setKs(0.5).setNShininess(60)),
-                new Triangle(new Point(-100, -100, -150), new Point(-100, 50, -150), new Point(0, 50, -150))
-                        .setEmission(new Color(30, 30, 30))
-                        .setMaterial(new Material().setKr(0.8).setKd(0.5).setKs(0.5).setNShininess(60))
-        );
-
-        // Additional geometries
-        scene._geometries.add(
-                new Sphere(new Point(20, 70, -50), 10d).setEmission(new Color(255, 0, 255))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKt(0.4)),
-                new Sphere(new Point(-70, 50, -150), 20d).setEmission(new Color(0, 255, 255))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.3)),
-                new Sphere(new Point(70, 70, -200), 25d).setEmission(new Color(255, 165, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.3)),
-                new Sphere(new Point(-20, 90, -50), 10d).setEmission(new Color(0, 100, 0))
-                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKt(0.4))
-        );
-
-        // Lights
-        scene._lights.add(
-                new SpotLight(new Color(700, 400, 400), new Point(-50, 50, 50), new Vector(-1, -1, -2))
-                        .setKl(0.0001).setKq(0.000005));
-        scene._lights.add(
-                new PointLight(new Color(400, 300, 300), new Point(50, 50, 50))
-                        .setKl(0.0005).setKq(0.0005));
-        scene._lights.add(
-                new SpotLight(new Color(500, 500, 1000), new Point(0, 100, 50), new Vector(0, -1, -1))
-                        .setKl(0.0002).setKq(0.0001));
-        scene._lights.add(
-                new SpotLight(new Color(1000, 1000, 1000), new Point(100, 100, 100), new Vector(-1, -1, -2))
-                        .setKl(0.0001).setKq(0.000005));
-
-        // Camera setup
-        cameraBuilder.setLocation(new Point(0, 0, 500))
-                .setVPDistance(500)
-                .setVpSize(200, 200)
-                .setImageWriter(new ImageWriter("impressiveScene", 600, 600))
-                .build()
-                .renderImage()
-                .writeToImage();
-    }
+//    /** Produce a picture of Newton's cradle with spheres and strings */
+//    @Test
+//    public void newtonsCradle() {
+//        scene._geometries.add(
+//                // Newton's cradle balls
+//                new Sphere(new Point(240, 0, 150), 60).setEmission(new Color(DARK_GRAY))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.5)),
+//                new Sphere(new Point(120, 0, 150), 60).setEmission(new Color(DARK_GRAY))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.5)),
+//                new Sphere(new Point(0, 0, 150), 60).setEmission(new Color(DARK_GRAY))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.5)),
+//                new Sphere(new Point(-120, 0, 150), 60).setEmission(new Color(DARK_GRAY))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.5)),
+//                new Sphere(new Point(-240, 0, 150), 60).setEmission(new Color(DARK_GRAY))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(100).setKr(0.5)),
+//
+//                // Strings
+//                new Triangle(new Point(240, 0, 500), new Point(240, 0, 150), new Point(120, 0, 150))
+//                        .setEmission(new Color(BLACK))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(900)),
+//                new Triangle(new Point(120, 0, 500), new Point(120, 0, 150), new Point(0, 0, 150))
+//                        .setEmission(new Color(BLACK))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(900)),
+//                new Triangle(new Point(0, 0, 500), new Point(0, 0, 150), new Point(-120, 0, 150))
+//                        .setEmission(new Color(BLACK))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(900)),
+//                new Triangle(new Point(-120, 0, 500), new Point(-120, 0, 150), new Point(-240, 0, 150))
+//                        .setEmission(new Color(BLACK))
+//                        .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(900))
+//        );
+//
+//        scene.setAmbientLight(new AmbientLight(new Color(BLUE), new Double3(0.15)));
+//        scene._lights.add(new SpotLight(new Color(255, 215, 0), new Point(-400, 1000, 1500), new Vector(400, -1000, -1500))
+//                .setKl(1E-5).setKq(1.5E-7).setSharp(3));
+//
+//        cameraBuilder.setLocation(new Point(0, 10000, 5200)).setVPDistance(13900.13562)
+//                .setVpSize(3000, 3000)
+//                .setImageWriter(new ImageWriter("newtonsCradle", 500, 500))
+//                .build()
+//                .renderImage()
+//                .writeToImage();
+//    }
+//
+//    /** Produce a picture of 32 spheres with light */
+//    @Test
+//    public void spheres32() {
+//        scene.setBackground(new Color(65, 105, 225));
+//        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
+//
+//        Color c = new Color(0, 0, 0);
+//        int x = -150;
+//        int z = 100;
+//        for (int j = 0; j < 4; j++) {
+//            x = -150;
+//            for (int i = 0; i < 4; i++) {
+//                scene._geometries.add(new Sphere(new Point(x, 70, z), 50).setEmission(c)
+//                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100)));
+//                x += 100;
+//            }
+//
+//            x = -150;
+//            for (int i = 0; i < 4; i++) {
+//                scene._geometries.add(new Sphere(new Point(x, 170, z), 50).setEmission(c)
+//                        .setMaterial(new Material().setKd(0.2).setKs(0.2).setNShininess(100)));
+//                x += 100;
+//            }
+//            z -= 100;
+//        }
+//
+//        scene._lights.addAll(List.of(
+//                new PointLight(new Color(0, 50, 200), new Point(-200, -200, -150)).setKl(0.00001).setKq(0.000001),
+//                new SpotLight(new Color(0, 50, 200), new Point(200, -200, -150), new Vector(-1, 1, 4))
+//                        .setKl(0.00001).setKq(0.000005)));
+//
+//        cameraBuilder.setLocation(new Point(0, -620, -800)).setVPDistance(1000)
+//                .setVpSize(200, 200)
+//                .setImageWriter(new ImageWriter("spheres32", 600, 600))
+//                .build()
+//                .renderImage()
+//                .writeToImage();
+//    }
+//
+//    /** Produce a picture of 10 squares with random colors and additional shapes */
+//    @Test
+//    public void tenSquares() {
+//        scene.setBackground(new Color(65, 105, 225));
+//        scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
+//
+//        int x = -200;
+//        int y = -200;
+//        for (int i = 0; i < 10; i++) {
+//            scene._geometries.add(new Polygon(new Point(x, y, 0), new Point(x + 50, y, 0), new Point(x + 50, y + 50, 0), new Point(x, y + 50, 0))
+//                    .setEmission(new Color(java.awt.Color.getHSBColor((float) Math.random(), 1, 1)))
+//                    .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)));
+//            x += 100;
+//            if (x > 200) {
+//                x = -200;
+//                y += 100;
+//            }
+//        }
+//
+//        scene._geometries.add(new Triangle(new Point(100, 100, 0), new Point(150, 200, 0), new Point(200, 100, 0))
+//                .setEmission(new Color(GREEN))
+//                .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)));
+//        scene._geometries.add(new Sphere(new Point(-100, -100, 50), 30)
+//                .setEmission(new Color(RED))
+//                .setMaterial(new Material().setKd(0.5).setKs(0.5).setNShininess(30)));
+//
+//        scene._lights.add(new PointLight(new Color(255, 215, 0), new Point(0, -200, -100))
+//                .setKl(0.0005).setKq(0.00005));
+//
+//        cameraBuilder.setLocation(new Point(0, -620, -800)).setVPDistance(1000)
+//                .setVpSize(200, 200)
+//                .setImageWriter(new ImageWriter("tenSquares", 600, 600))
+//                .build()
+//                .renderImage()
+//                .writeToImage();
+//    }
 
 }

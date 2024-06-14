@@ -4,6 +4,7 @@ import primitives.*;
 
 import java.util.List;
 
+import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
@@ -42,4 +43,5 @@ public class Tube extends RadialGeometry {
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         return null;
     }
+
 }

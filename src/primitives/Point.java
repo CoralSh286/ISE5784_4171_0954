@@ -1,5 +1,7 @@
 package primitives;
 
+import static primitives.Util.random;
+
 /**
  * A class which represents a point in 3D Euclidean coordinate system
  */
@@ -94,4 +96,6 @@ public class Point {
     public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));
     }
+
+
 }
