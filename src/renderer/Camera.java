@@ -328,17 +328,14 @@ public class Camera implements Cloneable {
 
     /**
      * Creates a beam through the center of the pixel
+     *
      * @param i i for the latitude index
-     * @param j j for the longitudinal index
-     * @param x for the position on the x-axis
-     * @param y for the position on the y-axis
+     * @param j j for the longitude index
+     * @param x num of pixels on the x-axis
+     * @param y num of pixels on the y-axis
      */
     private void castRay(int i, int j, int x, int y) {
-        Ray ray = constructRay(
-                x,
-                y,
-                j,
-                i);
+        Ray ray = constructRay(x, y, j, i);
         this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(ray));
     }
 

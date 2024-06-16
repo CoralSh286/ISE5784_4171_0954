@@ -2,13 +2,12 @@ package renderer;
 
 import static java.awt.Color.*;
 
-import GSON.Json;
+import scene.Json;
 import org.junit.jupiter.api.Test;
 
 import geometries.*;
 import lighting.AmbientLight;
 import primitives.*;
-import renderer.*;
 import scene.Scene;
 
 /**
@@ -85,45 +84,16 @@ public class RenderTests {
                 .writeToImage();
     }
 
-//    /**
-//     * Test for XML based scene - for bonus
-//     */
-//    @Test
-//    public void basicRenderXml() {
-//        // enter XML file name and parse from XML file into scene object
-//        // using the code you added in appropriate packages
-//        // ...
-//        // NB: unit tests is not the correct place to put XML parsing code
-//
-//        camera
-//                .setImageWriter(new ImageWriter("xml render test", 1000, 1000))
-//                .build()
-//                .renderImage()
-//                .printGrid(100, new Color(YELLOW))
-//                .writeToImage();
-//    }
-
     /**
      * Test for JSON-based scene - for bonus.
      */
     @Test
     public void basicRenderJson() {
-        // Create the scene with geometries and lights
-        scene._geometries.add(new Sphere(new Point(0, 0, -100), 50d),
-                new Triangle(new Point(-100, 0, -100), new Point(0, 100, -100), new Point(-100, 100, -100)), // up left
-                new Triangle(new Point(-100, 0, -100), new Point(0, -100, -100), new Point(-100, -100, -100)), // down left
-                new Triangle(new Point(100, 0, -100), new Point(0, -100, -100), new Point(100, -100, -100))); // down right
-        scene.setAmbientLight(new AmbientLight(new Color(255, 191, 191), Double3.ONE))
-                .setBackground(new Color(75, 127, 90));
-
-        // Write the scene to a JSON file
-        Json.write(scene, "SceneTests.json");
-
         // Read the scene from the JSON file
-        Scene scen = Json.read("SceneTests.json");
+        Scene scene = Json.read("SceneTests.json");
 
         // Render the image from the loaded scene
-        camera.setRayTracer(new SimpleRayTracer(scen))
+        camera.setRayTracer(new SimpleRayTracer(scene))
                 .setImageWriter(new ImageWriter("json render test", 1000, 1000))
                 .build()
                 .renderImage()

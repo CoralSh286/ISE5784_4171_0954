@@ -1,9 +1,8 @@
-package GSON;
+package scene;
 
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import geometries.*;
-import scene.Scene;
 
 import java.io.File;
 import java.io.FileReader;
@@ -11,7 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,7 +27,7 @@ public class Json {
      */
     public static void write(Scene scene, String fileName) {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Geometries.class, new GSON.Json.GeometriesAdapter())
+                .registerTypeAdapter(Geometries.class, new Json.GeometriesAdapter())
                 .setPrettyPrinting()
                 .create();
 
@@ -56,7 +55,7 @@ public class Json {
      */
     public static Scene read(String fileName) {
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(Geometries.class, new GSON.Json.GeometriesAdapter())
+                .registerTypeAdapter(Geometries.class, new Json.GeometriesAdapter())
                 .create();
 
         // Check if the file exists
@@ -124,37 +123,24 @@ public class Json {
         @Override
         public Geometries deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
             JsonArray jsonArray = json.getAsJsonArray();
-            List<Intersectable> geometries = new ArrayList<>();
+            List<Intersectable> geometries = new LinkedList<>();
             for (JsonElement element : jsonArray) {
                 JsonObject jsonObject = element.getAsJsonObject();
                 String type = jsonObject.get("type").getAsString();
                 JsonElement attributes = jsonObject.get("attributes");
-                Intersectable intersectable = null;
-
                 // Deserialize based on the type property
-                switch (type) {
-                    case "Sphere":
-                        intersectable = context.deserialize(attributes, Sphere.class);
-                        break;
-                    case "Triangle":
-                        intersectable = context.deserialize(attributes, Triangle.class);
-                        break;
-                    case "Cylinder":
-                        intersectable = context.deserialize(attributes, Cylinder.class);
-                        break;
-                    case "Tube":
-                        intersectable = context.deserialize(attributes, Tube.class);
-                        break;
-                    case "Polygon":
-                        intersectable = context.deserialize(attributes, Polygon.class);
-                        break;
-                    case "Plane":
-                        intersectable = context.deserialize(attributes, Plane.class);
-                        break;
-                }
-                if (intersectable != null) {
-                    geometries.add(intersectable);
-                }
+                Intersectable body = context.deserialize(attributes, switch (type) {
+                    case "Sphere" ->  Sphere.class;
+                    case "Triangle" -> Triangle.class;
+                    case "Cylinder" -> Cylinder.class;
+                    case "Tube" -> Tube.class;
+                    case "Polygon" -> Polygon.class;
+                    case "Plane" -> Plane.class;
+                    default -> null;
+                });
+
+                if (body != null)
+                    geometries.add(body);
             }
 
             Geometries geometriesObject = new Geometries();
