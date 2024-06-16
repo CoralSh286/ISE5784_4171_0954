@@ -113,10 +113,11 @@ public class SimpleRayTracer extends RayTracerBase {
 
     @Override
     public Color traceRay(Ray ray) {
-        var intersections = this._scene._geometries.findGeoIntersections(ray);
-        return intersections == null
-                ? this._scene._background
-                : calcColor(ray.findClosestGeoPoint(intersections), ray);
+        var point = this.findClosestIntersection(ray);
+        if (point == null) {
+            return _scene._background;
+        }
+        return calcColor(point, ray);
     }
 
     /**
@@ -151,45 +152,6 @@ public class SimpleRayTracer extends RayTracerBase {
         return color;
     }
 
-//    /**
-//     * Calculates the global effects (reflection and refraction) at a given intersection point.
-//     *
-//     * @param gp    The intersection point.
-//     * @param ray   The ray that intersected with the geometry.
-//     * @param level The recursion level.
-//     * @param k     The attenuation factor.
-//     * @return The color contribution from global effects.
-//     */
-//    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
-//        Color color = Color.BLACK;
-//        Material material = gp.geometry.getMaterial();
-//
-//        Double3 kr = material.kR;
-//        Double3 kkr = k.product(kr);
-//        Double3 kt = material.kT;
-//        Double3 kkt = k.product(kt);
-//        Color newColor1 = help(material, kr,kkr ,gp ,ray ,level, color);
-//        Color newColor2 = help(material, kt ,kkt ,gp ,ray ,level, newColor1);
-//
-//        return newColor1.add(newColor2);
-//    }
-//
-//    private Color help(Material material, Double3 someK, Double3 someKK, GeoPoint gp, Ray ray, int level, Color color) {
-//        Ray refractedRay;
-//        if (!someKK.lowerThan(MIN_CALC_COLOR_K)) {
-//            if(someK == material.kT){
-//                refractedRay = constructRefracted(gp, ray);
-//            }
-//            else{
-//                refractedRay = constructReflected(gp, ray);
-//            }
-//            GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-//            if (refractedPoint == null)
-//                return color.add(this._scene._background);
-//            color = color.add(calcColor(refractedPoint, refractedRay, level - 1, someKK).scale(someK));
-//        }
-//        return color;
-//    }
 
     /**
      * Calculates the global effects (reflection and refraction) at a given intersection point.
@@ -204,27 +166,37 @@ public class SimpleRayTracer extends RayTracerBase {
         Color color = Color.BLACK;
         Material material = gp.geometry.getMaterial();
 
-        Double3 kr = material.kR;
-        Double3 kkr = k.product(kr);
-        if (!kkr.lowerThan(MIN_CALC_COLOR_K)) {
-            Ray reflectedRay = constructReflected(gp, ray);
-            GeoPoint reflectedPoint = findClosestIntersection(reflectedRay);
-            if (reflectedPoint == null)
-                return color.add(this._scene._background);
-            color = color.add(calcColor(reflectedPoint, reflectedRay, level - 1, kkr).scale(kr));
-        }
-
-        Double3 kt = material.kT;
-        Double3 kkt = k.product(kt);
-        if (!kkt.lowerThan(MIN_CALC_COLOR_K)) {
-            Ray refractedRay = constructRefracted(gp, ray);
-            GeoPoint refractedPoint = findClosestIntersection(refractedRay);
-            if (refractedPoint == null)
-                return color.add(this._scene._background);
-            color = color.add(calcColor(refractedPoint, refractedRay, level - 1, kkt).scale(kt));
-        }
+        color = color.add(calcRayEffect(gp, ray, level, k, material.kR, true));
+        color = color.add(calcRayEffect(gp, ray, level, k, material.kT, false));
 
         return color;
+    }
+
+    /**
+     * Calculates the color effect for a given ray (either reflection or refraction) at a given geo-point.
+     *
+     * @param gp the geo-point where the effect is calculated
+     * @param ray the original ray that intersects with the geo-point
+     * @param level the recursion depth level
+     * @param k the attenuation coefficient from previous recursions
+     * @param kEffect the reflection (kR) or refraction (kT) coefficient of the material at the geo-point
+     * @param isReflection true if calculating reflection effect, false if calculating refraction effect
+     * @return the color effect due to reflection or refraction
+     */
+    private Color calcRayEffect(GeoPoint gp, Ray ray, int level, Double3 k, Double3 kEffect, boolean isReflection) {
+        if (kEffect.lowerThan(MIN_CALC_COLOR_K))
+            return Color.BLACK;
+
+        Double3 kkEffect = k.product(kEffect);
+        if (kkEffect.lowerThan(MIN_CALC_COLOR_K))
+            return Color.BLACK;
+
+        Ray effectRay = isReflection ? constructReflected(gp, ray) : constructRefracted(gp, ray);
+        GeoPoint effectPoint = findClosestIntersection(effectRay);
+        if (effectPoint == null)
+            return this._scene._background;
+
+        return calcColor(effectPoint, effectRay, level - 1, kkEffect).scale(kEffect);
     }
 
     /**

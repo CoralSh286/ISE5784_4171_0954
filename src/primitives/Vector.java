@@ -113,5 +113,4 @@ public class Vector extends Point {
         return "v" + super.toString();
     }
 
-
 }

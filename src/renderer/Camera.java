@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
 
+import static primitives.Util.random;
+
 /**
  * Camera class represents a camera in the 3D space
  */
@@ -277,6 +279,7 @@ public class Camera implements Cloneable {
         return new Ray(p0, pij.subtract(p0));
     }
 
+
     /**
      * Casts a ray for each pixel
      *
@@ -338,5 +341,6 @@ public class Camera implements Cloneable {
         Ray ray = constructRay(x, y, j, i);
         this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(ray));
     }
+
 
 }
