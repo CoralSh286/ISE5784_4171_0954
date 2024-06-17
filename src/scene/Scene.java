@@ -80,11 +80,11 @@ public class Scene {
     /**
      * Initializing the field of the geometric body
      *
-     * @param geometries the 3D model
+     * @param _geometries the 3D model
      * @return the object for the scene
      */
-    public Scene setGeometries(Geometries geometries) {
-        this._geometries = geometries;
+    public Scene set_geometries(Geometries _geometries) {
+        this._geometries = _geometries;
         return this;
     }
 

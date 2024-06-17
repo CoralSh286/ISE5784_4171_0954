@@ -84,7 +84,6 @@ public class ImageWriter {
         return nX;
     }
 
-    // ***************** Operations ******************** //
 
     /**
      * Function writeToImage produces unoptimized png file of the image according

@@ -78,4 +78,14 @@ public final class Util {
         return Math.random() * (max - min) + min;
     }
 
+
+    /**
+     * provide randome (-1,1)
+     *
+     * @return
+     */
+    public static int randomSign() {
+        return Math.random() > 0 ? 1 : -1;
+    }
+
 }

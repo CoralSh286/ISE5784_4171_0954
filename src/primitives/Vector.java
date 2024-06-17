@@ -113,4 +113,16 @@ public class Vector extends Point {
         return "v" + super.toString();
     }
 
+    /**
+     * create vector normal to this vector
+     *
+     * @return
+     */
+    public Vector createNormal() {
+        if (Util.isZero(this._xyz.d1))
+            return new Vector(1, 0, 0);
+
+        return new Vector(this._xyz.d2, -this._xyz.d1, 0).normalize();
+    }
 }
+
