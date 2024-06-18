@@ -79,13 +79,4 @@ public final class Util {
     }
 
 
-    /**
-     * provide randome (-1,1)
-     *
-     * @return
-     */
-    public static int randomSign() {
-        return Math.random() > 0 ? 1 : -1;
-    }
-
 }

@@ -49,4 +49,5 @@ public class Triangle extends Polygon {
         intersection.getFirst().geometry = this;
         return intersection;
     }
+
 }

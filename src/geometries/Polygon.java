@@ -97,11 +97,6 @@ public class Polygon extends Geometry {
     }
 
 
-//    @Override
-//    public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-//        return null;
-//    }
-
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray){
         List<Point> intersections=plane.findIntersections(ray);
@@ -110,7 +105,7 @@ public class Polygon extends Geometry {
             return null;
         }
 
-        Point checkPoint=intersections.get(0);
+        Point checkPoint=intersections.getFirst();
         List<Vector> result=new LinkedList<>();
         Point last=vertices.get(size-1);
         //we will use the method of ni=(pi-pi-1)x(pi-1-Pinter) to check if the point is inside the polygon
@@ -133,4 +128,5 @@ public class Polygon extends Geometry {
         }
         return List.of(new GeoPoint(this,checkPoint));
     }
+
 }

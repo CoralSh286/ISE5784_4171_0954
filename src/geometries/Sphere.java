@@ -56,4 +56,6 @@ public class Sphere extends RadialGeometry {
         return t1 <= 0 ? List.of(new GeoPoint(this, ray.getPoint(t2)))
                 : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
     }
+
+
 }
