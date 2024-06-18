@@ -263,9 +263,9 @@ public class ReflectionRefractionTests {
                             .setEmission(new Color(GREEN).reduce(2.2))
                             .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
 
-                    new Sphere(new Point(5 * i, -8, -8), 3)
-                            .setEmission(new Color(YELLOW).reduce(2.2))
-                            .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
+//                    new Sphere(new Point(5 * i, -8, -8), 3)
+//                            .setEmission(new Color(YELLOW).reduce(2.2))
+//                            .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
 
                     new Polygon(
                             new Point(5 * i - 4, -5, -11),

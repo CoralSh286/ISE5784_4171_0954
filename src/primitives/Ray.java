@@ -168,7 +168,7 @@ public class Ray {
         double rand_x, rand_y, delta_radius = radius / (numOfRays - 1);
         double nv = n.dotProduct(_dir);
 
-        for (int i = 1; i < numOfRays; i++) {
+        for (int i = 0; i < numOfRays; i++) {
             randomPoint = centerCircle;
             rand_x = Util.random(-radius, radius);
             rand_y = Util.randomSign() * Math.sqrt(radius * radius - rand_x * rand_x);
@@ -176,11 +176,13 @@ public class Ray {
             try {
                 randomPoint = randomPoint.add(nX.scale(rand_x));
             } catch (Exception ex) {
+                i--;
             }
 
             try {
                 randomPoint = randomPoint.add(nY.scale(rand_y));
             } catch (Exception ex) {
+                i--;
             }
 
             v12 = randomPoint.subtract(_p0).normalize();
