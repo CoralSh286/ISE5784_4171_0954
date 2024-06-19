@@ -173,8 +173,8 @@ public class SimpleRayTracer extends RayTracerBase {
         Color color = Color.BLACK;
         Material material = gp.geometry.getMaterial();
 
-        color = color.add(calcRayEffect(gp, ray, level, k, material.kR, true));
-        color = color.add(calcRayEffect(gp, ray, level, k, material.kT, false));
+        color = color.add(calcGlobalEffects(gp, ray, level, k, material.kR, true));
+        color = color.add(calcGlobalEffects(gp, ray, level, k, material.kT, false));
 
         return color;
     }
@@ -190,7 +190,7 @@ public class SimpleRayTracer extends RayTracerBase {
      * @param isReflection true if calculating reflection effect, false if calculating refraction effect
      * @return the color effect due to reflection or refraction
      */
-    private Color calcRayEffect(GeoPoint gp, Ray ray, int level, Double3 k, Double3 kEffect, boolean isReflection) {
+    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k, Double3 kEffect, boolean isReflection) {
         if (kEffect.lowerThan(MIN_CALC_COLOR_K))
             return Color.BLACK;
 
