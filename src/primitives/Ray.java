@@ -2,7 +2,6 @@ package primitives;
 
 import geometries.Intersectable.GeoPoint;
 import geometries.Intersectable;
-import primitives.Util.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -119,7 +118,6 @@ public class Ray {
         return closestPoint;
     }
 
-
     /**
      * Constructor to initialize ray
      *
@@ -133,5 +131,70 @@ public class Ray {
         this._dir = dir;
     }
 
+    /**
+     *  get point on the ray
+     *
+     * @param length distance from the start of the ray
+     * @return new Point3D
+     */
+    public Point getTargetPoint(double length) {
+        return isZero(length) ? _p0 : _p0.add(_dir.scale(length));
+    }
+
+    /**
+     *  The function that produces the rays on the target area
+     *
+     * @param n         normal to the geometry
+     * @param radius    radius of the beam circle
+     * @param distance  distance of the eam circle
+     * @param numOfRays num of rays in the beam
+     * @return list of beam rays
+     */
+    public List<Ray> generateBeam(Vector n, double radius, double distance, int numOfRays) {
+        List<Ray> rays = new LinkedList<>();
+        rays.add(this);// Including the main ray
+        if (numOfRays == 1 || isZero(radius))// The component (glossy surface /diffuse glass) is turned off
+            return rays;
+
+        // the 2 vectors that create the virtual grid for the beam
+        Vector nX = _dir.createNormal();
+        Vector nY = _dir.crossProduct(nX);
+
+        Point centerCircle = this.getTargetPoint(distance);
+        Point randomPoint;
+        Vector v12;
+
+        double rand_x, rand_y, delta_radius = radius / (numOfRays - 1);
+        double nv = n.dotProduct(_dir);
+
+        for (int i = 0; i < numOfRays; i++) {
+            randomPoint = centerCircle;
+            rand_x = Util.random(-radius, radius);
+            rand_y = Util.randomSign() * Math.sqrt(radius * radius - rand_x * rand_x);
+
+            try {
+                randomPoint = randomPoint.add(nX.scale(rand_x));
+            } catch (Exception ex) {
+                i--;
+            }
+
+            try {
+                randomPoint = randomPoint.add(nY.scale(rand_y));
+            } catch (Exception ex) {
+                i--;
+            }
+
+            v12 = randomPoint.subtract(_p0).normalize();
+
+            double nt = Util.alignZero(n.dotProduct(v12));
+
+            if (nv * nt > 0) {
+                rays.add(new Ray(_p0, v12));
+            }
+            radius -= delta_radius;
+        }
+
+        return rays;
+    }
 
 }

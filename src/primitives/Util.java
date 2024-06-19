@@ -56,16 +56,16 @@ public final class Util {
         return isZero(number) ? 0.0 : number;
     }
 
-//    /**
-//     * Check whether two numbers have the same sign
-//     *
-//     * @param n1 1st number
-//     * @param n2 2nd number
-//     * @return true if the numbers have the same sign
-//     */
-//    public static boolean compareSign(double n1, double n2) {
-//        return (n1 < 0 && n2 < 0) || (n1 > 0 && n2 > 0);
-//    }
+    /**
+     * Check whether two numbers have the same sign
+     *
+     * @param n1 1st number
+     * @param n2 2nd number
+     * @return true if the numbers have the same sign
+     */
+    public static boolean compareSign(double n1, double n2) {
+        return (n1 < 0 && n2 < 0) || (n1 > 0 && n2 > 0);
+    }
 
     /**
      * Provide a real random number in range between min and max
@@ -78,5 +78,10 @@ public final class Util {
         return Math.random() * (max - min) + min;
     }
 
-
+    /**
+     * provide randome (-1,1)
+     */
+    public static int randomSign() {
+        return Math.random() > 0 ? 1 : -1;
+    }
 }

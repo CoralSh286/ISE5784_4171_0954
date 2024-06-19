@@ -98,7 +98,7 @@ public class PolygonTest {
      */
     @Test
     void testFindIntersections() {
-        Polygon mesh = new Polygon(new Point(1, 1, 0), new Point(1, 0, 0), new Point(-1,-1,0), new Point(0, 1, 0));
+        Polygon mesh = new Polygon(new Point(1, 1, 0), new Point(1, 0, 0), new Point(-1, -1, 0), new Point(0, 1, 0));
         // ============ Equivalence Partitions Tests ==============
         // TC01: the intersection point is inside the Polygon
         assertEquals(1, mesh.findIntersections(
@@ -133,7 +133,7 @@ public class PolygonTest {
 
         // ================= external Tests =================
         // TC07: the Polygon is in an angle
-        Polygon mesh2 = new Polygon(new Point(0, 1, 1), new Point(1, 1, 0), new Point(1,0,1),new Point(-1, -1, 4));
+        Polygon mesh2 = new Polygon(new Point(0, 1, 1), new Point(1, 1, 0), new Point(1, 0, 1), new Point(-1, -1, 4));
         assertEquals(1, mesh2.findIntersections(
                         new Ray(new Point(-1, -1, -1), new Vector(1, 1, 1))).size(),
                 "Failed to find the intersection point when the intersection point is inside the Polygon");
@@ -141,7 +141,7 @@ public class PolygonTest {
         // TC08: the Polygon with 6 vertices
         Polygon mesh3 = new Polygon(
                 new Point(1, 0, 0),
-                new Point(1,1,0),
+                new Point(1, 1, 0),
                 new Point(0, 1, 0),
                 new Point(-1, 0, 0),
                 new Point(0, -1, 0));

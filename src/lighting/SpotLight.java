@@ -2,16 +2,15 @@ package lighting;
 
 import primitives.*;
 
-import static primitives.Util.alignZero;
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
- * SpotLight class represents a spot light in the scene
+ * SpotLight class represents a spotlight in the scene
  */
 public class SpotLight extends PointLight {
     private final Vector direction;
 
-    private double narrowBeam;
+    private double narrowBeam = 1;
 
     /**
      * for field initialization
@@ -37,15 +36,12 @@ public class SpotLight extends PointLight {
     }
 
 
-
     @Override
     public Color getIntensity(Point point) {
         double cos = this.direction.dotProduct(getL(point));
-        if (Util.isZero(cos)) {
+        if (alignZero(cos) <= 0)
             return Color.BLACK;
-        }
-        Color pointLightIntensity = super.getIntensity(point);
-        return (pointLightIntensity.scale(Math.max(0, cos)));
+        return super.getIntensity(point).scale(Math.pow(cos, narrowBeam));
     }
 
 
@@ -80,41 +76,3 @@ public class SpotLight extends PointLight {
     }
 
 }
-
-
-
-//package lighting;
-//
-//import primitives.*;
-//
-////==== the SpotLight represented source light like Spot =====//
-//
-//public class SpotLight extends PointLight {
-//
-//    private Vector dir;
-//
-//    /**
-//     * constructor for the intensity
-//     *
-//     * @param color     of the intensity of the source of the light
-//     * @param direction
-//     */
-//    public SpotLight(Color color, Point position, Vector direction) {
-//        super(color, position);
-//        this.dir = direction.normalize();
-//    }
-//
-//    @Override
-//    public Color getIntensity(Point point) {
-//        double projection = this.dir.dotProduct(getL(point));
-//
-//        if (Util.isZero(projection)) {
-//            return Color.BLACK;
-//        }
-//
-//        double factor = Math.max(0, projection);
-//        Color pointLightIntensity = super.getIntensity(point);
-//
-//        return (pointLightIntensity.scale(factor));
-//    }
-//}

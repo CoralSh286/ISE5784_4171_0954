@@ -28,6 +28,20 @@ public class Material {
      */
     public int nShininess = 0;
 
+    // Parameters for blur glass
+    /**
+     * for the number of rays
+     */
+    public int numOfRays = 1;
+    /**
+     * The distance of the glass from the body
+     */
+    public double blurGlassDistance = 1;
+
+    /**
+     * The area on which we will throw rays
+     */
+    public double  blurGlassRadius = 1;
 
     /**
      * for field initialization
@@ -127,6 +141,26 @@ public class Material {
      */
     public Material setNShininess(int nShininess) {
         this.nShininess = nShininess;
+        return this;
+    }
+
+    /**
+     * Sets the parameters for blur glass rendering.
+     *
+     * @param numOfRays The number of rays to set.
+     * @param distance  The distance to set.
+     * @param radius    The radius to set.
+     * @return This Material object.
+     * @throws IllegalArgumentException if any of the parameters is invalid.
+     */
+    public Material setBlurGlass(int numOfRays, double distance, double radius) {
+        if (numOfRays < 1 || distance <= 0 || radius <= 0)
+             throw new IllegalArgumentException("Illegal argument in setBlurGlass");
+
+        this.numOfRays = numOfRays;
+        this.blurGlassDistance = distance;
+        this.blurGlassRadius = radius;
+
         return this;
     }
 

@@ -130,7 +130,7 @@ public class Json {
                 JsonElement attributes = jsonObject.get("attributes");
                 // Deserialize based on the type property
                 Intersectable body = context.deserialize(attributes, switch (type) {
-                    case "Sphere" ->  Sphere.class;
+                    case "Sphere" -> Sphere.class;
                     case "Triangle" -> Triangle.class;
                     case "Cylinder" -> Cylinder.class;
                     case "Tube" -> Tube.class;
