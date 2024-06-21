@@ -23,7 +23,7 @@ public class SimpleRayTracer extends RayTracerBase {
     /**
      * A field that indicates whether to use the feature or not
      */
-    public boolean bluryGlass = true;
+    public boolean blurryGlass = true;
 
     /**
      * Checks if a point is unshaded from a specific light source.
@@ -257,7 +257,7 @@ public class SimpleRayTracer extends RayTracerBase {
         if (kkx.lowerThan(MIN_CALC_COLOR_K))
             return Color.BLACK;
 
-        var rays = ray.generateBeam(n, material.blurGlassRadius, material.blurGlassDistance,bluryGlass? material.numOfRays:1);
+        var rays = ray.generateBeam(n, material.blurGlassRadius, material.blurGlassDistance, blurryGlass ? material.numOfRays:1);
         return calcAverageColor(rays, level - 1, kkx).scale(kx);
     }
 
@@ -300,10 +300,9 @@ public class SimpleRayTracer extends RayTracerBase {
      */
     private Ray constructReflectedRay(Point pointGeo, Vector v, Vector n, double vn) {
         // 𝒓=𝒗 −𝟐∙(𝒗∙𝒏)∙𝒏
-        Vector r = v.subtract(n.scale(2 * vn));
+        Vector r = v.subtract(n.scale(2d * vn));
         return new Ray(pointGeo, r, n);
     }
-
 
 //    /**
 //     * Constructs a refracted ray at a given intersection point.

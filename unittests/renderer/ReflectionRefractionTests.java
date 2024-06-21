@@ -307,6 +307,62 @@ public class ReflectionRefractionTests {
                 .setVPDistance(1000)
                 .setVpSize(200, 200)
                 .setRayTracer(new SimpleRayTracer(scene))
+                .setImageWriter(new ImageWriter("blurryGlass", 500, 500))
+                .build()
+                .renderImage()
+                .writeToImage();
+    }
+
+    @Test
+    public void testBlurryGlass2() {
+
+        Vector vTo = new Vector(0, 1, 0);
+
+        scene.setAmbientLight(new AmbientLight(new Color(gray).reduce(2), new Double3(0.15)));
+
+        final Camera.Builder newcameraBuilder = Camera.getBuilder()
+                .setDirection(vTo, new Vector(0, 0, 1));
+
+        // Add geometries to the scene
+        for (int i = -4; i < 6; i += 2) {
+            scene._geometries.add(
+                    new Sphere(new Point(5 * i, -1.50, -3), 3)
+                            .setEmission(new Color(255, 102, 102).reduce(4).reduce(2.2))
+                            .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
+
+                    new Sphere(new Point(5 * i, 5, 3), 3)
+                            .setEmission(new Color(102, 255, 178).reduce(2.2))
+                            .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
+
+                    new Sphere(new Point(5 * i, -8, -8), 3)
+                            .setEmission(new Color(255, 255, 153).reduce(2.2))
+                            .setMaterial(new Material().setKd(0.2).setKs(1d).setNShininess(80).setKt(0)),
+
+                    new Polygon(
+                            new Point(5 * i - 4, -5, -11),
+                            new Point(5 * i - 4, -5, 5),
+                            new Point(5 * i + 4, -5, 5),
+                            new Point(5 * i + 4, -5, -11))
+                            .setEmission(new Color(255, 245, 235).reduce(2.5))
+                            .setMaterial(new Material().setKd(0.001).setKs(0.002).setNShininess(1).setKt(0.95)
+                                    .setBlurGlass(i == 4 ? 1 : 20, 0.3 * (i + 5), 1))
+            );
+        }
+
+        scene._geometries.add(new Plane(new Point(1, 10, 1), new Point(2, 10, 1), new Point(5, 10, 0))
+                .setEmission(new Color(240, 248, 255).reduce(3))
+                .setMaterial(new Material().setKd(0.2).setKs(0d).setNShininess(0).setKt(0))
+        );
+
+        // Add lights to the scene
+        scene._lights.add(new DirectionalLight(new Color(WHITE).reduce(1.3), new Vector(-0.4, 1, 0)));
+        scene._lights.add(new SpotLight(new Color(WHITE).reduce(2), new Point(20.43303, -7.37104, 13.77329),
+                new Vector(-20.43, 7.37, -13.77)).setKl(0.6));
+
+        newcameraBuilder.setLocation(new Point(0, -230, 0).add(vTo.scale(-13)))
+                .setVPDistance(1000)
+                .setVpSize(200, 200)
+                .setRayTracer(new SimpleRayTracer(scene))
                 .setImageWriter(new ImageWriter("blurryGlass2", 500, 500))
                 .build()
                 .renderImage()

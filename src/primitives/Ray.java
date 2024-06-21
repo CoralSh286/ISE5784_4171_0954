@@ -2,6 +2,7 @@ package primitives;
 
 import geometries.Intersectable.GeoPoint;
 import geometries.Intersectable;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
@@ -132,7 +133,7 @@ public class Ray {
     }
 
     /**
-     *  get point on the ray
+     * get point on the ray
      *
      * @param length distance from the start of the ray
      * @return new Point3D
@@ -142,7 +143,7 @@ public class Ray {
     }
 
     /**
-     *  The function that produces the rays on the target area
+     * The function that produces the rays on the target area
      *
      * @param n         normal to the geometry
      * @param radius    radius of the beam circle
