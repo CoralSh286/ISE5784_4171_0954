@@ -107,10 +107,10 @@ public class SimpleRayTracer extends RayTracerBase {
     /**
      * Calculates the color at a given intersection point.
      *
-     * @param gp The intersection point.
-     * @param ray      The ray that intersected with the geometry.
-     * @param level    The recursion level.
-     * @param k        The attenuation factor.
+     * @param gp    The intersection point.
+     * @param ray   The ray that intersected with the geometry.
+     * @param level The recursion level.
+     * @param k     The attenuation factor.
      * @return The color at the intersection point.
      */
     private Color calcColor(GeoPoint gp, Ray ray, int level, Double3 k) {
@@ -125,21 +125,6 @@ public class SimpleRayTracer extends RayTracerBase {
         return 1 == level ? color : color.add(calcGlobalEffects(gp, v, n, vn, level, k));
     }
 
-//    /**
-//     * Calculates the color at a given intersection point.
-//     *
-//     * @param geoPoint The intersection point.
-//     * @param ray      The ray that intersected with the geometry.
-//     * @param level    The recursion level.
-//     * @param k        The attenuation factor.
-//     * @return The color at the intersection point.
-//     */
-//    private Color calcColor(GeoPoint geoPoint, Ray ray, int level, Double3 k) {
-//        Color color = geoPoint.geometry.getEmission()
-//                .add(calcLocalEffects(geoPoint, ray, k));
-//
-//        return 1 == level ? color : color.add(calcGlobalEffects(geoPoint, ray, level, k));
-//    }
 
     @Override
     public Color traceRay(Ray ray) {
@@ -180,50 +165,8 @@ public class SimpleRayTracer extends RayTracerBase {
         return color;
     }
 
-
-//    /**
-//     * Calculates the global effects (reflection and refraction) at a given intersection point.
-//     *
-//     * @param gp    The intersection point.
-//     * @param ray   The ray that intersected with the geometry.
-//     * @param level The recursion level.
-//     * @param k     The attenuation factor.
-//     * @return The color contribution from global effects.
-//     */
-//    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k) {
-//        Color color = Color.BLACK;
-//        Material material = gp.geometry.getMaterial();
-//
-//        color = color.add(calcGlobalEffects(gp, ray, level, k, material.kR, true));
-//        color = color.add(calcGlobalEffects(gp, ray, level, k, material.kT, false));
-//
-//        return color;
-//    }
-//
-//    /**
-//     * Calculates the color effect for a given ray (either reflection or refraction) at a given geo-point.
-//     *
-//     * @param gp           the geo-point where the effect is calculated
-//     * @param ray          the original ray that intersects with the geo-point
-//     * @param level        the recursion depth level
-//     * @param k            the attenuation coefficient from previous recursions
-//     * @param kEffect      the reflection (kR) or refraction (kT) coefficient of the material at the geo-point
-//     * @param isReflection true if calculating reflection effect, false if calculating refraction effect
-//     * @return the color effect due to reflection or refraction
-//     */
-//    private Color calcGlobalEffects(GeoPoint gp, Ray ray, int level, Double3 k, Double3 kEffect, boolean isReflection) {
-//        Double3 kkEffect = k.product(kEffect);
-//        if (kkEffect.lowerThan(MIN_CALC_COLOR_K))
-//            return Color.BLACK;
-//
-//        Ray effectRay = isReflection ? constructReflected(gp, ray) : constructRefracted(gp, ray);
-//        GeoPoint effectPoint = findClosestIntersection(effectRay);
-//        return (effectPoint == null) ? this._scene._background
-//                : calcColor(effectPoint, effectRay, level - 1, kkEffect).scale(kEffect);
-//    }
-
     /**
-     *  Calculate global effects such as reflection and refraction
+     * Calculate global effects such as reflection and refraction
      *
      * @param gp    the intersection point
      * @param v     the incident ray direction vector
@@ -242,14 +185,14 @@ public class SimpleRayTracer extends RayTracerBase {
     }
 
     /**
-     *  Calculate global effects such as reflection or refraction
+     * Calculate global effects such as reflection or refraction
      *
      * @param material the material of the intersected geometry
-     * @param n the normal vector at the intersection point
-     * @param ray the incident ray
-     * @param level recursion level
-     * @param kx coefficient
-     * @param k coefficient
+     * @param n        the normal vector at the intersection point
+     * @param ray      the incident ray
+     * @param level    recursion level
+     * @param kx       coefficient
+     * @param k        coefficient
      * @return the color with global effects applied
      */
     private Color calcGlobalEffect(Material material, Vector n, Ray ray, int level, Double3 kx, Double3 k) {
@@ -257,7 +200,7 @@ public class SimpleRayTracer extends RayTracerBase {
         if (kkx.lowerThan(MIN_CALC_COLOR_K))
             return Color.BLACK;
 
-        var rays = ray.generateBeam(n, material.blurGlassRadius, material.blurGlassDistance, blurryGlass ? material.numOfRays:1);
+        var rays = ray.generateBeam(n, material.blurGlassRadius, material.blurGlassDistance, blurryGlass ? material.numOfRays : 1);
         return calcAverageColor(rays, level - 1, kkx).scale(kx);
     }
 
@@ -273,29 +216,14 @@ public class SimpleRayTracer extends RayTracerBase {
         return intersections == null ? null : ray.findClosestGeoPoint(intersections);
     }
 
-//    /**
-//     * Constructs a reflected ray at a given intersection point.
-//     *
-//     * @param gp  The intersection point.
-//     * @param ray The incident ray.
-//     * @return The reflected ray.
-//     */
-//    private Ray constructReflected(GeoPoint gp, Ray ray) {
-//        Vector v = ray.getDir();
-//        Vector n = gp.geometry.getNormal(gp.point);
-//        double nv = alignZero(v.dotProduct(n));
-//        // r = v - 2 * (v * n) * n
-//        Vector r = v.subtract(n.scale(2d * nv)).normalize();
-//        return new Ray(gp.point, r, n); //use the constructor with the normal for moving the head
-//    }
 
     /**
      * Calculate the reflected ray
      *
      * @param pointGeo the geometric point where the ray starts
-     * @param v the vector representing the original direction of the ray
-     * @param n the normal vector at the point of impact
-     * @param vn the dot product of the original vector and the normal vector
+     * @param v        the vector representing the original direction of the ray
+     * @param n        the normal vector at the point of impact
+     * @param vn       the dot product of the original vector and the normal vector
      * @return a new Ray representing the reflected ray
      */
     private Ray constructReflectedRay(Point pointGeo, Vector v, Vector n, double vn) {
@@ -304,23 +232,12 @@ public class SimpleRayTracer extends RayTracerBase {
         return new Ray(pointGeo, r, n);
     }
 
-//    /**
-//     * Constructs a refracted ray at a given intersection point.
-//     *
-//     * @param gp  The intersection point.
-//     * @param ray The incident ray.
-//     * @return The refracted ray.
-//     */
-//    private Ray constructRefracted(GeoPoint gp, Ray ray) {
-//        return new Ray(gp.point, ray.getDir(), gp.geometry.getNormal(gp.point));
-//    }
-
     /**
      * Calculate refracted ray
      *
      * @param pointGeo the geometric point where the ray starts
-     * @param v the incident ray direction vector
-     * @param n the normal vector at the point of refraction
+     * @param v        the incident ray direction vector
+     * @param n        the normal vector at the point of refraction
      * @return a new Ray representing the refracted ray
      */
     private Ray constructRefractedRay(Point pointGeo, Vector v, Vector n) {
@@ -358,9 +275,9 @@ public class SimpleRayTracer extends RayTracerBase {
     /**
      * Get the average color of the intersection of rays
      *
-     * @param rays   list of rays
-     * @param level  recursion level
-     * @param kkx    coefficient
+     * @param rays  list of rays
+     * @param level recursion level
+     * @param kkx   coefficient
      * @return the average color of the intersection of the rays
      */
     Color calcAverageColor(List<Ray> rays, int level, Double3 kkx) {

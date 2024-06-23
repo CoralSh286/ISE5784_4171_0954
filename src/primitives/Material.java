@@ -41,7 +41,7 @@ public class Material {
     /**
      * The area on which we will throw rays
      */
-    public double  blurGlassRadius = 1;
+    public double blurGlassRadius = 1;
 
     /**
      * for field initialization
@@ -53,7 +53,6 @@ public class Material {
         this.kT = kT;
         return this;
     }
-
 
     /**
      * for field initialization
@@ -76,7 +75,6 @@ public class Material {
         this.kR = kR;
         return this;
     }
-
 
     /**
      * for field initialization
@@ -155,7 +153,7 @@ public class Material {
      */
     public Material setBlurGlass(int numOfRays, double distance, double radius) {
         if (numOfRays < 1 || distance <= 0 || radius <= 0)
-             throw new IllegalArgumentException("Illegal argument in setBlurGlass");
+            throw new IllegalArgumentException("Illegal argument in setBlurGlass");
 
         this.numOfRays = numOfRays;
         this.blurGlassDistance = distance;

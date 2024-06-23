@@ -115,6 +115,8 @@ public class Vector extends Point {
 
     /**
      * create vector normal to this vector
+     *
+     * @return the normal
      */
     public Vector createNormal() {
         if (Util.isZero(this._xyz.d1))
