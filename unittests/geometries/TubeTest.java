@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -30,4 +32,5 @@ class TubeTest {
         // TC01: Test if the point is vertical to the axis
         assertDoesNotThrow(() -> new Tube(new Ray(new Point(0, 0, 0), new Vector(1, 0, 0)), 1).getNormal(new Point(0, 1, 0)), "Failed to throw an exception when the point is vertical to the axis");
     }
+
 }

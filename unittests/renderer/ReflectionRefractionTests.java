@@ -292,7 +292,7 @@ public class ReflectionRefractionTests {
                             new Point(5 * i + 4, -5, -11))
                             .setEmission(new Color(255, 245, 235).reduce(2.5))
                             .setMaterial(new Material().setKd(0.001).setKs(0.002).setNShininess(1).setKt(0.95)
-                                    .setBlurGlass(i == 4 ? 1 : 20, 0.3 * (i + 5), 1))
+                                    .setBlurGlass(i == 4 ? 1 : 100, 0.3 * (i + 5), 1))
             );
         }
 
@@ -310,7 +310,7 @@ public class ReflectionRefractionTests {
                 .setVPDistance(1000)
                 .setVpSize(200, 200)
                 .setRayTracer(new SimpleRayTracer(scene))
-                .setImageWriter(new ImageWriter("blurryGlass", 500, 500))
+                .setImageWriter(new ImageWriter("blurryGlass", 1000, 1000))
                 .build()
                 .renderImage()
                 .writeToImage();

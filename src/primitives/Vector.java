@@ -1,6 +1,8 @@
 package primitives;
 
 
+import static primitives.Util.isZero;
+
 /**
  * A class that represents a vector by a point in space
  */
@@ -119,10 +121,8 @@ public class Vector extends Point {
      * @return the normal
      */
     public Vector createNormal() {
-        if (Util.isZero(this._xyz.d1))
-            return new Vector(1, 0, 0);
-
-        return new Vector(this._xyz.d2, -this._xyz.d1, 0).normalize();
+        return isZero(this._xyz.d1) ? new Vector(1, 0, 0)
+                : new Vector(this._xyz.d2, -this._xyz.d1, 0).normalize();
     }
 
 }

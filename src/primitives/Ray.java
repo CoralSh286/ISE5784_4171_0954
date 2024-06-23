@@ -152,11 +152,10 @@ public class Ray {
      * @return list of beam rays
      */
     public List<Ray> generateBeam(Vector n, double radius, double distance, int numOfRays) {
-        List<Ray> rays = new LinkedList<>();
-        rays.add(this);// Including the main ray
         if (numOfRays == 1 || isZero(radius))// The component (glossy surface /diffuse glass) is turned off
-            return rays;
+            return List.of(this);
 
+        List<Ray> rays = new LinkedList<>();
         // the 2 vectors that create the virtual grid for the beam
         Vector nX = _dir.createNormal();
         Vector nY = _dir.crossProduct(nX);
