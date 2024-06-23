@@ -97,5 +97,16 @@ public class Point {
         return Math.sqrt(distanceSquared(other));
     }
 
+    //MP2
+    public double getX() {
+        return _xyz.d1;
+    }
 
+    public double getY() {
+        return _xyz.d2;
+    }
+
+    public double getZ() {
+        return _xyz.d3;
+    }
 }

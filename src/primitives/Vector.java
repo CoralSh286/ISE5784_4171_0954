@@ -125,5 +125,17 @@ public class Vector extends Point {
                 : new Vector(this._xyz.d2, -this._xyz.d1, 0).normalize();
     }
 
+    //MP2
+    public double getX() {
+        return _xyz.d1;
+    }
+
+    public double getY() {
+        return _xyz.d2;
+    }
+
+    public double getZ() {
+        return _xyz.d3;
+    }
 }
 

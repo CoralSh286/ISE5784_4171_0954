@@ -311,6 +311,7 @@ public class ReflectionRefractionTests {
                 .setVpSize(200, 200)
                 .setRayTracer(new SimpleRayTracer(scene))
                 .setImageWriter(new ImageWriter("blurryGlass", 1000, 1000))
+                .setMultithreading(-1)
                 .build()
                 .renderImage()
                 .writeToImage();

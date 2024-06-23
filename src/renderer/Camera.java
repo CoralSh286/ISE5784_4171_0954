@@ -6,6 +6,7 @@ import primitives.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 import static primitives.Util.random;
 
@@ -23,6 +24,14 @@ public class Camera implements Cloneable {
 
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+
+    //MP2
+    private int threadsCount = 0; // -2 auto, -1 range/stream, 0 no threads, 1+ number of threads
+    private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
+    private double printInterval = 1; // printing progress percentage interval
+
+    //NP2
+
 
     /**
      * Camera getter
@@ -144,6 +153,7 @@ public class Camera implements Cloneable {
             return this;
         }
 
+
         /**
          * Set the distance between the camera and the view plane
          *
@@ -176,6 +186,23 @@ public class Camera implements Cloneable {
          */
         public Builder setRayTracer(RayTracerBase rayTracer) {
             camera.rayTracer = rayTracer;
+            return this;
+        }
+
+        public Builder setMultithreading(int threads) {
+            if (threads < -2)
+                throw new IllegalArgumentException("Multithreading must be -2 or higher");
+            if (threads >= -1)
+                camera.threadsCount = threads;
+            else { // == -2
+                int cores = Runtime.getRuntime().availableProcessors() - camera.SPARE_THREADS;
+                camera.threadsCount = cores <= 2 ? 1 : cores;
+            }
+            return this;
+        }
+
+        public Builder setDebugPrint(double interval) {
+            camera.printInterval = interval;
             return this;
         }
 
@@ -280,25 +307,25 @@ public class Camera implements Cloneable {
     }
 
 
-    /**
-     * Casts a ray for each pixel
-     *
-     * @return a camera
-     */
-    public Camera renderImage() {
-        if (this.imageWriter == null)
-            throw new UnsupportedOperationException("Missing imageWriter");
-        if (this.rayTracer == null)
-            throw new UnsupportedOperationException("Missing rayTracerBase");
-        int x = this.imageWriter.getNx();
-        int y = this.imageWriter.getNy();
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                castRay(i, j, x, y);
-            }
-        }
-        return this;
-    }
+//    /**
+//     * Casts a ray for each pixel
+//     *
+//     * @return a camera
+//     */
+//    public Camera renderImage() {
+//        if (this.imageWriter == null)
+//            throw new UnsupportedOperationException("Missing imageWriter");
+//        if (this.rayTracer == null)
+//            throw new UnsupportedOperationException("Missing rayTracerBase");
+//        int x = this.imageWriter.getNx();
+//        int y = this.imageWriter.getNy();
+//        for (int i = 0; i < x; i++) {
+//            for (int j = 0; j < y; j++) {
+//                castRay(i, j, x, y);
+//            }
+//        }
+//        return this;
+//    }
 
     /**
      * Creates a network of lines
@@ -340,7 +367,34 @@ public class Camera implements Cloneable {
     private void castRay(int i, int j, int x, int y) {
         Ray ray = constructRay(x, y, j, i);
         this.imageWriter.writePixel(j, i, this.rayTracer.traceRay(ray));
+        Pixel.pixelDone();
     }
 
+    public Camera renderImage() {
+        int nX = this.imageWriter.getNx();
+        int nY = this.imageWriter.getNy();
+        Pixel.initialize(nY, nX, printInterval);
+        if (threadsCount == 0)
+            for (int i = 0; i < nY; ++i)
+                for (int j = 0; j < nX; ++j)
+                    castRay(i, j, nX, nY);
+        else if (threadsCount == -1) {
+            IntStream.range(0, nY).parallel() //
+                    .forEach(i -> IntStream.range(0, nX).parallel() //
+                            .forEach(j ->   castRay(i, j, nX, nY)));
+        }
+        else {
+                var threads = new LinkedList<Thread>();
+                while (threadsCount-- > 0)
+                    threads.add(new Thread(() -> {
+                        Pixel pixel;
+                        while ((pixel = Pixel.nextPixel()) != null)
+                            castRay(pixel.row(), pixel.col(),nX,nY);
+                    }));
+                for (var thread : threads) thread.start();
+                try { for (var thread : threads) thread.join(); } catch (InterruptedException ignore) {}}
+            return this;
+        }
 
 }
+
