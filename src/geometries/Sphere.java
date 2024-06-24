@@ -9,7 +9,7 @@ import static primitives.Util.alignZero;
 /**
  * Department for representation Sphere
  */
-public class Sphere extends RadialGeometry implements Boundable{
+public class Sphere extends RadialGeometry{
     /**
      * field for the center point
      */
@@ -57,20 +57,20 @@ public class Sphere extends RadialGeometry implements Boundable{
                 : List.of(new GeoPoint(this, ray.getPoint(t1)), new GeoPoint(this, ray.getPoint(t2)));
     }
 
-    @Override
-    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
-        double centerX = _center.getX();
-        double centerY = _center.getY();
-        double centerZ = _center.getZ();
-        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(
-                centerX - _radius,
-                centerY - _radius,
-                centerZ - _radius,
-                centerX + _radius,
-                centerY + _radius,
-                centerZ + _radius);
-        res.addToContains(this);
-
-        return res;
-    }
+//    @Override
+//    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
+//        double centerX = _center.getX();
+//        double centerY = _center.getY();
+//        double centerZ = _center.getZ();
+//        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(
+//                centerX - _radius,
+//                centerY - _radius,
+//                centerZ - _radius,
+//                centerX + _radius,
+//                centerY + _radius,
+//                centerZ + _radius);
+//        res.addToContains(this);
+//
+//        return res;
+//    }
 }

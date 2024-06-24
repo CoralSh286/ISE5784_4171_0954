@@ -17,7 +17,7 @@ import primitives.Vector;
  *
  * @author Dan
  */
-public class Polygon extends Geometry implements Boundable{
+public class Polygon extends Geometry{
     /**
      * List of polygon's vertices
      */
@@ -129,35 +129,35 @@ public class Polygon extends Geometry implements Boundable{
         return List.of(new GeoPoint(this, checkPoint));
     }
 
-    @Override
-    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
-        double minX, minY, minZ, maxX, maxY, maxZ;
-        minX = maxX = vertices.get(0).getX();
-        minY = maxY = vertices.get(0).getY();
-        minZ = maxZ = vertices.get(0).getZ();
-        //find the furthest coordinates
-        for (int i = 1; i < vertices.size(); i++) {
-            Point currentPoint = vertices.get(i);
-            double currentX = currentPoint.getX();
-            double currentY = currentPoint.getY();
-            double currentZ = currentPoint.getZ();
-            if (currentX > maxX)
-                maxX = currentX;
-            if (currentY > maxY)
-                maxY = currentY;
-            if (currentZ > maxZ)
-                maxZ = currentZ;
-            if (currentX < minX)
-                minX = currentX;
-            if (currentY < minY)
-                minY = currentY;
-            if (currentZ < minZ)
-                minZ = currentZ;
-        }
-        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
-        res.addToContains(this);
-
-        return res;
-    }
+//    @Override
+//    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
+//        double minX, minY, minZ, maxX, maxY, maxZ;
+//        minX = maxX = vertices.get(0).getX();
+//        minY = maxY = vertices.get(0).getY();
+//        minZ = maxZ = vertices.get(0).getZ();
+//        //find the furthest coordinates
+//        for (int i = 1; i < vertices.size(); i++) {
+//            Point currentPoint = vertices.get(i);
+//            double currentX = currentPoint.getX();
+//            double currentY = currentPoint.getY();
+//            double currentZ = currentPoint.getZ();
+//            if (currentX > maxX)
+//                maxX = currentX;
+//            if (currentY > maxY)
+//                maxY = currentY;
+//            if (currentZ > maxZ)
+//                maxZ = currentZ;
+//            if (currentX < minX)
+//                minX = currentX;
+//            if (currentY < minY)
+//                minY = currentY;
+//            if (currentZ < minZ)
+//                minZ = currentZ;
+//        }
+//        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+//        res.addToContains(this);
+//
+//        return res;
+//    }
 
 }

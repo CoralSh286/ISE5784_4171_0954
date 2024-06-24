@@ -394,7 +394,32 @@ public class Camera implements Cloneable {
                 for (var thread : threads) thread.start();
                 try { for (var thread : threads) thread.join(); } catch (InterruptedException ignore) {}}
             return this;
-        }
+    }
+
+    /**
+     * Internal function for thread-safe manipulating of main follow up Pixel object - this function is
+     * critical section for all the threads, and main Pixel object data is the shared data of this critical* section.<br/>
+     * The function provides next pixel number each call.
+     * @param target target secondary Pixel object to copy the row/column of the next pixel
+     * @return the progress percentage for follow up: if it is 0 - nothing to print, if it is -1 - the task is* finished, any other value - the progress percentage (only when it changes)
+     */
+//    private synchronized int nextP(Pixel target) {
+//        ++col; ++counter;
+//        if (col < maxCols) {
+//            target.row = this.row; target.col = this.col;
+//            if (print && counter == nextCounter) {
+//                ++percents; nextCounter = pixels * (percents + 1) / 100; return percents;}
+//            return 0;
+//        }
+//        ++row;
+//        if (row < maxRows) {
+//            col = 0;
+//            if (print && counter == nextCounter) {
+//                ++percents; nextCounter = pixels * (percents + 1) / 100; return percents;}
+//            return 0;
+//        }
+//        return -1;
+//    }
 
 }
 
