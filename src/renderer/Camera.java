@@ -30,8 +30,6 @@ public class Camera implements Cloneable {
     private final int SPARE_THREADS = 2; // Spare threads if trying to use all the cores
     private double printInterval = 1; // printing progress percentage interval
 
-    //NP2
-
 
     /**
      * Camera getter
@@ -153,7 +151,6 @@ public class Camera implements Cloneable {
             return this;
         }
 
-
         /**
          * Set the distance between the camera and the view plane
          *
@@ -189,6 +186,7 @@ public class Camera implements Cloneable {
             return this;
         }
 
+        //MP2
         public Builder setMultithreading(int threads) {
             if (threads < -2)
                 throw new IllegalArgumentException("Multithreading must be -2 or higher");
