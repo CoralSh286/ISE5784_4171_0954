@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A class that represents a Cylinder
  */
-public class Cylinder extends Tube {
+public class Cylinder extends Tube implements Boundable{
     /**
      * Stave for the high
      */
@@ -96,42 +96,42 @@ public class Cylinder extends Tube {
         return geoPoints.isEmpty() ? null : geoPoints;
     }
 
-//    @Override
-//    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
-//        double minX, minY, minZ, maxX, maxY, maxZ;
-//        Point o1 = _ray.getP0(); // middle of first end
-//        Point o2 = o1.add(_ray.getDir().scale(_height)); // middle of second end
-//        double o2X = o2.getX();
-//        double o1X = o1.getX();
-//        // middle point of side circles plus a radius offset is a good approximation for the bounding box
-//        if (o1X > o2X) {
-//            maxX = o1X + _radius;
-//            minX = o2X - _radius;
-//        } else {
-//            maxX = o2X + _radius;
-//            minX = o1X - _radius;
-//        }
-//        double o2Y = o2.getY();
-//        double o1Y = o1.getY();
-//        if (o1Y > o2Y) {
-//            maxY = o1Y + _radius;
-//            minY = o2Y - _radius;
-//        } else {
-//            maxY = o2Y + _radius;
-//            minY = o1Y - _radius;
-//        }
-//        double o2Z = o2.getZ();
-//        double o1Z = o1.getZ();
-//        if (o1Z > o2Z) {
-//            maxZ = o1Z + _radius;
-//            minZ = o2Z - _radius;
-//        } else {
-//            maxZ = o2Z + _radius;
-//            minZ = o1Z - _radius;
-//        }
-//        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
-//        res.addToContains(this);
-//
-//        return res;
-//    }
+    @Override
+    public AxisAlignedBoundingBox getAxisAlignedBoundingBox() {
+        double minX, minY, minZ, maxX, maxY, maxZ;
+        Point o1 = _ray.getP0(); // middle of first end
+        Point o2 = o1.add(_ray.getDir().scale(_height)); // middle of second end
+        double o2X = o2.getX();
+        double o1X = o1.getX();
+        // middle point of side circles plus a radius offset is a good approximation for the bounding box
+        if (o1X > o2X) {
+            maxX = o1X + _radius;
+            minX = o2X - _radius;
+        } else {
+            maxX = o2X + _radius;
+            minX = o1X - _radius;
+        }
+        double o2Y = o2.getY();
+        double o1Y = o1.getY();
+        if (o1Y > o2Y) {
+            maxY = o1Y + _radius;
+            minY = o2Y - _radius;
+        } else {
+            maxY = o2Y + _radius;
+            minY = o1Y - _radius;
+        }
+        double o2Z = o2.getZ();
+        double o1Z = o1.getZ();
+        if (o1Z > o2Z) {
+            maxZ = o1Z + _radius;
+            minZ = o2Z - _radius;
+        } else {
+            maxZ = o2Z + _radius;
+            minZ = o1Z - _radius;
+        }
+        AxisAlignedBoundingBox res = new AxisAlignedBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
+        res.addToContains(this);
+
+        return res;
+    }
 }

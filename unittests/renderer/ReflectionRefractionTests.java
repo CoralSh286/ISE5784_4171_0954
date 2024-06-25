@@ -261,8 +261,35 @@ public class ReflectionRefractionTests {
      * Test for MP1 with the improvement Blurry Glass
      */
     @Test
-    public void testBlurryGlass() {
+    public void testBlurryGlass0() {
+        blurryGlass(0, "blurryGlass-0");
+    }
 
+    /**
+     * Test for MP1 with the improvement Blurry Glass
+     */
+    @Test
+    public void testBlurryGlassStream() {
+        blurryGlass(-1, "blurryGlass-stream");
+    }
+
+    /**
+     * Test for MP1 with the improvement Blurry Glass
+     */
+    @Test
+    public void testBlurryGlass3() {
+        blurryGlass(3, "blurryGlass-3");
+    }
+
+    /**
+     * Test for MP1 with the improvement Blurry Glass
+     */
+    @Test
+    public void testBlurryGlass2() {
+        blurryGlass(2, "blurryGlass-2");
+    }
+
+    private void blurryGlass(int threads, String file) {
         Vector vTo = new Vector(0, 1, 0);
 
         scene.setAmbientLight(new AmbientLight(new Color(gray).reduce(2), new Double3(0.15)));
@@ -310,14 +337,12 @@ public class ReflectionRefractionTests {
                 .setVPDistance(1000)
                 .setVpSize(200, 200)
                 .setRayTracer(new SimpleRayTracer(scene))
-                .setImageWriter(new ImageWriter("blurryGlass", 1000, 1000))
-                .setMultithreading(0)
+                .setImageWriter(new ImageWriter(file, 1000, 1000))
+                .setMultithreading(threads)
                 .build()
                 .renderImage()
                 .writeToImage();
     }
-
-
 
 }
 
