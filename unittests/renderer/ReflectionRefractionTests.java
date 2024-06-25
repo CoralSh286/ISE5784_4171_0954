@@ -5,14 +5,11 @@ package renderer;
 
 import static java.awt.Color.*;
 
-import geometries.Plane;
-import geometries.Polygon;
+import geometries.*;
 import lighting.DirectionalLight;
 import lighting.PointLight;
 import org.junit.jupiter.api.Test;
 
-import geometries.Sphere;
-import geometries.Triangle;
 import lighting.AmbientLight;
 import lighting.SpotLight;
 import primitives.*;
@@ -290,6 +287,7 @@ public class ReflectionRefractionTests {
     }
 
     private void blurryGlass(int threads, String file) {
+
         Vector vTo = new Vector(0, 1, 0);
 
         scene.setAmbientLight(new AmbientLight(new Color(gray).reduce(2), new Double3(0.15)));
