@@ -187,6 +187,22 @@ public class Camera implements Cloneable {
         }
 
         //MP2
+        /**
+         * Sets the number of threads to be used for multithreading operations.
+         * The number of threads can be specified in the following ways:
+         * - If `threads` is -2, the number of threads will be set to the number of available processors
+         *   minus a predefined number of spare threads (`SPARE_THREADS`). If the resulting value is less
+         *   than or equal to 2, it will be set to 1.
+         * - If `threads` is -1 or any positive number, it will be set directly.
+         * - If `threads` is less than -2, an `IllegalArgumentException` will be thrown.
+         *
+         * @param threads the desired number of threads to be used. Valid values are:
+         *                -2 for automatic configuration based on available processors,
+         *                -1 for disabling multithreading,
+         *                or any non-negative integer to set a specific number of threads.
+         * @return the current Builder instance for method chaining.
+         * @throws IllegalArgumentException if `threads` is less than -2.
+         */
         public Builder setMultithreading(int threads) {
             if (threads < -2)
                 throw new IllegalArgumentException("Multithreading must be -2 or higher");
@@ -368,6 +384,15 @@ public class Camera implements Cloneable {
         Pixel.pixelDone();
     }
 
+    /**
+     * Renders the image by casting rays from the camera through each pixel of the image.
+     * The method supports three modes of multithreading based on the value of `threadsCount`:
+     * - Single-threaded mode (threadsCount == 0): The rendering is done sequentially.
+     * - Full parallel mode (threadsCount == -1): The rendering uses Java's parallel streams.
+     * - Custom multithreaded mode (threadsCount > 0): The rendering is done using a custom number of threads.
+     *
+     * @return the current Camera instance for method chaining.
+     */
     public Camera renderImage() {
         int nX = this.imageWriter.getNx();
         int nY = this.imageWriter.getNy();
