@@ -3,6 +3,8 @@ package geometries;
 import primitives.Point;
 import primitives.Ray;
 
+import java.util.LinkedList;
+
 import java.util.*;
 
 /**
@@ -144,3 +146,5 @@ public class Geometries extends Intersectable {
     }
 
 }
+
+
