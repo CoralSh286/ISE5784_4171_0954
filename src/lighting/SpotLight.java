@@ -35,7 +35,6 @@ public class SpotLight extends PointLight {
         this.direction = direction.normalize();
     }
 
-
     @Override
     public Color getIntensity(Point point) {
         double cos = this.direction.dotProduct(getL(point));
@@ -43,7 +42,6 @@ public class SpotLight extends PointLight {
             return Color.BLACK;
         return super.getIntensity(point).scale(Math.pow(cos, narrowBeam));
     }
-
 
     /**
      * set the constant attenuation factor

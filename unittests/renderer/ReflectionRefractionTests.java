@@ -335,7 +335,7 @@ public class ReflectionRefractionTests {
                 .setVPDistance(1000)
                 .setVpSize(200, 200)
                 .setRayTracer(new SimpleRayTracer(scene))
-                .setImageWriter(new ImageWriter(file, 1000, 1000))
+                .setImageWriter(new ImageWriter(file, 500, 500))
                 .setMultithreading(threads)
                 .build()
                 .renderImage()

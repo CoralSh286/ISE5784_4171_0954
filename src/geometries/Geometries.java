@@ -15,7 +15,7 @@ public class Geometries extends Intersectable {
     /**
      * If true, then the geometries class will use axis aligned bounding box in the calculations, and vice versa.
      */
-    public static boolean axisAlignedBoundingBox = true;
+    public static boolean axisAlignedBoundingBox = false;
 
     /**
      * List of geometries
@@ -126,16 +126,6 @@ public class Geometries extends Intersectable {
             this._intersectables = geos;
         } else
             this._intersectables.addAll(Arrays.asList(geometries));
-    }
-
-    /**
-     * add Intersectable object to our composite
-     * @param geometries a list of none specified length of Intersectable object
-     */
-    public void addAll(List<Intersectable> geometries) {
-        if(geometries == null)
-            return;
-        this._intersectables.addAll(geometries);
     }
 
     /**
