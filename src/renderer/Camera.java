@@ -215,6 +215,11 @@ public class Camera implements Cloneable {
             return this;
         }
 
+        /**
+         * Function for printing the progress
+         * @param interval How often to print
+         * @return the object
+         */
         public Builder setDebugPrint(double interval) {
             camera.printInterval = interval;
             return this;

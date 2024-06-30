@@ -13,8 +13,14 @@ import renderer.ImageWriter;
 import renderer.SimpleRayTracer;
 import scene.Scene;
 
+/**
+ * Class test for diamond
+ */
 public class diamond {
 
+    /**
+     * final picture
+     */
     @Test
     void diamond1() {
 

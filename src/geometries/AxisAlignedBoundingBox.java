@@ -36,7 +36,6 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
      * A list of the contained boundable objects
      */
     private final List<Boundable> contains;
-    // Boundable left, right = null;
 
 
     /**
