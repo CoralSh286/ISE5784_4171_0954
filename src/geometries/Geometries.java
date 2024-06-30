@@ -15,7 +15,7 @@ public class Geometries extends Intersectable {
     /**
      * If true, then the geometries class will use axis aligned bounding box in the calculations, and vice versa.
      */
-    public static boolean axisAlignedBoundingBox = true;
+    public static boolean axisAlignedBoundingBox = false;
 
     /**
      * List of geometries
