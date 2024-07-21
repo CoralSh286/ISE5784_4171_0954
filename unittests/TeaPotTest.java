@@ -29,14 +29,15 @@ public class TeaPotTest {
             .setVPDistance(1000)
             .setVpSize(200, 200) //
             .setImageWriter(imageWriter) //
-            .setMultithreading(0).setDebugPrint(0.1);;
+            .setMultithreading(0).setDebugPrint(0.1);
+    ;
 
     private final Scene scene = new Scene("Test scene");
 
     private static final Color color = new Color(200, 0, 0);
     private static final Material mat = new Material().setKd(0.5).setKs(0.5).setNShininess(60);
 
-    private static Point[] pnts = new Point[] { null, //
+    private static Point[] pnts = new Point[]{null, //
             new Point(40.6266, 28.3457, -1.10804), //
             new Point(40.0714, 30.4443, -1.10804), //
             new Point(40.7155, 31.1438, -1.10804), //
@@ -1572,7 +1573,7 @@ public class TeaPotTest {
 
 //        camera.setRayTracer(new SimpleRayTracer(scene)).renderImage().printGrid(50, new Color(YELLOW)).writeToImage();
 
-                camera
+        camera
                 .setRayTracer(new SimpleRayTracer(scene))
                 .build()
                 .renderImage()

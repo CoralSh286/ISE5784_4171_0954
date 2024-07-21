@@ -140,7 +140,7 @@ public abstract class Intersectable {
          * Constructs a new GeoPoint with the specified geometry and point.
          *
          * @param geometry The geometry the ray intersects.
-         * @param point The intersection point.
+         * @param point    The intersection point.
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;

@@ -11,9 +11,9 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 
-    /**
-    * Unit tests for the Cylinder class.
-    */
+/**
+ * Unit tests for the Cylinder class.
+ */
 
 class CylinderTests {
 
@@ -25,7 +25,7 @@ class CylinderTests {
     private final double DELTA = 0.000001;
 
     /**
-     *  Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
+     * Test method for {@link geometries.Cylinder#findIntersections(primitives.Ray)}.
      */
     @Test
     void testFindIntersections() {

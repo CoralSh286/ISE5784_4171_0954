@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * A class that represents a Cylinder
  */
-public class Cylinder extends Tube implements Boundable{
+public class Cylinder extends Tube implements Boundable {
     /**
      * Stave for the high
      */
@@ -134,6 +134,7 @@ public class Cylinder extends Tube implements Boundable{
 
         return res;
     }
+
     @Override
     public void constructBox() {
         Point endPoint1 = _ray.getP0().add(_ray.getDir().scale(_height));
@@ -145,8 +146,9 @@ public class Cylinder extends Tube implements Boundable{
         double maxY = Math.max(startPoint.getY(), endPoint1.getY()) + _radius;
         double minZ = Math.min(startPoint.getZ(), endPoint1.getZ()) - _radius;
         double maxZ = Math.max(startPoint.getZ(), endPoint1.getZ()) + _radius;
-        box = new Box(minX,minY,minZ,maxX,maxY,maxZ);
+        box = new Box(minX, minY, minZ, maxX, maxY, maxZ);
     }
+
     @Override
     public boolean isIntersectBox(Ray ray) {
         return box.intersects(ray);

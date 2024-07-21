@@ -187,12 +187,13 @@ public class Camera implements Cloneable {
         }
 
         //MP2
+
         /**
          * Sets the number of threads to be used for multithreading operations.
          * The number of threads can be specified in the following ways:
          * - If `threads` is -2, the number of threads will be set to the number of available processors
-         *   minus a predefined number of spare threads (`SPARE_THREADS`). If the resulting value is less
-         *   than or equal to 2, it will be set to 1.
+         * minus a predefined number of spare threads (`SPARE_THREADS`). If the resulting value is less
+         * than or equal to 2, it will be set to 1.
          * - If `threads` is -1 or any positive number, it will be set directly.
          * - If `threads` is less than -2, an `IllegalArgumentException` will be thrown.
          *
@@ -217,6 +218,7 @@ public class Camera implements Cloneable {
 
         /**
          * Function for printing the progress
+         *
          * @param interval How often to print
          * @return the object
          */
@@ -389,19 +391,22 @@ public class Camera implements Cloneable {
         else if (threadsCount == -1) {
             IntStream.range(0, nY).parallel() //
                     .forEach(i -> IntStream.range(0, nX).parallel() //
-                            .forEach(j ->   castRay(i, j, nX, nY)));
+                            .forEach(j -> castRay(i, j, nX, nY)));
+        } else {
+            var threads = new LinkedList<Thread>();
+            while (threadsCount-- > 0)
+                threads.add(new Thread(() -> {
+                    Pixel pixel;
+                    while ((pixel = Pixel.nextPixel()) != null)
+                        castRay(pixel.row(), pixel.col(), nX, nY);
+                }));
+            for (var thread : threads) thread.start();
+            try {
+                for (var thread : threads) thread.join();
+            } catch (InterruptedException ignore) {
+            }
         }
-        else {
-                var threads = new LinkedList<Thread>();
-                while (threadsCount-- > 0)
-                    threads.add(new Thread(() -> {
-                        Pixel pixel;
-                        while ((pixel = Pixel.nextPixel()) != null)
-                            castRay(pixel.row(), pixel.col(),nX,nY);
-                    }));
-                for (var thread : threads) thread.start();
-                try { for (var thread : threads) thread.join(); } catch (InterruptedException ignore) {}}
-            return this;
+        return this;
     }
 
 }

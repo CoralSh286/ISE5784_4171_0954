@@ -84,6 +84,7 @@ public class Plane extends Geometry {
         // t should be bigger than 0
         return t <= 0 ? null : List.of(new GeoPoint(this, p0.add((v).scale(t))));
     }
+
     @Override
     public boolean isIntersectBox(Ray ray) {
         return true;

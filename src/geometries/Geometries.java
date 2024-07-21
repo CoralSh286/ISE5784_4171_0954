@@ -14,7 +14,7 @@ public class Geometries extends Intersectable {
     /**
      * If true, then the geometries class will use axis aligned bounding box in the calculations, and vice versa.
      */
-    public static boolean axisAlignedBoundingBox =false  ;
+    public static boolean axisAlignedBoundingBox = false;
 
     /**
      * List of geometries
@@ -74,6 +74,7 @@ public class Geometries extends Intersectable {
 
     /**
      * add Intersectable object to our composite
+     *
      * @param geometries a list of none specified length of Intersectable object
      */
     public void add(Intersectable... geometries) {
@@ -112,6 +113,7 @@ public class Geometries extends Intersectable {
 
     /**
      * return the intersectables
+     *
      * @return the list of geometry in the Composite patter
      */
     public List<Intersectable> getGeometries() {
@@ -121,13 +123,15 @@ public class Geometries extends Intersectable {
     @Override
     public void constructBox() {
     }
+
     @Override
     public boolean isIntersectBox(Ray ray) {
-        for(Intersectable g: _intersectables){
-            if(g.isIntersectBox(ray))return true;
+        for (Intersectable g : _intersectables) {
+            if (g.isIntersectBox(ray)) return true;
         }
-        return  false ;
+        return false;
     }
+
     /**
      * Sets up bounding boxes for all geometries in the composite
      */
