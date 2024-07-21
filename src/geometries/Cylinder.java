@@ -134,4 +134,21 @@ public class Cylinder extends Tube implements Boundable{
 
         return res;
     }
+    @Override
+    public void constructBox() {
+        Point endPoint1 = _ray.getP0().add(_ray.getDir().scale(_height));
+        Point startPoint = _ray.getP0();
+        // Determine the minimum and maximum coordinates
+        double minX = Math.min(startPoint.getX(), endPoint1.getX()) - _radius;
+        double maxX = Math.max(startPoint.getX(), endPoint1.getX()) + _radius;
+        double minY = Math.min(startPoint.getY(), endPoint1.getY()) - _radius;
+        double maxY = Math.max(startPoint.getY(), endPoint1.getY()) + _radius;
+        double minZ = Math.min(startPoint.getZ(), endPoint1.getZ()) - _radius;
+        double maxZ = Math.max(startPoint.getZ(), endPoint1.getZ()) + _radius;
+        box = new Box(minX,minY,minZ,maxX,maxY,maxZ);
+    }
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return box.intersects(ray);
+    }
 }

@@ -30,6 +30,7 @@ public abstract class RayTracerBase {
      * @param scene A scene where the department is initialized
      */
     public RayTracerBase(Scene scene) {
+        if(scene.Improve)scene._geometries.setBoxes();
         this._scene = scene;
     }
 }

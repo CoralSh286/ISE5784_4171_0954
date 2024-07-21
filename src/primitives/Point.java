@@ -97,15 +97,30 @@ public class Point {
         return Math.sqrt(distanceSquared(other));
     }
 
-    //MP2
+
+    /**
+     * Returns the x-coordinate of the point.
+     *
+     * @return The x-coordinate.
+     */
     public double getX() {
         return _xyz.d1;
     }
 
+    /**
+     * Returns the y-coordinate of the point.
+     *
+     * @return The y-coordinate.
+     */
     public double getY() {
         return _xyz.d2;
     }
 
+    /**
+     * Returns the z-coordinate of the point.
+     *
+     * @return The z-coordinate.
+     */
     public double getZ() {
         return _xyz.d3;
     }

@@ -140,5 +140,13 @@ public class Tube extends RadialGeometry {
     // Return the list of intersection points, or null if there are none
         return intersections.isEmpty() ? null : intersections.stream().map(p -> new GeoPoint(this, p)).toList();
     }
+    @Override
+    public void constructBox() {
+        return;
+    }
 
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return true;
+    }
 }

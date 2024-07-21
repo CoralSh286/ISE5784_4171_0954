@@ -128,6 +128,7 @@ public class SimpleRayTracer extends RayTracerBase {
 
     @Override
     public Color traceRay(Ray ray) {
+        ray.setBImprove(_scene.Improve);
         var point = this.findClosestIntersection(ray);
         return point == null ? _scene._background : calcColor(point, ray);
     }

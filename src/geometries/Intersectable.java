@@ -6,14 +6,94 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * interface for finding the intersection point between the ray and the object
+ * Abstract class for finding the intersection points between a ray and an object.
  */
 public abstract class Intersectable {
+
     /**
-     * Finding intersection points between the ray and body
+     * The bounding box for the geometry.
+     */
+    protected Box box;
+
+    /**
+     * Constructs the bounding box for the geometry.
+     */
+    public abstract void constructBox();
+
+    /**
+     * Checks if the given ray intersects the bounding box of the geometry.
      *
-     * @param ray {@link Ray} pointing toward the object
-     * @return list of intersection Point between the ray and the object
+     * @param ray The ray to check for intersection.
+     * @return true if the ray intersects the bounding box, false otherwise.
+     */
+    public abstract boolean isIntersectBox(Ray ray);
+
+    /**
+     * Represents an Axis-Aligned Bounding Box (AABB).
+     */
+    public static class Box {
+        private final double minX;
+        private final double minY;
+        private final double minZ;
+        private final double maxX;
+        private final double maxY;
+        private final double maxZ;
+
+        /**
+         * Constructs a new Box object with the specified minimum and maximum coordinates.
+         *
+         * @param minX The minimum x-coordinate of the box.
+         * @param minY The minimum y-coordinate of the box.
+         * @param minZ The minimum z-coordinate of the box.
+         * @param maxX The maximum x-coordinate of the box.
+         * @param maxY The maximum y-coordinate of the box.
+         * @param maxZ The maximum z-coordinate of the box.
+         */
+        public Box(double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
+            this.minX = minX;
+            this.minY = minY;
+            this.minZ = minZ;
+            this.maxX = maxX;
+            this.maxY = maxY;
+            this.maxZ = maxZ;
+        }
+
+        /**
+         * Checks if the box intersects with the given ray within the maximum distance.
+         *
+         * @param ray The ray to check for intersection.
+         * @return true if the box intersects with the ray, false otherwise.
+         */
+        public boolean intersects(Ray ray) {
+            double dirX = ray.getDir().getX();
+            double dirY = ray.getDir().getY();
+            double dirZ = ray.getDir().getZ();
+            double p0X = ray.getP0().getX();
+            double p0Y = ray.getP0().getY();
+            double p0Z = ray.getP0().getZ();
+            double txmin = Util.alignZero(minX - p0X) / dirX;
+            double txmax = Util.alignZero(maxX - p0X) / dirX;
+            double tymin = Util.alignZero(minY - p0Y) / dirY;
+            double tymax = Util.alignZero(maxY - p0Y) / dirY;
+            double tzmin = Util.alignZero(minZ - p0Z) / dirZ;
+            double tzmax = Util.alignZero(maxZ - p0Z) / dirZ;
+            double tmin = Math.max(Math.max(Math.min(txmin, txmax), Math.min(tymin, tymax)), Math.min(tzmin, tzmax));
+            double tmax = Math.min(Math.min(Math.max(txmin, txmax), Math.max(tymin, tymax)), Math.max(tzmin, tzmax));
+
+            // if tmax < 0, ray (line) is intersecting AABB, but the whole AABB is behind us
+            if (tmax < 0) {
+                return false;
+            }
+            // if tmin > tmax, ray doesn't intersect AABB
+            return !(tmin > tmax);
+        }
+    }
+
+    /**
+     * Finds the intersection points between the ray and the object.
+     *
+     * @param ray The ray pointing toward the object.
+     * @return List of intersection points between the ray and the object.
      */
     public final List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
@@ -21,44 +101,46 @@ public abstract class Intersectable {
     }
 
     /**
-     * Returns intersection points with the bodies
+     * Returns the intersection points with the bodies.
      *
-     * @param ray from the camera
-     * @return list of intersection points
+     * @param ray The ray from the camera.
+     * @return List of intersection points.
      */
     public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        if (ray.Improve) {
+            return (!isIntersectBox(ray)) ? null : findGeoIntersectionsHelper(ray);
+        }
         return findGeoIntersectionsHelper(ray);
     }
 
     /**
-     * Returns intersection points with the bodies
+     * Returns the intersection points with the bodies.
      *
-     * @param ray from the camera
-     * @return list of intersection points
+     * @param ray The ray from the camera.
+     * @return List of intersection points.
      */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 
-
     /**
-     * this class has been written because we want to know the specific geometry the ray cross it over
-     * because we added the emission light for each geometry and if we want to calculate the color at the point
-     * we have to mind the geometry's color (this class is PDS)
+     * This class is used to know the specific geometry the ray intersects.
+     * It helps to calculate the color at the intersection point, taking into account the geometry's color.
      */
     public static class GeoPoint {
         /**
-         * field for a geometry
+         * The geometry the ray intersects.
          */
         public Geometry geometry;
+
         /**
-         * field for a point
+         * The intersection point.
          */
         public Point point;
 
         /**
-         * constructor
+         * Constructs a new GeoPoint with the specified geometry and point.
          *
-         * @param geometry for a geometry
-         * @param point    for a point
+         * @param geometry The geometry the ray intersects.
+         * @param point The intersection point.
          */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
@@ -80,5 +162,4 @@ public abstract class Intersectable {
                     '}';
         }
     }
-
 }

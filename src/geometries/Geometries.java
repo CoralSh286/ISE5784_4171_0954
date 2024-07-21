@@ -1,70 +1,39 @@
 package geometries;
 
-import primitives.Point;
 import primitives.Ray;
 
 import java.util.LinkedList;
-
 import java.util.*;
 
 /**
- * Composite class for all geometries object implementing {@link Intersectable}
+ * Composite class for all geometries objects implementing {@link Intersectable}.
+ * This class allows for the aggregation of multiple geometries and provides
+ * methods to handle their intersections with rays, and optionally, their bounding boxes.
  */
 public class Geometries extends Intersectable {
 
     /**
-     * If true, then the geometries class will use axis aligned bounding box in the calculations, and vice versa.
+     * If true, the geometries class will use axis-aligned bounding box in the calculations.
      */
     public static boolean axisAlignedBoundingBox = true;
 
     /**
-     * List of geometries
+     * List of geometries.
      */
-    private List<Intersectable> _intersectables = new LinkedList<>();
+    List<Intersectable> _intersectables = new LinkedList<>();
 
     /**
-     * Empty constructor
+     * Default constructor, creates an empty composite of geometries.
      */
     public Geometries() {
     }
 
-//    /**
-//     * constructor
-//     *
-//     * @param geometries Some geometries
-//     */
-//    public Geometries(Intersectable... geometries) {
-//        add(geometries);
-//    }
-
-//    /**
-//     * Adding geometrics to the list
-//     *
-//     * @param geometries Some geometries
-//     */
-//    public void add(Intersectable... geometries) {
-//        Collections.addAll(_intersectables, geometries);
-//    }
-
-    @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> points = null;
-
-        //go threw all the geometries and add their intersections
-        for (var geometry : _intersectables) {
-            var currentIntersection = geometry.findGeoIntersections(ray);
-            if (currentIntersection != null) {
-                if (points == null)
-                    points = new LinkedList<>(currentIntersection);
-                else
-                    points.addAll(currentIntersection);
-            }
-        }
-
-        return points;
-    }
-
-    //MP2
+    /**
+     * Constructor that takes multiple geometries and adds them to the composite.
+     * If the axisAlignedBoundingBox flag is true, it will create a bounding box tree.
+     *
+     * @param geometries one or more geometries to be added to the composite
+     */
     public Geometries(Intersectable... geometries) {
         if (axisAlignedBoundingBox) {
             this._intersectables = List.of(geometries);
@@ -83,58 +52,105 @@ public class Geometries extends Intersectable {
                 }
             }
 
-            // create an axis aligned bounding box tree for the boundable geometries and add the tree to the geometry list
+            // create an axis-aligned bounding box tree for the boundable geometries and add the tree to the geometry list
             geos.add(AxisAlignedBoundingBox.createTree(boundables));
             this._intersectables = geos;
-        } else
+        } else {
             this._intersectables = List.of(geometries);
+        }
     }
 
     /**
-     * add Intersectable object to our composite
-     * @param geometries a list of none specified length of Intersectable object
+     * Adds one or more geometries to the composite.
+     * If the axisAlignedBoundingBox flag is true, it will recreate the bounding box tree.
+     *
+     * @param geometries a list of one or more geometries to be added
      */
     public void add(Intersectable... geometries) {
         if (axisAlignedBoundingBox) {
-            //create a list of all the geometries already existing in the scene
+            // create a list of all the geometries already existing in the scene
             List<Intersectable> geos = new ArrayList<>();
-            //add all the un-boundable ones to the ones that are bounded in boxes
+            // add all the unboundable ones to the ones that are bounded in boxes
             for (Intersectable item : this._intersectables) {
-                if (item instanceof Boundable)
+                if (item instanceof Boundable) {
                     geos.addAll(((Boundable) item).getAxisAlignedBoundingBox().getAllGeometries());
-                else
+                } else {
                     geos.add(item);
-
+                }
             }
             // Add all new geometries to the existing ones
             geos.addAll(Arrays.asList(geometries));
 
-            //a list of all the boundable geometries in the scene
+            // a list of all the boundable geometries in the scene
             List<Boundable> boundables = new ArrayList<>();
 
-            //move all the boundables from geos to boundables list
+            // move all the boundables from geos to boundables list
             for (Intersectable g : geometries) {
                 if (g instanceof Boundable) {
                     geos.remove(g);
                     boundables.add((Boundable) g);
                 }
             }
-            // create an axis aligned bounding box tree for the boundable geometries and add the tree to the geometry list
+            // create an axis-aligned bounding box tree for the boundable geometries and add the tree to the geometry list
             AxisAlignedBoundingBox axisAlignedBoundingBox = AxisAlignedBoundingBox.createTree(boundables);
-            if (axisAlignedBoundingBox != null)
+            if (axisAlignedBoundingBox != null) {
                 geos.add(axisAlignedBoundingBox);
+            }
             this._intersectables = geos;
-        } else
+        } else {
             this._intersectables.addAll(Arrays.asList(geometries));
+        }
     }
 
     /**
-     * @return the list of geometry in the Composite patter
+     * Returns the list of geometries in the composite.
+     *
+     * @return the list of geometries
      */
     public List<Intersectable> getGeometries() {
         return _intersectables;
     }
 
+    @Override
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        List<GeoPoint> points = null;
+
+        // go through all the geometries and add their intersections
+        for (var geometry : _intersectables) {
+            var currentIntersection = geometry.findGeoIntersections(ray);
+            if (currentIntersection != null) {
+                if (points == null) {
+                    points = new LinkedList<>(currentIntersection);
+                } else {
+                    points.addAll(currentIntersection);
+                }
+            }
+        }
+
+        return points;
+    }
+
+    @Override
+    public void constructBox() {
+        return;
+    }
+
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        for (Intersectable g : _intersectables) {
+            if (g.isIntersectBox(ray)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Sets up bounding boxes for all geometries in the composite.
+     */
+    public void setBoxes() {
+        for (Intersectable g : _intersectables) {
+            g.constructBox();
+        }
+    }
 }
-
-

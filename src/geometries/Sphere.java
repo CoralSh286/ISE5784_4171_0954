@@ -73,4 +73,22 @@ public class Sphere extends RadialGeometry implements Boundable{
 
         return res;
     }
+    @Override
+    public void constructBox() {
+        double X=_center.getX();
+        double Y=_center.getY();
+        double Z=_center.getZ();
+        double minX =X  - _radius;
+        double minY = Y - _radius;
+        double minZ = Z - _radius;
+        double maxX = X + _radius;
+        double maxY = Y + _radius;
+        double maxZ = Z + _radius;
+        box=new Box(minX,minY,minZ,maxX,maxY,maxZ);
+    }
+
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return box.intersects(ray);
+    }
 }

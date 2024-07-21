@@ -9,29 +9,41 @@ import java.util.Objects;
 
 import static primitives.Util.isZero;
 
-
 /**
- * A class for representing a beam by a point and a vector
+ * A class for representing a ray by a point and a vector.
  */
 public class Ray {
+    /**
+     * Flag for whether to improve the ray intersection.
+     */
+    public boolean Improve;
+
+    /**
+     * Sets the improve flag.
+     *
+     * @param Improve The new value for the improve flag.
+     */
+    public void setBImprove(boolean Improve) {
+        this.Improve = Improve;
+    }
 
     private static final double DELTA = 0.1;
 
     /**
-     * Creating the point
+     * The starting point of the ray.
      */
     private final Point _p0;
 
     /**
-     * Creating the vector
+     * The direction vector of the ray.
      */
     private final Vector _dir;
 
     /**
-     * constructor
+     * Constructor for creating a new ray.
      *
-     * @param p0  for a point
-     * @param dir for a vector
+     * @param p0  The starting point of the ray.
+     * @param dir The direction vector of the ray.
      */
     public Ray(Point p0, Vector dir) {
         _p0 = p0;
@@ -39,18 +51,18 @@ public class Ray {
     }
 
     /**
-     * getter function
+     * Getter for the starting point of the ray.
      *
-     * @return the point _p0
+     * @return The starting point of the ray.
      */
     public Point getP0() {
         return _p0;
     }
 
     /**
-     * getter function
+     * Getter for the direction vector of the ray.
      *
-     * @return the direction vector
+     * @return The direction vector of the ray.
      */
     public Vector getDir() {
         return _dir;
@@ -75,20 +87,20 @@ public class Ray {
     }
 
     /**
-     * get Point at specific distance in the ray's direction
+     * Get the point at a specific distance in the ray's direction.
      *
-     * @param t is a distance for reaching new Point
-     * @return new {@link Point}
+     * @param t The distance for reaching the new point.
+     * @return The new point.
      */
     public Point getPoint(double t) {
         return isZero(t) ? _p0 : _p0.add(_dir.scale(t));
     }
 
     /**
-     * The method search the intersection point closest to the small head
+     * Find the closest intersection point from a list of points.
      *
-     * @param points List of intersection points of the beam with the body
-     * @return the nearest intersection point
+     * @param points List of intersection points of the ray with the object.
+     * @return The closest intersection point.
      */
     public Point findClosestPoint(List<Point> points) {
         return points == null || points.isEmpty() ? null
@@ -96,16 +108,15 @@ public class Ray {
     }
 
     /**
-     * Return the closest GeoPoint from all intersection GeoPoints
+     * Return the closest GeoPoint from all intersection GeoPoints.
      *
-     * @param geoPointList list of intersections
-     * @return {@link Intersectable.GeoPoint}
+     * @param geoPointList List of intersection GeoPoints.
+     * @return The closest GeoPoint.
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPointList) {
-
         Intersectable.GeoPoint closestPoint = null;
         double minDistance = Double.MAX_VALUE;
-        double geoPointDistance; // the distance between the "this.p0" to each point in the list
+        double geoPointDistance; // The distance between this.p0 to each point in the list
 
         if (geoPointList != null && !geoPointList.isEmpty()) {
             for (var geoPoint : geoPointList) {
@@ -120,11 +131,11 @@ public class Ray {
     }
 
     /**
-     * Constructor to initialize ray
+     * Constructor to initialize a ray with a normal vector.
      *
-     * @param p0  point of the ray
-     * @param n   normal vector
-     * @param dir direction vector of the ray - it must be normalized when calling this constructor!
+     * @param p0  The starting point of the ray.
+     * @param dir The direction vector of the ray.
+     * @param n   The normal vector.
      */
     public Ray(Point p0, Vector dir, Vector n) {
         double delta = dir.dotProduct(n) >= 0 ? DELTA : -DELTA;
@@ -133,30 +144,30 @@ public class Ray {
     }
 
     /**
-     * get point on the ray
+     * Get the point on the ray at a given distance.
      *
-     * @param length distance from the start of the ray
-     * @return new Point3D
+     * @param length Distance from the start of the ray.
+     * @return The new point.
      */
     public Point getTargetPoint(double length) {
         return isZero(length) ? _p0 : _p0.add(_dir.scale(length));
     }
 
     /**
-     * The function that produces the rays on the target area
+     * Generates a beam of rays within a specified radius and distance.
      *
-     * @param n         normal to the geometry
-     * @param radius    radius of the beam circle
-     * @param distance  distance of the eam circle
-     * @param numOfRays num of rays in the beam
-     * @return list of beam rays
+     * @param n         The normal vector to the geometry.
+     * @param radius    The radius of the beam circle.
+     * @param distance  The distance to the beam circle.
+     * @param numOfRays The number of rays in the beam.
+     * @return List of beam rays.
      */
     public List<Ray> generateBeam(Vector n, double radius, double distance, int numOfRays) {
-        if (numOfRays == 1 || isZero(radius))// The component (glossy surface /diffuse glass) is turned off
+        if (numOfRays == 1 || isZero(radius)) // The component (glossy surface / diffuse glass) is turned off
             return List.of(this);
 
         List<Ray> rays = new LinkedList<>();
-        // the 2 vectors that create the virtual grid for the beam
+        // The 2 vectors that create the virtual grid for the beam
         Vector nX = _dir.createNormal();
         Vector nY = _dir.crossProduct(nX);
 
@@ -196,5 +207,4 @@ public class Ray {
 
         return rays;
     }
-
 }

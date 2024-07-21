@@ -14,12 +14,22 @@ import static primitives.Util.isZero;
 /**
  * A class that takes care of creating the BVH - Bounding Volume Hierarchy
  *
- * @author Daniel Wolpert, Amitay Cahalon
+ *
  */
 public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     /**
      * The minimum values of the box on the axis
      */
+    @Override
+    public void constructBox() {
+        return;
+    }
+
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return false;
+    }
+
     private double minX, minY, minZ;
 
     /**
@@ -152,6 +162,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     }
 
     /**
+
      * Gets the value of maximum Z
      *
      * @return The value
@@ -159,7 +170,6 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     public double getMaxZ() {
         return maxZ;
     }
-
     /**
      * Add an object to contains
      *

@@ -159,5 +159,31 @@ public class Polygon extends Geometry implements Boundable{
 
         return res;
     }
+    @Override
+    public void constructBox() {
+        Point first = vertices.getFirst();
+        double minX=first.getX();
+        double maxX=first.getX();
+        double minY=first.getY();
+        double maxY=first.getY();
+        double minZ=first.getZ();
+        double maxZ=first.getZ();
+        for(Point p:vertices){
+            double X=p.getX();
+            double Y=p.getY();
+            double Z=p.getZ();
+            if(X<minX)minX=X;
+            if(X>maxX)maxX=X;
+            if(Y<minY)minY=Y;
+            if(Y>maxY)maxY=Y;
+            if(Z<minZ)minZ=Z;
+            if(Z>maxZ)maxZ=Z;
+        }
+        box=new Box(minX,minY,minZ,maxX,maxY,maxZ);
+    }
 
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return box.intersects(ray);
+    }
 }
