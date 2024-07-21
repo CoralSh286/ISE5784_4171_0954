@@ -13,22 +13,9 @@ import static primitives.Util.isZero;
 
 /**
  * A class that takes care of creating the BVH - Bounding Volume Hierarchy
- *
- *
  */
 public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
-    /**
-     * The minimum values of the box on the axis
-     */
-    @Override
-    public void constructBox() {
-        return;
-    }
 
-    @Override
-    public boolean isIntersectBox(Ray ray) {
-        return false;
-    }
 
     private double minX, minY, minZ;
 
@@ -40,7 +27,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     /**
      * The middle of the box on the axis
      */
-    private double midX, midY, midZ;
+    private final double midX, midY, midZ;
 
     /**
      * A list of the contained boundable objects
@@ -81,7 +68,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
      * @param boxes the list of boxes to bound
      */
     public AxisAlignedBoundingBox(List<AxisAlignedBoundingBox> boxes) {
-        AxisAlignedBoundingBox axisAlignedBoundingBox = boxes.get(0);
+        AxisAlignedBoundingBox axisAlignedBoundingBox = boxes.getFirst();
         this.maxX = axisAlignedBoundingBox.getMaxX();
         this.maxY = axisAlignedBoundingBox.getMaxY();
         this.maxZ = axisAlignedBoundingBox.getMaxZ();
@@ -162,7 +149,6 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     }
 
     /**
-
      * Gets the value of maximum Z
      *
      * @return The value
@@ -170,6 +156,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
     public double getMaxZ() {
         return maxZ;
     }
+
     /**
      * Add an object to contains
      *
@@ -246,9 +233,9 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
         }
 
         //check if such a point exists
-        if (xMin > yMax || xMin > zMax ||  yMin > xMax || yMin > zMax || zMin > yMax || zMin > xMax)
+        if (xMin > yMax || xMin > zMax || yMin > xMax || yMin > zMax || zMin > yMax || zMin > xMax)
             return null; // if not return null
-        // if they do, return all the intersection points of the contents of the box
+            // if they do, return all the intersection points of the contents of the box
         else {
             List<GeoPoint> lst = new LinkedList<>();
             for (Boundable geo : contains) {
@@ -274,7 +261,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
      */
     public static AxisAlignedBoundingBox createTree(List<Boundable> boundables) {
         //if we got 0 boundables to bound
-        if (boundables.size() == 0)
+        if (boundables.isEmpty())
             return null;
 
         else {
@@ -303,7 +290,7 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
 
         //base of the recursion, if the list has 1 box, return it
         if (numberOfBoxes == 1)
-            return boxes.get(0);
+            return boxes.getFirst();
 
             //base of the recursion, if the list has 2 boxes
         else if (numberOfBoxes <= 2) {
@@ -359,5 +346,17 @@ public class AxisAlignedBoundingBox extends Intersectable implements Boundable {
                 res.addAll(((AxisAlignedBoundingBox) item).getAllGeometries());
         }
         return res;
+    }
+
+    /**
+     * The minimum values of the box on the axis
+     */
+    @Override
+    public void constructBox() {
+    }
+
+    @Override
+    public boolean isIntersectBox(Ray ray) {
+        return false;
     }
 }

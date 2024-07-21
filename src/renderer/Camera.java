@@ -326,26 +326,6 @@ public class Camera implements Cloneable {
     }
 
 
-//    /**
-//     * Casts a ray for each pixel
-//     *
-//     * @return a camera
-//     */
-//    public Camera renderImage() {
-//        if (this.imageWriter == null)
-//            throw new UnsupportedOperationException("Missing imageWriter");
-//        if (this.rayTracer == null)
-//            throw new UnsupportedOperationException("Missing rayTracerBase");
-//        int x = this.imageWriter.getNx();
-//        int y = this.imageWriter.getNy();
-//        for (int i = 0; i < x; i++) {
-//            for (int j = 0; j < y; j++) {
-//                castRay(i, j, x, y);
-//            }
-//        }
-//        return this;
-//    }
-
     /**
      * Creates a network of lines
      *

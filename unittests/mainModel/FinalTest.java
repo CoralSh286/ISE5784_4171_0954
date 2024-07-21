@@ -1,6 +1,4 @@
 package mainModel;
-
-
 import geometries.Plane;
 import geometries.Polygon;
 import geometries.Sphere;
@@ -36,11 +34,10 @@ public class FinalTest {
         scene.setAmbientLight(new AmbientLight(new Color(10, 10, 10), 0.1)).setImprove(false);
 
         Random rand = new Random();
-        Point[] positions = new Point[200];
         double startX = -20, endX = 20;
         double startY = 25, endY = 35;
         double startZ = 10, endZ = 20;
-        double radius = 0.8; // רדיוס הכדורים
+        double radius = 0.8;
 
         for (int i = 0; i < 5; i++) {
             double x = startX + rand.nextDouble() * (endX - startX); // x אקראי בטווח [startX, endX]
